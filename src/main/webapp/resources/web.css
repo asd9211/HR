@@ -1,61 +1,102 @@
-  #jb-container {
-        width: 90%;
-        margin: 10px auto;
-        padding: 20px;
-        border: 1px solid #bcbcbc;
-      }
-      #jb-header {
-        padding: 20px;
-        margin-bottom: 20px; 
-        border: 1px solid #bcbcbc;
-      } 
-      #jb-content {
-        width: 70%; 
-        padding: 20px;
-        margin-bottom: 20px;
-        float: left;
-        border: 1px solid #bcbcbc;
-      }
-      #jb-sidebar {
-        width: 260px;
-        padding: 20px;
-        margin-bottom: 20px;
-        float: right;
-        border: 1px solid #bcbcbc;
-      }
-      #jb-footer {
-        clear: both;
-        padding: 20px;
-        border: 1px solid #bcbcbc;
-      }
-      @media ( max-width: 480px ) {
-        #jb-container {
-          width: auto;
-        }
-        #jb-content {
-          float: none;
-          width: auto;
-        }
-        #jb-sidebar {
-          float: none;
-          width: auto;
-        }
-      }
-      
-      div li{
-      cursor: pointer;
-      }
-      
-      
-/*foodINfo*/ 
-#foodSelect {
-	max-width: 250px; 
+#jb-container {
+	width: 90%;
+	margin: 10px auto;
+	padding: 20px;
+	border: 1px solid #bcbcbc;
 }
 
-.foodSearch{
-	max-width: 350px; 
-	margin-top: 3%;
-	margin-bottom: 3%;
+#jb-header {
+	padding: 20px;
+	margin-bottom: 20px;
+	border: 1px solid #bcbcbc;
 }
-     
-      
+
+#jb-content {
+	width: 90%;
+	padding: 20px;
+	margin-bottom: 20px;
+	border-top : 1px solid gray;
+	border-bottom: 1px solid gray;
+	margin: 0 auto;
+}
+
+#jb-sidebar {
+	width: 260px;
+	padding: 20px;
+	margin-bottom: 20px;
+	float: right;
+	border: 1px solid #bcbcbc;
+}
+
+#jb-footer {
+	margin-top: 2%; clear : both;
+	padding: 20px;
+	border: 1px solid #bcbcbc;
+	clear: both;
+}
+
+@media ( max-width : 480px ) {
+	#jb-container {
+		width: auto;
+	}
+	#jb-content {
+		float: none;
+		width: auto;
+	}
+	#jb-sidebar {
+		float: none;
+		width: auto;
+	}
+}
+
+div li {
+	cursor: pointer;
+}
+
+.max15 {
+	max-width: 250px;
+}
+
+.empRgst label {
+	font-size: 20px;
+}
+
+.empRgst {
+	margin-bottom: 5%;
+	border-bottom: 1px solid #cbeffe;
+}
+
+.margn-l5 {
+	margin-left: 5%;
+}
+
+.pic-rayout {
+	width: 210px;
+	height: 280px;
+	border: 1px solid black;
+	text-align: center;
+	cursor : pointer;
+}
+
+.pic-rayout p {
+	margin: 100px 0px;
+}
+
+.mrgn-top5 {
+	margin-left: 55px;
+	margin-top: 30%;
+}
+
+.min15 {
+	min-width: 250px;
+}
+.bold{
+	font-size: 20px;
+	font-weight: bold;
+	border-bottom: 1px solid black;
+}
+
+.add-on{
+	cursor:pointer;
+	font-size: auto;
+}

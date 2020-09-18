@@ -5,15 +5,15 @@
 <meta charset="utf-8">
 <title>CSS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="/bulma/css/bulma.css" rel="stylesheet"></link>
-<link href="/web.css" rel="stylesheet"></link>
+<link href="/resources/bulma/css/bulma.css" rel="stylesheet"></link>
+<link href="/resources/web.css" rel="stylesheet"></link>
 
 <!-- jquery  -->
 <script src="https://code.jquery.com/jquery-3.4.1.js"
 	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 	crossorigin="anonymous"></script>
 <!--  common -->
-<script src="/js/common.js"></script>
+<script src="/resources/js/common.js"></script>
 
 </head>
 <body>
@@ -35,16 +35,15 @@
 
 				<div id="navbarExampleTransparentExample" class="navbar-menu">
 					<div class="navbar-start">
-						<a class="navbar-item" href="https://versions.bulma.io/0.7.0/">
-							Home </a>
 						<div class="navbar-item has-dropdown is-hoverable">
-							<a class="navbar-link" href="/documentation/overview/start/">인사관리
+							<a class="navbar-link" href="/documentation/overview/start/">사원관리
 							</a>
 							<div class="navbar-dropdown is-boxed">
-								<li class="navbar-item" href="#">In Body</li>
+								<li class="navbar-item" href="#">사원등록</li>
 								<li class="navbar-item" href="javascript:void(0)"
-									onclick="goPage(this)" id="infood/foodInfo">In Food</li> <a
-									class="navbar-item" href="#">In Day </a>
+									onclick="goPage(this)" id="infood/foodInfo">사원수정</li> 
+								<li class="navbar-item" href="#">사원조회</li>
+								<li class="navbar-item" href="#">조직도</li>
 							</div>
 						</div>
 
@@ -98,15 +97,8 @@
 							<div class="field is-grouped">
 								<p class="control">
 									<a class="bd-tw-button button" href="javascript:void(0)"
-										onclick="goPage(this)" id="user/join"> <span> 회원가입
+										onclick="goPage(this)" id="user/join"> <span> 로그인
 									</span>
-									</a>
-								</p>
-								<p class="control">
-									<a class="button is-primary"
-										href="https://github.com/jgthms/bulma/releases/download/0.6.2/bulma-0.6.2.zip">
-										<span class="icon"> <i class="fas fa-download"></i>
-									</span> <span>Download</span>
 									</a>
 								</p>
 							</div>
@@ -124,8 +116,6 @@
 	</div>
 </body> 
 <script>
-	function test() {
-		$('#content-page').attr('src', '/main');
-	}
+
 </script>
 </html>
