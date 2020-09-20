@@ -8,5 +8,6 @@ import erp.system.hr.emp.vo.EmployeeVO;
 public interface EmpMapper {
 
 	public EmployeeVO getEmployee(String empCode);
+	public Integer insertEmployee(EmployeeVO emp);
 }
  

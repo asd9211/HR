@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="erp.system.hr.emp.mapper.EmpMapper">
+	<select id="getEmployee" resultType="employeeVO" >
+		SELECT * FROM EMPMASTER where emp_code = #{empCode}
+	</select>
+
+
+	<insert id="insertEmployee" parameterType="employeeVO">
+INSERT
+    INTO EMPMASTER (
+        emp_code,
+        emp_name_kor,
+        emp_name_eng,
+        emp_name_chi,
+        dept_code,
+        phone_number,
+        position,
+        duty,
+        emp_status,
+        start_date,
+        pay_gubun,
+        emp_type,
+        email
+    ) VALUES (
+		#{empCode},
+		#{empNameKor},
+		#{empNameEng},
+		#{empNameChi},
+		#{deptCode},
+		#{phoneNumber},
+		#{position},
+		#{duty},
+		#{empStatus},
+		#{startDate}, 
+		#{payGubun},
+		#{empType},
+		#{email} 
+		)
+	</insert>
+</mapper>

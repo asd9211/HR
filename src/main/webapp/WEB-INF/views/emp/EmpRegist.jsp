@@ -103,10 +103,10 @@
 			<label class="label">재직상태</label>
 			<div class="control">
 				<div class="select is-primary">
-					<select class="min15">
-						<option>재직</option>
-						<option>휴직</option>
-						<option>퇴사</option>
+					<select class="min15" id= "empStatus">
+						<option value = "NORM">재직</option>
+						<option value = "REST">휴직</option>
+						<option value = "RETR">퇴사</option>
 					</select>
 				</div>
 			</div>
@@ -269,6 +269,9 @@
 		<section class="modal-card-body">
 			<!-- Content ... -->
 		</section>
+		<div id="pagin">
+		
+		</div>
 		<footer class="modal-card-foot">
 			<button class="button is-success">적용</button>
 			<button class="button mdl-close" onclick="modalClose()">취소</button>
@@ -277,15 +280,70 @@
 </div>
 
 <script>
+	var copyList= [] ;
+	
+	function pagination(nowNum){
+		var lNum = (!nowNum?1:nowNum)*10;
+		var lbtn = (Math.ceil(!nowNum?1:nowNum/10))*10;
+		var sNum = lNum-9;
+		var realEnd = copyList.length/10;
+		var pHTML;
+		
+		var HTML = "<input type='text' class='input max15' id= 'targetDept'><button class='button' onclick = 'searchDept()'>검색</button>";
+		HTML = HTML + "<table class='table is-hoverable is-fullwidth'>";
+		HTML = HTML + 	"<tr>";
+		HTML = HTML + 		"<th>부서코드</th>";
+		HTML = HTML + 		"<th>부서명</th>";
+		HTML = HTML + 		"<th>상위부서</th>";
+		HTML = HTML + 		"<th>부서생성일</th>";
+		HTML = HTML + 	"</tr>";
+		
+		if(lNum >= copyList.length) lNum = copyList.length;
+		
+		for(var i = sNum; i < lNum ; i++){
+			console.log(copyList[i]);
+			HTML = HTML + 	"<tr onclick = 'applyDept(this)'>";
+			HTML = HTML + 		"<td>"+copyList[i].deptCode+"</td>";
+			HTML = HTML + 		"<td>"+copyList[i].deptName+"</td>";
+			HTML = HTML + 		"<td>"+copyList[i].parentDept+"</td>";
+			HTML = HTML + 		"<td>"+copyList[i].appointDate+"</td>";
+			HTML = HTML + 	"</tr>";
+		}
+
+		HTML = HTML + "</table>";
+		var body = document.querySelector(".modal-card-body");
+		body.innerHTML = HTML;
+		
+		for(var i = 1; i <= lbtn; i++){
+			pHTML += "<button onclick = 'pagination("+i+")'>" + i + "</button>";	
+		}
+		
+		var pagin = document.querySelector("#pagin");
+		pagin.innerHTML = pHTML;
+		
+	}
 	function modalSearch(ele) {
 		var title = ele.title;
 		var target = document.querySelector(".modal");
 		var html = document.querySelector("html");
 		var titleTarget = document.querySelector(".modal-card-title");
-		
+		var body = document.querySelector(".modal-card-body");
 		titleTarget.innerText = title;
 		html.classList.add("is-clipped");
 		target.classList.add("is-active");
+		if(title == '부서검색'){
+			var suc = function(rs){
+				copyList = rs;
+				pagination();
+			}
+
+			var conf = new configuration("GET", null, "/dept/getDepts", suc, null);
+			ajax(conf);
+		}else if(title == '직위검색'){
+			
+		}else if(title = '직책검색'){
+			
+		}
 	}
 
 	function modalClose() {
@@ -372,6 +430,7 @@
 	}
 	
 	function addLow(ele){
+		var d = document;
 		var columns;
 		var target = ele.name.slice(0,1);
 		var targetCls = "." + target + "-body";
@@ -394,7 +453,7 @@
 			return;
 		}
 		
-		var tbody = document.querySelector(targetCls);
+		var tbody = d.querySelector(targetCls);
 		var nextIdx = Number(lowIdx) + 1 ;
 		
 		var HTML = 		"<tr>";
@@ -409,7 +468,7 @@
 		
 		setName = target + "-low-" + nextIdx;
 		
-		document.querySelector(targetId).setAttribute("name", setName);
+		d.querySelector(targetId).setAttribute("name", setName);
 	}
 	
 	function send(){
@@ -439,17 +498,81 @@
 			,'입사일'
 			,'이메일'	];
 		
-		validation(checkList, checkListName);
+		//validation(checkList, checkListName);
 		
 		for(var chk in checkList){
 				var target = d.querySelector("#"+checkList[chk]);
 				values[checkList[chk]] = target.value.trim();
 			}
+		function success(res){
+			console.log(res);
+		}
+		values.empStatus = 'NORM';
+		values.duty = '001';
+		values.position = '001';
+		values.deptCode = 'D10001';
+		values.empType = '001';
+		values.payGubun = '001';
+		values.startDate = values.startDate.replaceAll('-','');
+		var conf = new configuration('POST', values, "/emp/empRegist", success );
+		ajax(conf); 
 			
 	}
 	
+	function configuration(method, data, path, suc, err){
+		this.method = method;
+		this.data = JSON.stringify(data);
+		this.path = path;
+		this.suc = suc;
+		this.err = err;
+	}
 	
+	function ajax(conf){
+		var xhr = new XMLHttpRequest();
+		xhr.open(conf.method, conf.path);
+		if(conf.method != 'GET'){
+			xhr.setRequestHeader('content-type', 'application/json');
+		}
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status ==200){
+				var res = JSON.parse(xhr.response);
+				conf.suc(res);
+			}
+		}
+		xhr.send(conf.data);
+	}
 	
+	function applyDept(ele){
+		document.querySelector('#deptCode').value = ele.children[0].innerText;
+		modalClose();
+	}
+	function searchDept(){
+		var target = document.querySelector('#targetDept').value;
+		var body = document.querySelector(".modal-card-body");
+		
+		var suc = function(rs){
+			var HTML = "<input type='text' class='input max15' id= 'targetDept'><button class='button' onclick = 'searchDept()'>검색</button>";
+				HTML = HTML + "<table class='table is-hoverable is-fullwidth'>";
+				HTML = HTML + 	"<tr>";
+				HTML = HTML + 		"<th>부서코드</th>";
+				HTML = HTML + 		"<th>부서명</th>";
+				HTML = HTML + 		"<th>상위부서</th>";
+				HTML = HTML + 		"<th>부서생성일</th>";
+				HTML = HTML + 	"</tr>";
+				for(var r in rs){
+					HTML = HTML + 	"<tr onclick = 'applyDept(this)'>";
+					HTML = HTML + 		"<td>"+rs[r].deptCode+"</td>";
+					HTML = HTML + 		"<td>"+rs[r].deptName+"</td>";
+					HTML = HTML + 		"<td>"+rs[r].parentDept+"</td>";
+					HTML = HTML + 		"<td>"+rs[r].appointDate+"</td>";
+					HTML = HTML + 	"</tr>";
+				}
+				HTML = HTML + "</table>";
+				body.innerHTML = HTML;
+		}
+		var conf = new configuration("GET", null, "/dept/getDept?deptName=" + target, suc, null);
+		ajax(conf);
+	}
 	window.onload = function(){
 		$(".family").hide();
 		$(".school").hide();

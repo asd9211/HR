@@ -12,9 +12,9 @@ public class EmployeeVO {
 	private String empNameEng ;         
 	private String empNameChi ;          
 	private String deptCode    ;          
-	private int phoneNumber    ;       
-	private int afterPosition  ;
-	private int afterDuty      ;
+	private String phoneNumber    ;       
+	private int position  ;
+	private int duty      ;
 	private String empStatus   ;
 	private String startDate   ;  
 	private String retireDate  ;          
@@ -23,6 +23,18 @@ public class EmployeeVO {
 	private String email        ;
 	
 	
+	public int getPosition() {
+		return position;
+	}
+	public void setPosition(int position) {
+		this.position = position;
+	}
+	public int getDuty() {
+		return duty;
+	}
+	public void setDuty(int duty) {
+		this.duty = duty;
+	}
 	public String getEmpCode() {
 		return empCode;
 	}
@@ -53,23 +65,11 @@ public class EmployeeVO {
 	public void setDeptCode(String deptCode) {
 		this.deptCode = deptCode;
 	}
-	public int getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
-	public void setPhoneNumber(int phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
-	}
-	public int getAfterPosition() {
-		return afterPosition;
-	}
-	public void setAfterPosition(int afterPosition) {
-		this.afterPosition = afterPosition;
-	}
-	public int getAfterDuty() {
-		return afterDuty;
-	}
-	public void setAfterDuty(int afterDuty) {
-		this.afterDuty = afterDuty;
 	}
 	public String getEmpStatus() {
 		return empStatus;
@@ -112,9 +112,9 @@ public class EmployeeVO {
 	public String toString() {
 		return "EmployeeVO [empCode=" + empCode + ", empNameKor=" + empNameKor + ", empNameEng=" + empNameEng
 				+ ", empNameChi=" + empNameChi + ", deptCode=" + deptCode + ", phoneNumber=" + phoneNumber
-				+ ", afterPosition=" + afterPosition + ", afterDuty=" + afterDuty + ", empStatus=" + empStatus
-				+ ", startDate=" + startDate + ", retireDate=" + retireDate + ", payGubun=" + payGubun + ", empType="
-				+ empType + ", email=" + email + "]";
+				+ ", position=" + position + ", duty=" + duty + ", empStatus=" + empStatus + ", startDate=" + startDate
+				+ ", retireDate=" + retireDate + ", payGubun=" + payGubun + ", empType=" + empType + ", email=" + email
+				+ "]";
 	}
 	
 	
