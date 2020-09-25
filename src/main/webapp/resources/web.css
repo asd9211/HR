@@ -100,3 +100,7 @@ div li {
 	cursor:pointer;
 	font-size: auto;
 }
+
+#pagin{
+	background-color: white;
+}

@@ -1,8 +1,10 @@
 package erp.system.hr.emp.vo;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.ibatis.type.Alias;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 @Alias("employeeVO")
 public class EmployeeVO {
@@ -13,26 +15,26 @@ public class EmployeeVO {
 	private String empNameChi ;          
 	private String deptCode    ;          
 	private String phoneNumber    ;       
-	private int position  ;
-	private int duty      ;
+	private String position  ;
+	private String duty      ;
 	private String empStatus   ;
 	private String startDate   ;  
 	private String retireDate  ;          
-	private int payGubun       ;
-	private int empType        ;
+	private String payGubun       ;
+	private String empType        ;
 	private String email        ;
+		
 	
-	
-	public int getPosition() {
+	public String getPosition() {
 		return position;
 	}
-	public void setPosition(int position) {
+	public void setPosition(String position) {
 		this.position = position;
 	}
-	public int getDuty() {
+	public String getDuty() {
 		return duty;
 	}
-	public void setDuty(int duty) {
+	public void setDuty(String duty) {
 		this.duty = duty;
 	}
 	public String getEmpCode() {
@@ -89,16 +91,16 @@ public class EmployeeVO {
 	public void setRetireDate(String retireDate) {
 		this.retireDate = retireDate;
 	}
-	public int getPayGubun() {
+	public String getPayGubun() {
 		return payGubun;
 	}
-	public void setPayGubun(int payGubun) {
+	public void setPayGubun(String payGubun) {
 		this.payGubun = payGubun;
 	}
-	public int getEmpType() {
+	public String getEmpType() {
 		return empType;
 	}
-	public void setEmpType(int empType) {
+	public void setEmpType(String empType) {
 		this.empType = empType;
 	}
 	public String getEmail() {

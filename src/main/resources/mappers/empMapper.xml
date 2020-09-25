@@ -38,4 +38,76 @@ INSERT
 		#{email} 
 		)
 	</insert>
+	
+	<insert id="insertFamInfo" parameterType="famVO">
+INSERT
+    INTO fam_info (
+        emp_code,
+        no,
+        name,
+        birth,
+        relation
+    )
+	VALUES (
+		#{empCode}, 
+		#{no}, 
+		#{name}, 
+		#{birth}, 
+		#{relation}
+		)
+	
+	</insert>
+	<insert id="insertSchoolInfo" parameterType="SchoolVO">
+INSERT
+    INTO school_info (
+        emp_code,
+        no,
+        name,
+        major,
+        period
+    )
+	VALUES (
+		#{empCode},
+		#{no},
+		#{name},
+		#{major},
+		#{period}
+		)
+	</insert>
+	<insert id="insertLicenseInfo" parameterType="LicenseVO">
+INSERT
+    INTO license_info (
+        emp_code,
+        no,
+        name,
+        issue_date,
+        agency
+    )
+	VALUES (
+	#{empCode}, 
+	#{no}, 
+	#{name}, 
+	#{issueDate}, 
+	#{agency}
+	)
+	</insert>
+	<insert id="insertCareerInfo" parameterType="CareerVO">
+	
+INSERT
+    INTO career_info (
+        emp_code,
+        no,
+        name,
+        work,
+        period
+    )
+	VALUES (
+	#{empCode}, 
+	#{no}, 
+	#{name}, 
+	#{work}, 
+	#{period}
+	)
+	</insert>
+	
 </mapper>

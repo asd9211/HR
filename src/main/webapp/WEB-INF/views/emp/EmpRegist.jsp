@@ -13,9 +13,13 @@
 		<div class="pic-rayout" onclick="fileInput()">
 			<p>사진</p>
 		</div>
-		<input type="file" id="real-input" class="image_inputType_file"
-			accept="img/*" required hidden
-			onchange="setThumbnail(event);" />
+		<form id="uploadForm" enctype="multipart/form-data">
+			<input type="file" id="real-input" class="image_inputType_file"
+				accept="img/*" required 
+				onchange="setThumbnail(event);" />
+		</form>
+		<input type="file" id = "fileTest"/>
+		<button onclick= "test()">test</button>
 	</div>
 	<div class="column">
 
@@ -63,8 +67,10 @@
 		<div class="field">
 			<label class="label">부서</label>
 			<div class="control has-icons-left has-icons-right">
-				<input id="deptCode" class="input is-success max15 max15"
+				<input id="deptName" class="input is-success max15 max15"
 					type="text" placeholder="부서" disabled>
+				<input id="deptCode" class="input is-success max15 max15"
+					type="hidden" placeholder="부서" disabled>
 				<button class="button modal-button" id="deptSearch" title="부서검색"
 					onclick="modalSearch(this)">검색</button>
 			</div>
@@ -82,7 +88,9 @@
 		<div class="field">
 			<label class="label">직위</label>
 			<div class="control has-icons-left has-icons-right">
-				<input id="position" class="input is-success max15" type="text"
+				<input id="position" class="input is-success max15" type="hidden"
+					placeholder="직위" disabled>
+				<input id="positionName" class="input is-success max15" type="text"
 					placeholder="직위" disabled>
 				<button class="button modal-button" id="pstionSearch" title="직위검색"
 					onclick="modalSearch(this)">검색</button>
@@ -93,7 +101,9 @@
 		<div class="field">
 			<label class="label">직책</label>
 			<div class="control has-icons-left has-icons-right">
-				<input id="duty" class="input is-success max15" type="text"
+				<input id="duty" class="input is-success max15" type="hidden"
+					placeholder="직책" disabled>
+					<input id="dutyName" class="input is-success max15" type="text"
 					placeholder="직책" disabled>
 				<button class="button modal-button" id="dutySearch" title="직책검색"
 					onclick="modalSearch(this)">검색</button>
@@ -124,10 +134,10 @@
 			<label class="label">급여구분</label>
 			<div class="control">
 				<div class="select is-primary min15">
-					<select class="min15">
-						<option>월급제</option>
-						<option>연봉제</option>
-						<option>시급제</option>
+					<select class="min15" id="payGubun">
+						<option value="001">연봉제</option>
+						<option value="002">월급제</option>
+						<option value="003">시급제</option>
 					</select>
 				</div>
 			</div>
@@ -137,9 +147,9 @@
 			<label class="label">사원구분</label>
 			<div class="control">
 				<div class="select is-primary min15">
-					<select class="min15">
-						<option>관리사원</option>
-						<option>기능사원</option>
+					<select class="min15" id = "empType">
+						<option value="001">사무직</option>
+						<option value="002">생산직</option>
 					</select>
 				</div>
 			</div>
@@ -180,10 +190,10 @@
 		<tbody class="f-body">
 			<tr>
 				<td><button id="f-low-add" name="f-low-1" class="button" onclick = "addLow(this)">추가</button></td>
-				<td >1</td>
-				<td><input type="text" class="input"></td>
-				<td><input type="text" class="input"></td>
-				<td><input type="text" class="input"></td>
+				<td  id= "f-idx1">1</td>
+				<td><input type="text" class="input" id="f-name1"></td>
+				<td><input type="text" class="input" id="f-birth1"></td>
+				<td><input type="text" class="input" id="f-rel1"></td>
 			</tr>
 		</tbody>
 	</table>
@@ -202,12 +212,12 @@
 			</tr>
 		</thead>
 		<tbody class="s-body">
-			<tr>
+			<tr>			
 				<td><button id="s-low-add" name="s-low-1" class="button" onclick = "addLow(this)">추가</button></td>
-				<td >1</td>
-				<td><input type="text" class="input"></td>
-				<td><input type="text" class="input"></td>
-				<td><input type="text" class="input"></td>
+				<td id= "s-idx1">1</td>
+				<td><input type="text" class="input" id="s-name1"></td>
+				<td><input type="text" class="input" id="s-major1"></td>
+				<td><input type="text" class="input" id="s-period1"></td>
 			</tr>
 		</tbody>
 	</table>
@@ -227,14 +237,15 @@
 		<tbody class="l-body">
 			<tr>
 				<td><button id="l-low-add" name="l-low-1" class="button" onclick = "addLow(this)">추가</button></td>
-				<td >1</td>
-				<td><input type="text" class="input"></td>
-				<td><input type="text" class="input"></td>
-				<td><input type="text" class="input"></td>
+				<td  id="l-idx1" >1</td>
+				<td><input type="text" class="input" id="l-name1"></td>
+				<td><input type="text" class="input" id="l-issueDate1"></td>
+				<td><input type="text" class="input" id="l-agency1"></td>
 			</tr>
 		</tbody>
 	</table>
 </div>
+
 
 <!-- career -->
 <div class="columns is-lefted career">
@@ -251,10 +262,10 @@
 		<tbody class="c-body">
 			<tr>
 				<td><button id="c-low-add" name="c-low-1" class="button" onclick = "addLow(this)">추가</button></td>
-				<td >1</td>
-				<td><input type="text" class="input"></td>
-				<td><input type="text" class="input"></td>
-				<td><input type="text" class="input"></td>
+				<td id="c-idx1">1</td>
+				<td><input type="text" class="input" id="c-name1"></td>
+				<td><input type="text" class="input" id="c-work1"></td>
+				<td><input type="text" class="input" id="c-period1"></td>
 			</tr>
 		</tbody>
 	</table>
@@ -269,94 +280,205 @@
 		<section class="modal-card-body">
 			<!-- Content ... -->
 		</section>
-		<div id="pagin">
+		<nav id="pagin" class="pagination is-centered" role="navigation" aria-label="pagination">
 		
-		</div>
+		</nav>
 		<footer class="modal-card-foot">
-			<button class="button is-success">적용</button>
 			<button class="button mdl-close" onclick="modalClose()">취소</button>
 		</footer>
 	</div>
 </div>
 
 <script>
-	var copyList= [] ;
 	
-	function pagination(nowNum){
-		var lNum = (!nowNum?1:nowNum)*10;
-		var lbtn = (Math.ceil(!nowNum?1:nowNum/10))*10;
-		var sNum = lNum-9;
-		var realEnd = copyList.length/10;
-		var pHTML;
-		
-		var HTML = "<input type='text' class='input max15' id= 'targetDept'><button class='button' onclick = 'searchDept()'>검색</button>";
-		HTML = HTML + "<table class='table is-hoverable is-fullwidth'>";
-		HTML = HTML + 	"<tr>";
-		HTML = HTML + 		"<th>부서코드</th>";
-		HTML = HTML + 		"<th>부서명</th>";
-		HTML = HTML + 		"<th>상위부서</th>";
-		HTML = HTML + 		"<th>부서생성일</th>";
-		HTML = HTML + 	"</tr>";
-		
-		if(lNum >= copyList.length) lNum = copyList.length;
-		
-		for(var i = sNum; i < lNum ; i++){
-			console.log(copyList[i]);
-			HTML = HTML + 	"<tr onclick = 'applyDept(this)'>";
-			HTML = HTML + 		"<td>"+copyList[i].deptCode+"</td>";
-			HTML = HTML + 		"<td>"+copyList[i].deptName+"</td>";
-			HTML = HTML + 		"<td>"+copyList[i].parentDept+"</td>";
-			HTML = HTML + 		"<td>"+copyList[i].appointDate+"</td>";
-			HTML = HTML + 	"</tr>";
-		}
-
-		HTML = HTML + "</table>";
-		var body = document.querySelector(".modal-card-body");
-		body.innerHTML = HTML;
-		
-		for(var i = 1; i <= lbtn; i++){
-			pHTML += "<button onclick = 'pagination("+i+")'>" + i + "</button>";	
-		}
-		
-		var pagin = document.querySelector("#pagin");
-		pagin.innerHTML = pHTML;
-		
+	/*
+	나중에 init function 으로 공통으로 다 담을 것
+	*/
+	window.onload = function(){
+		$(".family").hide();
+		$(".school").hide();
+		$(".license").hide();
+		$(".career").hide();
 	}
+
+	
+	var copyList= [] ;
+	var imgtest;
+	
+	/******************************* Modal 관련 functions****************************/
+	
+	/*
+		Modal 공통 ajax방식 List조회 function 
+	*/
 	function modalSearch(ele) {
 		var title = ele.title;
-		var target = document.querySelector(".modal");
 		var html = document.querySelector("html");
+		var modal = document.querySelector(".modal");
 		var titleTarget = document.querySelector(".modal-card-title");
-		var body = document.querySelector(".modal-card-body");
+		
 		titleTarget.innerText = title;
+		
 		html.classList.add("is-clipped");
-		target.classList.add("is-active");
+		modal.classList.add("is-active");
+		
 		if(title == '부서검색'){
 			var suc = function(rs){
+				modal.setAttribute("target", "dept");
+				copyList = rs;
+				pagination();
+			};
+			var conf = new configuration("GET", null, "/dept/getDepts", suc, null);
+		
+		}else if(title == '직위검색'){
+			var suc = function(rs){
+				modal.setAttribute("target", "position");
 				copyList = rs;
 				pagination();
 			}
-
-			var conf = new configuration("GET", null, "/dept/getDepts", suc, null);
-			ajax(conf);
-		}else if(title == '직위검색'){
-			
+			var conf = new configuration("GET", null, "/base/getCodeInfoList?groupType=POSITION", suc, null);
+		
 		}else if(title = '직책검색'){
-			
+			var suc = function(rs){
+				modal.setAttribute("target", "duty");
+				copyList = rs;
+				pagination();
+			}
+			var conf = new configuration("GET", null, "/base/getCodeInfoList?groupType=DUTY", suc, null);
 		}
+		
+		ajax(conf);
 	}
 
 	function modalClose() {
 		$("html").removeClass("is-clipped");
 		$(".modal").removeClass("is-active");
 	}
+	
+	/*
+		Modal에서 코드 선택시 해당 코드 input box에 적용시키는 function
+	*/
+	
+	function apply(target, ele){ 
+		var d = document;
+		
+		if(target == 'dept'){
+			d.querySelector('#deptCode').value = ele.children[0].innerText;
+			d.querySelector("#deptName").value = ele.children[1].innerText;
+		}else if (target == 'duty'){
+			d.querySelector('#dutyName').value = ele.children[2].innerText;
+			d.querySelector('#duty').value = ele.children[1].innerText;
+		}else if (target == 'position'){
+			d.querySelector("#positionName").value = ele.children[2].innerText;
+			d.querySelector("#position").value = ele.children[1].innerText;
+		}
+		modalClose();
+	}
+	
+	function searchDept(){
+		var target = document.querySelector('#targetDept').value;
+		
+		var suc = function(rs){
+			copyList = rs;
+			pagination();
+		}
+		var conf = new configuration("GET", null, "/dept/getDept?deptName=" + target, suc, null);
+		ajax(conf);
+	}
+	
+	/*
+		Modal List pagination 공통 function
+	*/
+	function pagination(nowNum){
+		var nNum = !nowNum||nowNum<=1?1:nowNum;
+		var lNum = nNum*10; 
+		var sNum = lNum-9; 
+		var len = copyList.length;
+		var realEnd = len/10; 
+		if(lNum >= len) lNum = len;
+		var lbtn = len/10; 
+		var sbtn = Math.floor((nNum-1)/10) * 10 + 1;
+		drawList(sNum, lNum, nNum, sbtn, lbtn);
+	}
+		
+	/*
+		Modal List출력 공통 function
+	*/
+	function drawList(sNum, lNum, nNum, sbtn, lbtn){
+		var target = document.querySelector(".modal").getAttribute("target");
+		var d = document;
+		
+		if(target == 'dept'){
+		
+			var columns = new lowColumn("부서코드", "부서명", "상위부서", "부서생성일");
+			var colList = new lowColumn("deptCode", "deptName", "parentDept", "appointDate");
+		
+		}else if(target == 'position'){
+			
+			var columns = new lowColumn("그룹타입", "직위코드", "직위명");
+			var colList = new lowColumn("groupType", "code", "codeName");
+		
+		}else if(target == 'duty'){
+			
+			var columns = new lowColumn("그룹타입", "직책코드", "직책명");
+			var colList = new lowColumn("groupType", "code", "codeName");
+		}
+		
+		var pHTML = "";
+		var HTML = "<input type='text' class='input max15' id= 'targetDept'><button class='button' onclick = 'searchDept()'>검색</button>";
+		HTML = HTML + "<table class='table is-hoverable is-fullwidth' id= 'modalDataTable'>";
+		HTML = HTML + 	"<tr>";
+		HTML = HTML + 		"<th>"+columns.clm1+"</th>";
+		HTML = HTML + 		"<th>"+columns.clm2+"</th>";
+		HTML = HTML + 		"<th>"+columns.clm3+"</th>";
+		if(colList.clm4){
+			HTML = HTML + 	"<th>"+columns.clm4+"</th>";
+		}
+		HTML = HTML + 	"</tr>";
+		
+		for(var i = sNum-1; i < lNum ; i++){
+			
+			HTML = HTML + 	"<tr onclick = \"apply('"+target+"', this)\">";
+			HTML = HTML + 		"<td>"+copyList[i][colList.clm1]+"</td>";
+			HTML = HTML + 		"<td>"+copyList[i][colList.clm2]+"</td>";
+			HTML = HTML + 		"<td>"+copyList[i][colList.clm3]+"</td>";
+			if(colList.clm4){
+				HTML = HTML + 	"<td>"+copyList[i][colList.clm4]+"</td>";
+			}
+			HTML = HTML + 	"</tr>";
+		}
+		HTML = HTML + "</table>";
+		
+		if(sbtn >10){
+			pHTML += "<a onclick = 'pagination("+ (sbtn-1) +")' class='pagination-previous'>prev</a>";
+		}
+		
+		pHTML += "<ul class='pagination-list'>";
+		for(var i = sbtn; i <= lbtn; i++){
+			if(i%10==0) {
+				pHTML += "<li><a class= 'pagination-link' onclick = 'pagination("+i+")'>" + i + "</a></li>";	
+				pHTML += "<a onclick = 'pagination("+(i+1)+")' class='pagination-next'>next</a>";	
+				break;
+			}
+			pHTML += "<li><a class= 'pagination-link' onclick = 'pagination("+i+")'>" + i + "</a></li>";	
+		}
 
+		var pagin = document.querySelector("#pagin");
+		var body = document.querySelector(".modal-card-body");
+		
+		body.innerHTML = HTML;
+		pagin.innerHTML = pHTML;
+	}
+	
+	/******************************* Profile 사전 관련 functions****************************/
+	
+	
 	function fileInput() {
 		document.querySelector('#real-input').click();
 	}
 
 	function setThumbnail(event) {
 		var reader = new FileReader();
+		var file = event.target.files[0];
 		reader.onload = function(event) {
 			if (!event.target.result.startsWith("data:image")) {
 				alert('이미지파일이 아닙니다.');
@@ -370,21 +492,33 @@
 			img.setAttribute("src", event.target.result);
 			layout.innerHTML = '';
 			layout.appendChild(img);
+			
 		};
-		reader.readAsDataURL(event.target.files[0]);
+		reader.readAsDataURL(file);
+		sendFile(file);
+		
+		
 	}
 	
-	function validation(checkList, checkListName){
-		var chkName;
-		var target;
-		var value;
-		var minlength;
+	function sendFile(file){
+		var formData = new FormData();
+		formData.append("file", file);
+		
+		var success = function(res){
+				console.log(res);
+		}
+		
+		var conf = new configuration('POST', formData, "emp/empPicRegist", success);
+		ajax(conf);
+	}
+
+		function validation(checkList, checkListName){
 		
 		for(var chk in checkList){
-			chkName = "#"+checkList[chk];
-			target = document.querySelector(chkName); 
-			value = target.value.trim();
-			minlength = target.getAttribute("minlength");
+			var chkName = "#"+checkList[chk];
+			var target = document.querySelector(chkName); 
+			var value = target.value.trim();
+			var minlength = target.getAttribute("minlength");
 			
 			if(value == ''){
 				alert(checkListName[chk] + '의 값을 입력해주세요.');
@@ -398,6 +532,10 @@
 		}
 		
 	}
+	
+	/*
+		하단 add on  정보들을 show & hide 시켜주는 function
+	*/
 	
 	function showInfo(ele){
 		var target = $("."+ele.id);
@@ -422,12 +560,10 @@
 		}
 	}
 	
-	function lowColumn(clm1, clm2, clm3, clm4){
-		this.clm1 = clm1;
-		this.clm2 = clm2;
-		this.clm3 = clm3;
-		this.clm4 = clm4;
-	}
+	
+	/*
+		하단 add on 정보 줄 추가 function
+	*/
 	
 	function addLow(ele){
 		var d = document;
@@ -437,15 +573,16 @@
 		var targetId = "#" + target + "-low-add";
 		var setName;
 		
-		if(target == 'f') {
-			columns = new lowColumn("f-idx", "f-name", "f-age", "f-rel");
-		}else if(target == 's'){
-			columns = new lowColumn("s-idx", "s-name", "s-sDate", "s-eDate");
-		}else if(target == 'l'){
-			columns = new lowColumn("l-idx", "l-name", "l-date", "l-agency");
-		}else if(target == 'c'){
-			columns = new lowColumn("c-idx", "c-name", "c-sDate", "c-eDate");
+		if(target == 'f') { //fam
+			columns = new lowColumn("f-idx", "f-name", "f-birth", "f-rel");
+		}else if(target == 's'){ //school
+			columns = new lowColumn("s-idx", "s-name", "s-major", "s-period");
+		}else if(target == 'l'){ //license
+			columns = new lowColumn("l-idx", "l-name", "l-issueDate", "l-agency");
+		}else if(target == 'c'){ //career
+			columns = new lowColumn("c-idx", "c-name", "c-work", "c-period");
 		}
+		
 		var lowIdx = ele.name.slice(-1);
 		
 		if(lowIdx >= 5){
@@ -455,24 +592,40 @@
 		
 		var tbody = d.querySelector(targetCls);
 		var nextIdx = Number(lowIdx) + 1 ;
+		var newTr = d.createElement("tr");
+		var newTd1 = d.createElement("td");
+		var newTd2 = d.createElement("td");
 		
-		var HTML = 		"<tr>";
-		HTML = HTML +		"<td></td>"
-		HTML = HTML +		"<td id = "+ columns.clm1 + nextIdx +">"+ nextIdx +"</td>"
-		HTML = HTML +		"<td><input type='text' class='input' id = "+ columns.clm2 + nextIdx +"></td>"
-		HTML = HTML +		"<td><input type='text' class='input' id = "+ columns.clm3 + nextIdx +"></td>"
-		HTML = HTML +		"<td><input type='text' class='input' id = "+ columns.clm4 + nextIdx +"></td>"
-		HTML = HTML +	"</tr>"
+		newTd2.setAttribute("id", columns.clm1 + nextIdx);
+		newTd2.innerText = nextIdx;
 		
-		tbody.innerHTML += HTML;
+		newTr.appendChild(newTd1);
+		newTr.appendChild(newTd2);
+		
+		for(var i = 2 ; i <= 4 ; i ++){
+			var newTd = d.createElement("td");
+			var newInput = d.createElement("input");
+			
+			newInput.setAttribute("class", "input");
+			newInput.setAttribute("id", columns["clm"+i] + nextIdx);
+			
+			newTd.appendChild(newInput);
+			newTr.appendChild(newTd);
+		}
+		
+		tbody.appendChild(newTr);
 		
 		setName = target + "-low-" + nextIdx;
-		
 		d.querySelector(targetId).setAttribute("name", setName);
 	}
 	
+	/*
+		empRegist 등록 function
+	*/
 	function send(){
-		var values = {};
+		var data = {};
+		var empList = [];
+		var empInfo = {};
 		var d = document;
 		
 		var checkList = 
@@ -485,7 +638,11 @@
 			,'position'
 			,'duty'
 			,'startDate'
-			,'email'	];
+			,'email'
+			, 'empStatus'
+			, 'payGubun'
+			, 'empType'];
+		
 		var checkListName = 
 			['사번'
 			,'이름(한글)'
@@ -496,41 +653,105 @@
 			,'직위'
 			,'직책'
 			,'입사일'
-			,'이메일'	];
+			,'이메일'
+			, '재직상태'
+			, '급여구분'
+			, '사원구분'];
 		
 		//validation(checkList, checkListName);
 		
 		for(var chk in checkList){
 				var target = d.querySelector("#"+checkList[chk]);
-				values[checkList[chk]] = target.value.trim();
+				empInfo[checkList[chk]] = target.value.trim();
 			}
-		function success(res){
-			console.log(res);
+		empInfo.startDate = empInfo.startDate.replaceAll('-','');
+		empList.push(empInfo);
+		
+		data.empInfo = empList;
+		
+		/*
+		add on info 담기
+		*/
+		
+		var targetList = ['familly', 'school', 'license', 'career'];
+			
+		for(var num in targetList){
+				var objList = [];
+				var target = targetList[num];
+				
+				if(target== 'familly'){
+					var colName = new lowColumn("no", "name", "birth", "relation");
+					var targetTable = new lowColumn("f-idx", "f-name", "f-birth", "f-rel");
+					var len = d.querySelector(".f-body").children.length;
+					var objName = 'famInfo';
+				}else if(target == 'school'){
+					var colName = new lowColumn("no", "name", "major", "period");
+					var targetTable = new lowColumn("s-idx", "s-name", "s-major", "s-period");
+					var len = d.querySelector(".s-body").children.length;
+					var objName = 'schInfo';
+				}else if(target == 'license'){
+					var colName = new lowColumn("no", "name", "issueDate", "agency");
+					var targetTable = new lowColumn("l-idx", "l-name", "l-issueDate", "l-agency");
+					var len = d.querySelector(".l-body").children.length;
+					var objName = 'licInfo';
+				}else if(target == 'career'){
+					var colName = new lowColumn("no", "name", "work", "period");
+					var targetTable = new lowColumn("c-idx", "c-name", "c-work", "c-period");
+					var len = d.querySelector(".c-body").children.length;
+					var objName = 'carInfo';
+				}
+				
+				for(var i = 1 ; i <= len; i ++){
+					var objInfo = {};
+					objInfo["empCode"] = empInfo.empCode;
+					objInfo[colName.clm1] = d.querySelector("#"+targetTable.clm1+i).innerText;
+					objInfo[colName.clm2] = d.querySelector("#"+targetTable.clm2+i).value;
+					objInfo[colName.clm3] = d.querySelector("#"+targetTable.clm3+i).value;
+					objInfo[colName.clm4] = d.querySelector("#"+targetTable.clm4+i).value;
+					if(objInfo[colName.clm2] == '' && objInfo[colName.clm3] == '' && objInfo[colName.clm4] == ''){
+						continue;
+					}
+					objList[i-1] = objInfo;
+				}
+				data[objName] = objList;
 		}
-		values.empStatus = 'NORM';
-		values.duty = '001';
-		values.position = '001';
-		values.deptCode = 'D10001';
-		values.empType = '001';
-		values.payGubun = '001';
-		values.startDate = values.startDate.replaceAll('-','');
-		var conf = new configuration('POST', values, "/emp/empRegist", success );
+
+		data = JSON.stringify(data);
+		
+		function success(res){
+			if(res){
+				alert('사원등록에 성공하였습니다.');
+				//location.href = "/main";
+			}else{
+				alert('사원등록에 실패했습니다.');
+			}
+		}
+		
+		var conf = new configuration('POST', data, "/emp/empRegist", success, null,'json' );
 		ajax(conf); 
 			
 	}
 	
-	function configuration(method, data, path, suc, err){
+	/*
+		ajax configuration function 나중에 common.js로 옮겨서 공통으로 사용할 것
+	*/
+	function configuration(method, data, path, suc, err, header){
 		this.method = method;
-		this.data = JSON.stringify(data);
+		this.data = data;
 		this.path = path;
 		this.suc = suc;
 		this.err = err;
+		this.header = header;
 	}
 	
+	/*
+		ajax function 마찬가지고 나중에 common.js로 옮겨야 함.
+	*/
 	function ajax(conf){
+		console.log(conf.data);
 		var xhr = new XMLHttpRequest();
 		xhr.open(conf.method, conf.path);
-		if(conf.method != 'GET'){
+		if(conf.header == 'json'){
 			xhr.setRequestHeader('content-type', 'application/json');
 		}
 		xhr.onreadystatechange = function(){
@@ -542,42 +763,11 @@
 		xhr.send(conf.data);
 	}
 	
-	function applyDept(ele){
-		document.querySelector('#deptCode').value = ele.children[0].innerText;
-		modalClose();
-	}
-	function searchDept(){
-		var target = document.querySelector('#targetDept').value;
-		var body = document.querySelector(".modal-card-body");
-		
-		var suc = function(rs){
-			var HTML = "<input type='text' class='input max15' id= 'targetDept'><button class='button' onclick = 'searchDept()'>검색</button>";
-				HTML = HTML + "<table class='table is-hoverable is-fullwidth'>";
-				HTML = HTML + 	"<tr>";
-				HTML = HTML + 		"<th>부서코드</th>";
-				HTML = HTML + 		"<th>부서명</th>";
-				HTML = HTML + 		"<th>상위부서</th>";
-				HTML = HTML + 		"<th>부서생성일</th>";
-				HTML = HTML + 	"</tr>";
-				for(var r in rs){
-					HTML = HTML + 	"<tr onclick = 'applyDept(this)'>";
-					HTML = HTML + 		"<td>"+rs[r].deptCode+"</td>";
-					HTML = HTML + 		"<td>"+rs[r].deptName+"</td>";
-					HTML = HTML + 		"<td>"+rs[r].parentDept+"</td>";
-					HTML = HTML + 		"<td>"+rs[r].appointDate+"</td>";
-					HTML = HTML + 	"</tr>";
-				}
-				HTML = HTML + "</table>";
-				body.innerHTML = HTML;
-		}
-		var conf = new configuration("GET", null, "/dept/getDept?deptName=" + target, suc, null);
-		ajax(conf);
-	}
-	window.onload = function(){
-		$(".family").hide();
-		$(".school").hide();
-		$(".license").hide();
-		$(".career").hide();
+	function lowColumn(clm1, clm2, clm3, clm4){
+		this.clm1 = clm1;
+		this.clm2 = clm2;
+		this.clm3 = clm3;
+		this.clm4 = clm4;
 	}
 	
 	
