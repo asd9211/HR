@@ -15,11 +15,9 @@
 		</div>
 		<form id="uploadForm" enctype="multipart/form-data">
 			<input type="file" id="real-input" class="image_inputType_file"
-				accept="img/*" required 
+				accept="img/*" required hidden
 				onchange="setThumbnail(event);" />
 		</form>
-		<input type="file" id = "fileTest"/>
-		<button onclick= "test()">test</button>
 	</div>
 	<div class="column">
 
@@ -492,26 +490,10 @@
 			img.setAttribute("src", event.target.result);
 			layout.innerHTML = '';
 			layout.appendChild(img);
-			
 		};
 		reader.readAsDataURL(file);
-		sendFile(file);
-		
-		
 	}
 	
-	function sendFile(file){
-		var formData = new FormData();
-		formData.append("file", file);
-		
-		var success = function(res){
-				console.log(res);
-		}
-		
-		var conf = new configuration('POST', formData, "emp/empPicRegist", success);
-		ajax(conf);
-	}
-
 		function validation(checkList, checkListName){
 		
 		for(var chk in checkList){
@@ -627,6 +609,7 @@
 		var empList = [];
 		var empInfo = {};
 		var d = document;
+		var formData = new FormData();
 		
 		var checkList = 
 			['empCode'
@@ -666,8 +649,7 @@
 			}
 		empInfo.startDate = empInfo.startDate.replaceAll('-','');
 		empList.push(empInfo);
-		
-		data.empInfo = empList;
+		formData.append("empInfo", JSON.stringify(empList));
 		
 		/*
 		add on info 담기
@@ -700,7 +682,6 @@
 					var len = d.querySelector(".c-body").children.length;
 					var objName = 'carInfo';
 				}
-				
 				for(var i = 1 ; i <= len; i ++){
 					var objInfo = {};
 					objInfo["empCode"] = empInfo.empCode;
@@ -711,13 +692,15 @@
 					if(objInfo[colName.clm2] == '' && objInfo[colName.clm3] == '' && objInfo[colName.clm4] == ''){
 						continue;
 					}
-					objList[i-1] = objInfo;
+					objList[i-1] = objInfo; 
 				}
-				data[objName] = objList;
+				formData.append(objName, JSON.stringify(objList));
 		}
 
-		data = JSON.stringify(data);
+		var file = document.querySelector("#uploadForm")[0].files[0];
+		formData.append("file", file);
 		
+		data = formData;
 		function success(res){
 			if(res){
 				alert('사원등록에 성공하였습니다.');
@@ -726,8 +709,10 @@
 				alert('사원등록에 실패했습니다.');
 			}
 		}
-		
-		var conf = new configuration('POST', data, "/emp/empRegist", success, null,'json' );
+		function err(res){
+			alert(res);
+		}
+		var conf = new configuration('POST', data, "/emp/empRegist", success);
 		ajax(conf); 
 			
 	}
@@ -755,9 +740,18 @@
 			xhr.setRequestHeader('content-type', 'application/json');
 		}
 		xhr.onreadystatechange = function(){
-			if(xhr.readyState == 4 && xhr.status ==200){
-				var res = JSON.parse(xhr.response);
-				conf.suc(res);
+			if(xhr.readyState == 4){
+				if(xhr.status ==200){
+					var res = JSON.parse(xhr.response);
+					conf.suc(res);
+				}else{
+					if(conf.err){
+						conf.err(xhr.response);
+					}else{
+						alert('알 수 없는 에러가 발생했습니다.');
+					}
+				}
+				
 			}
 		}
 		xhr.send(conf.data);

@@ -1,13 +1,8 @@
 package erp.system.hr.emp.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.Iterator;
-
 import java.util.List;
 import java.util.Map;
 
@@ -16,14 +11,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import erp.system.hr.emp.service.EmpService;
+import erp.system.hr.util.FileUploader;
 
 @Controller
 @RequestMapping("emp")
@@ -48,27 +46,21 @@ public class EmpController {
 		return "/views/emp/EmpRegist"; 
 	}
 	
-	@PostMapping("/empRegist")
-	public @ResponseBody Boolean empRegist(@RequestBody Map<String,List<Map<String,String>>> param) {
-		return es.empRegist(param);
-	}
-	
-	 
-	@PostMapping("/empPicRegist")
-	public @ResponseBody Object uploadFile(MultipartHttpServletRequest req) throws IOException {
-		Iterator<String> itr = req.getFileNames();
-		String RealFileName;
-		String changedFileName = "C:\\Users\\tec\\Desktop\\lyh\\";
+	@PostMapping("/empRegist") 
+	public @ResponseBody Boolean empRegist(/*@RequestBody Map<String,List<Map<String,String>>> param-*/
+			MultipartHttpServletRequest req) {
 		
-		if(itr.hasNext()) {
-			changedFileName += "" + System.currentTimeMillis();
-			changedFileName += ".jpeg"; 
-			FileOutputStream fos = new FileOutputStream(changedFileName);
-			
-			fos.write(req.getFile(itr.next()).getBytes());
-			fos.close();
-			changedFileName = "";	
+		try {
+			es.empRegist(req);
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return true;
 	}
+	
+	 
 }

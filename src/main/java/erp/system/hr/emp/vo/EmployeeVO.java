@@ -23,8 +23,23 @@ public class EmployeeVO {
 	private String payGubun       ;
 	private String empType        ;
 	private String email        ;
+	private String realFileName;
+	private String changedFileName;
+	
 		
 	
+	public String getRealFileName() {
+		return realFileName;
+	}
+	public void setRealFileName(String realFileName) {
+		this.realFileName = realFileName;
+	}
+	public String getChangedFileName() {
+		return changedFileName;
+	}
+	public void setChangedFileName(String changedFileName) {
+		this.changedFileName = changedFileName;
+	}
 	public String getPosition() {
 		return position;
 	}
@@ -116,7 +131,7 @@ public class EmployeeVO {
 				+ ", empNameChi=" + empNameChi + ", deptCode=" + deptCode + ", phoneNumber=" + phoneNumber
 				+ ", position=" + position + ", duty=" + duty + ", empStatus=" + empStatus + ", startDate=" + startDate
 				+ ", retireDate=" + retireDate + ", payGubun=" + payGubun + ", empType=" + empType + ", email=" + email
-				+ "]";
+				+ ", realFileName=" + realFileName + ", changedFileName=" + changedFileName + "]";
 	}
 	
 	

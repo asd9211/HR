@@ -21,7 +21,9 @@ INSERT
         start_date,
         pay_gubun,
         emp_type,
-        email
+        email,
+        real_file_name,
+        changed_file_name
     ) VALUES (
 		#{empCode},
 		#{empNameKor},
@@ -35,7 +37,9 @@ INSERT
 		#{startDate}, 
 		#{payGubun},
 		#{empType},
-		#{email} 
+		#{email} ,
+		#{realFileName},
+		#{changedFileName}
 		)
 	</insert>
 	
