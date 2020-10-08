@@ -10,13 +10,18 @@ import javax.servlet.ServletResponse;
 
 
 public class EncodingFilter implements Filter{
+	private String encoding;
+	
+	public EncodingFilter(String encoding) {
+		this.encoding = encoding;
+	}
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
-		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding(encoding);
+		response.setCharacterEncoding(encoding);
 		response.setContentType("text/html;charset=utf-8");
 		chain.doFilter(request, response);
 		

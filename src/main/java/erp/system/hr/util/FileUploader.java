@@ -1,11 +1,14 @@
 package erp.system.hr.util;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.Optional;
 
+import org.eclipse.jdt.internal.compiler.batch.ClasspathDirectory;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -13,25 +16,26 @@ import erp.system.hr.util.vo.FileVO;
 
 public class FileUploader {
 
-	public static Optional<FileVO> profileSave(MultipartHttpServletRequest req) {
+	public static Optional<FileVO> setProfile(MultipartHttpServletRequest req) throws IOException {
 		
-		String filePath = "C:\\Users\\tec\\Desktop\\lyh\\";
-		StringBuffer sb = new StringBuffer();
+		String separator = File.separator;
+		String filePath = "src"+separator+"main"+separator+"webapp"+separator+"resources"+separator+"img"+separator;
 		String realFileName;
 		String ext;
 		String changedFileName; 
+		StringBuffer sb = new StringBuffer();
+		
 		
 		Iterator<String> itr = req.getFileNames();
 		MultipartFile mfile = null;
 		
 		if (itr.hasNext()) {
-			try {
 				FileVO fvo = new FileVO();
 				mfile = req.getFile(itr.next());
 				realFileName = mfile.getOriginalFilename();
 				ext = realFileName.substring(realFileName.lastIndexOf('.'));
 				
-				sb.append(filePath);
+				sb.append(filePath); 
 				sb.append(System.currentTimeMillis());
 				sb.append(ext);
 				changedFileName = sb.toString();
@@ -44,19 +48,9 @@ public class FileUploader {
 				fos.write(mfile.getBytes());
 				fos.close();
 				return Optional.ofNullable(fvo);
-				
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return null;
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return null;
-			}
-
+		
 		}
-		return null;
+		return Optional.empty();
 
 	}
 }

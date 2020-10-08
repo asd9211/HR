@@ -1,30 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="erp.system.hr.emp.mapper.EmpMapper">
-	<select id="getEmployee" resultType="employeeVO" >
-		SELECT * FROM EMPMASTER where emp_code = #{empCode}
+	<select id="getEmployee" resultType="employeeVO">
+SELECT
+    emp_code,
+    emp_name_kor,
+    emp_name_eng,
+    emp_name_chi,
+    dept_code,
+    (
+        SELECT
+            dept_name
+        FROM
+            deptmaster d
+        WHERE
+            d.dept_code = e.dept_code
+    ) dept_name,
+    phone_number,
+    position,
+    (
+        SELECT
+            code_name
+        FROM
+            codemaster c
+        WHERE
+            c.group_type = 'POSITION'
+            AND c.code = e.position
+    ) position_name,
+    (
+        SELECT
+            code_name
+        FROM
+            codemaster c
+        WHERE
+            c.group_type = 'DUTY'
+            AND c.code = e.duty
+    ) duty_name,
+    duty,
+    emp_status,
+    to_char(to_date(start_date), 'YYYY-MM-DD') start_date,
+    to_char(to_date(retire_date), 'YYYY-MM-DD') retire_date,
+    pay_gubun,
+    emp_type,
+    email,
+    real_file_name,
+    changed_file_name
+FROM
+    empmaster e
+WHERE
+	emp_code = #{empCode}
 	</select>
 
+	<select id="getFamInfo" resultType="famVO">
+		SELECT
+		emp_code,
+		no,
+		name,
+		birth,
+		relation
+		FROM
+		fam_info
+		where
+		emp_code = #{empCode}
+	</select>
+
+	<select id="getSchInfo" resultType="SchoolVO">
+		SELECT
+		emp_code,
+		no,
+		name,
+		major,
+		period
+		FROM
+		school_info
+		where
+		emp_code = #{empCode}
+	</select>
+
+	<select id="getCarInfo" resultType="CareerVO">
+		SELECT
+		emp_code,
+		no,
+		name,
+		work,
+		period
+		FROM
+		career_info
+		where
+		emp_code = #{empCode}
+	</select>
+
+	<select id="getLicInfo" resultType="LicenseVO">
+		SELECT
+		emp_code,
+		no,
+		name,
+		issue_date,
+		agency
+		FROM
+		license_info
+		where
+		emp_code = #{empCode}
+	</select>
 
 	<insert id="insertEmployee" parameterType="employeeVO">
-INSERT
-    INTO EMPMASTER (
-        emp_code,
-        emp_name_kor,
-        emp_name_eng,
-        emp_name_chi,
-        dept_code,
-        phone_number,
-        position,
-        duty,
-        emp_status,
-        start_date,
-        pay_gubun,
-        emp_type,
-        email,
-        real_file_name,
-        changed_file_name
-    ) VALUES (
+		INSERT
+		INTO EMPMASTER (
+		emp_code,
+		emp_name_kor,
+		emp_name_eng,
+		emp_name_chi,
+		dept_code,
+		phone_number,
+		position,
+		duty,
+		emp_status,
+		start_date,
+		pay_gubun,
+		emp_type,
+		email,
+		real_file_name,
+		changed_file_name
+		) VALUES (
 		#{empCode},
 		#{empNameKor},
 		#{empNameEng},
@@ -34,43 +131,44 @@ INSERT
 		#{position},
 		#{duty},
 		#{empStatus},
-		#{startDate}, 
+		#{startDate},
 		#{payGubun},
 		#{empType},
 		#{email} ,
-		#{realFileName},
-		#{changedFileName}
+		#{realFileName:VARCHAR},
+		#{changedFileName:VARCHAR}
 		)
 	</insert>
-	
+
 	<insert id="insertFamInfo" parameterType="famVO">
-INSERT
-    INTO fam_info (
-        emp_code,
-        no,
-        name,
-        birth,
-        relation
-    )
-	VALUES (
-		#{empCode}, 
-		#{no}, 
-		#{name}, 
-		#{birth}, 
+		INSERT
+		INTO fam_info (
+		emp_code,
+		no,
+		name,
+		birth,
+		relation
+		)
+		VALUES (
+		#{empCode},
+		#{no},
+		#{name},
+		#{birth},
 		#{relation}
 		)
-	
+
 	</insert>
 	<insert id="insertSchoolInfo" parameterType="SchoolVO">
-INSERT
-    INTO school_info (
-        emp_code,
-        no,
-        name,
-        major,
-        period
-    )
-	VALUES (
+		INSERT
+		INTO
+		school_info (
+		emp_code,
+		no,
+		name,
+		major,
+		period
+		)
+		VALUES (
 		#{empCode},
 		#{no},
 		#{name},
@@ -79,39 +177,41 @@ INSERT
 		)
 	</insert>
 	<insert id="insertLicenseInfo" parameterType="LicenseVO">
-INSERT
-    INTO license_info (
-        emp_code,
-        no,
-        name,
-        issue_date,
-        agency
-    )
-	VALUES (
-	#{empCode}, 
-	#{no}, 
-	#{name}, 
-	#{issueDate}, 
-	#{agency}
-	)
+		INSERT
+		INTO
+		license_info (
+		emp_code,
+		no,
+		name,
+		issue_date,
+		agency
+		)
+		VALUES (
+		#{empCode},
+		#{no},
+		#{name},
+		#{issueDate},
+		#{agency}
+		)
 	</insert>
 	<insert id="insertCareerInfo" parameterType="CareerVO">
-	
-INSERT
-    INTO career_info (
-        emp_code,
-        no,
-        name,
-        work,
-        period
-    )
-	VALUES (
-	#{empCode}, 
-	#{no}, 
-	#{name}, 
-	#{work}, 
-	#{period}
-	)
+
+		INSERT
+		INTO
+		career_info (
+		emp_code,
+		no,
+		name,
+		work,
+		period
+		)
+		VALUES (
+		#{empCode},
+		#{no},
+		#{name},
+		#{work},
+		#{period}
+		)
 	</insert>
-	
+
 </mapper>

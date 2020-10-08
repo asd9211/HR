@@ -1,5 +1,7 @@
 package erp.system.hr.emp.service.impl;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -34,41 +36,46 @@ public class EmpServiceImpl implements EmpService {
 	}
 
 	@Override
-	public EmployeeVO getEmployee(String empCode) {
-		Optional<EmployeeVO> result = Optional.ofNullable(em.getEmployee(empCode));
-		return result.orElse(null);
+	public Map<String, Object> getEmployee(String empCode) {
+		Map<String, Object> allInfo = new HashMap();
+		
+		allInfo.put("empInfo", em.getEmployee(empCode));
+		allInfo.put("famInfo", em.getFamInfo(empCode));
+		allInfo.put("schInfo", em.getSchInfo(empCode));
+		allInfo.put("carInfo", em.getCarInfo(empCode));
+		allInfo.put("licInfo", em.getLicInfo(empCode));
+		
+		return allInfo;
 	}
 
 	@Override
-	public Boolean empRegist(MultipartHttpServletRequest req) throws JsonMappingException, JsonProcessingException {
-		Boolean result = true;
+	public Boolean empRegist(MultipartHttpServletRequest req) throws IOException {
+		Boolean result;
 		Map<String, List<Map<String, String>>> allInfo = Converter.convertJsonToListInMap(req);
-		Optional<FileVO> profileVO = FileUploader.profileSave(req);
-
-		if (	   empFamillyRegist(allInfo.get("famInfo"))
+		Optional<FileVO> profileVO = FileUploader.setProfile(req);
+		result  =  empFamillyRegist(allInfo.get("famInfo"))
 				&& empSchoolRegist(allInfo.get("schInfo")) 
 				&& empCareerRegist(allInfo.get("carInfo"))
 				&& empLicenseRegist(allInfo.get("licInfo"))
-				&& empBaseInfoRegist(allInfo.get("empInfo"), profileVO)	){
-			return true;
-		} else {
-			return false;
-		}
+				&& empBaseInfoRegist(allInfo.get("empInfo"), profileVO);
+
+		return result;
 	}
 
 	public Boolean empBaseInfoRegist(List<Map<String, String>> param, Optional<FileVO> profileVO) {
 		for (Map<String, String> empInfo : param) {
 			EmployeeVO evo = new EmployeeVO();
 			Converter.convertMapToVO(empInfo, evo);
-			if (profileVO.isPresent()) {
-				evo.setRealFileName(profileVO.get().getRealFileName());
-				evo.setChangedFileName(profileVO.get().getChangedFileName());
-			}
+			profileVO.ifPresent(pvo -> {
+				evo.setRealFileName(pvo.getRealFileName());
+				evo.setChangedFileName(pvo.getChangedFileName());
+			});
+			
 			if (em.insertEmployee(evo) != 1)
 				return false;
 		}
 
-		return true;
+ 		return true;
 	}
 
 	public Boolean empFamillyRegist(List<Map<String, String>> param) {
@@ -85,7 +92,6 @@ public class EmpServiceImpl implements EmpService {
 		for (Map<String, String> carInfo : param) {
 			CareerVO cvo = new CareerVO();
 			Converter.convertMapToVO(carInfo, cvo);
-			System.out.println(cvo);
 			if (em.insertCareerInfo(cvo) != 1)
 				return false;
 		}
@@ -110,6 +116,30 @@ public class EmpServiceImpl implements EmpService {
 				return false;
 		}
 		return true;
+	}
+
+	@Override
+	public List<FamVO> getFamInfo(String empCode) {
+		// TODO Auto-generated method stub
+		return em.getFamInfo(empCode);
+	}
+
+	@Override
+	public List<SchoolVO> getSchInfo(String empCode) {
+		// TODO Auto-generated method stub
+		return em.getSchInfo(empCode);
+	}
+
+	@Override
+	public List<LicenseVO> getLicInfo(String empCode) {
+		// TODO Auto-generated method stub
+		return em.getLicInfo(empCode);
+	}
+
+	@Override
+	public List<CareerVO> getCarInfo(String empCode) {
+		// TODO Auto-generated method stub
+		return em.getCarInfo(empCode);
 	}
 
 }

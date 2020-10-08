@@ -10,6 +10,6 @@ public class FilterConfig {
 
 	@Bean
 	public EncodingFilter encodingFilter() {
-		return new EncodingFilter();
+		return new EncodingFilter("UTF-8");
 	}
 }

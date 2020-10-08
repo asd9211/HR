@@ -747,10 +747,10 @@
 				alert('사원등록에 실패했습니다.');
 			}
 		}
-		function error(res){
+		function err(res){
 			alert(res);
 		}
-		var conf = new configuration('POST', data, "/emp/empRegist", success, error);
+		var conf = new configuration('POST', data, "/emp/empRegist", success);
 		ajax(conf); 
 			
 	}

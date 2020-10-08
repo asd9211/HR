@@ -14,9 +14,12 @@ public class EmployeeVO {
 	private String empNameEng ;         
 	private String empNameChi ;          
 	private String deptCode    ;          
+	private String deptName    ;          
 	private String phoneNumber    ;       
 	private String position  ;
+	private String positionName  ;
 	private String duty      ;
+	private String dutyName      ;
 	private String empStatus   ;
 	private String startDate   ;  
 	private String retireDate  ;          
@@ -25,33 +28,6 @@ public class EmployeeVO {
 	private String email        ;
 	private String realFileName;
 	private String changedFileName;
-	
-		
-	
-	public String getRealFileName() {
-		return realFileName;
-	}
-	public void setRealFileName(String realFileName) {
-		this.realFileName = realFileName;
-	}
-	public String getChangedFileName() {
-		return changedFileName;
-	}
-	public void setChangedFileName(String changedFileName) {
-		this.changedFileName = changedFileName;
-	}
-	public String getPosition() {
-		return position;
-	}
-	public void setPosition(String position) {
-		this.position = position;
-	}
-	public String getDuty() {
-		return duty;
-	}
-	public void setDuty(String duty) {
-		this.duty = duty;
-	}
 	public String getEmpCode() {
 		return empCode;
 	}
@@ -82,11 +58,41 @@ public class EmployeeVO {
 	public void setDeptCode(String deptCode) {
 		this.deptCode = deptCode;
 	}
+	public String getDeptName() {
+		return deptName;
+	}
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	public String getPosition() {
+		return position;
+	}
+	public void setPosition(String position) {
+		this.position = position;
+	}
+	public String getPositionName() {
+		return positionName;
+	}
+	public void setPositionName(String positionName) {
+		this.positionName = positionName;
+	}
+	public String getDuty() {
+		return duty;
+	}
+	public void setDuty(String duty) {
+		this.duty = duty;
+	}
+	public String getDutyName() {
+		return dutyName;
+	}
+	public void setDutyName(String dutyName) {
+		this.dutyName = dutyName;
 	}
 	public String getEmpStatus() {
 		return empStatus;
@@ -124,15 +130,26 @@ public class EmployeeVO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	public String getRealFileName() {
+		return realFileName;
+	}
+	public void setRealFileName(String realFileName) {
+		this.realFileName = realFileName;
+	}
+	public String getChangedFileName() {
+		return changedFileName;
+	}
+	public void setChangedFileName(String changedFileName) {
+		this.changedFileName = changedFileName;
+	}
 	@Override
 	public String toString() {
 		return "EmployeeVO [empCode=" + empCode + ", empNameKor=" + empNameKor + ", empNameEng=" + empNameEng
-				+ ", empNameChi=" + empNameChi + ", deptCode=" + deptCode + ", phoneNumber=" + phoneNumber
-				+ ", position=" + position + ", duty=" + duty + ", empStatus=" + empStatus + ", startDate=" + startDate
-				+ ", retireDate=" + retireDate + ", payGubun=" + payGubun + ", empType=" + empType + ", email=" + email
+				+ ", empNameChi=" + empNameChi + ", deptCode=" + deptCode + ", deptName=" + deptName + ", phoneNumber="
+				+ phoneNumber + ", position=" + position + ", positionName=" + positionName + ", duty=" + duty
+				+ ", dutyName=" + dutyName + ", empStatus=" + empStatus + ", startDate=" + startDate + ", retireDate="
+				+ retireDate + ", payGubun=" + payGubun + ", empType=" + empType + ", email=" + email
 				+ ", realFileName=" + realFileName + ", changedFileName=" + changedFileName + "]";
 	}
-	
 	
 }

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <div class="field empRgst" style="text-align: center;">
-	<label class="label">사원등록</label> <br>
+	<label class="label">사원조회</label> <br>
 </div>
 <div class="columns is-lefted">
 	<div class="column margn-l5">
@@ -26,8 +26,6 @@
 			<div class="control has-icons-left has-icons-right">
 				<input id="empCode" class="input is-success max15 max15" type="text"
 					placeholder="사번" maxlength="8" minlength="8">
-				<button class="button"  class="dobule-false" id="doubleCheck"
-					onclick="doubleCheck()">중복확인</button>
 			</div>
 		</div>
 
@@ -69,8 +67,6 @@
 					type="text" placeholder="부서" disabled>
 				<input id="deptCode" class="input is-success max15 max15"
 					type="hidden" placeholder="부서" disabled>
-				<button class="button modal-button" id="deptSearch" title="부서검색"
-					onclick="modalSearch(this)">검색</button>
 			</div>
 		</div>
 
@@ -90,10 +86,7 @@
 					placeholder="직위" disabled>
 				<input id="positionName" class="input is-success max15" type="text"
 					placeholder="직위" disabled>
-				<button class="button modal-button" id="pstionSearch" title="직위검색"
-					onclick="modalSearch(this)">검색</button>
 			</div>
-
 		</div>
 
 		<div class="field">
@@ -103,8 +96,6 @@
 					placeholder="직책" disabled>
 					<input id="dutyName" class="input is-success max15" type="text"
 					placeholder="직책" disabled>
-				<button class="button modal-button" id="dutySearch" title="직책검색"
-					onclick="modalSearch(this)">검색</button>
 			</div>
 		</div>
 		<div class="field">
@@ -123,7 +114,7 @@
 		<div class="field">
 			<label class="label">입사일</label>
 			<div class="control has-icons-left has-icons-right">
-				<input id="startDate" class="input is-success max15" type="date"
+				<input id="startDate" class="input is-success max15" type="text" disabled
 					placeholder="입사일">
 			</div>
 		</div>
@@ -132,7 +123,7 @@
 			<label class="label">급여구분</label>
 			<div class="control">
 				<div class="select is-primary min15">
-					<select class="min15" id="payGubun">
+					<select class="min15" id="payGubun" disabled>
 						<option value="001">연봉제</option>
 						<option value="002">월급제</option>
 						<option value="003">시급제</option>
@@ -145,7 +136,7 @@
 			<label class="label">사원구분</label>
 			<div class="control">
 				<div class="select is-primary min15">
-					<select class="min15" id = "empType">
+					<select class="min15" id = "empType" disabled>
 						<option value="001">사무직</option>
 						<option value="002">생산직</option>
 					</select>
@@ -154,10 +145,10 @@
 		</div>
 		<div class="field is-grouped mrgn-top5">
 			<div class="control">
-				<button class="button is-link" onclick="send()">등록</button>
+				<button class="button is-link" onclick="send()">수정</button>
 			</div>
 			<div class="control">
-				<button class="button is-link is-light">취소</button>
+				<button class="button is-link is-light">뒤로</button>
 			</div>
 		</div>
 	</div>
@@ -301,7 +292,65 @@
 		$(".school").hide();
 		$(".license").hide();
 		$(".career").hide();
+		
+		getAllInfo();
 	}
+	
+	function getAllInfo(){
+		
+		var getEmpInfo = function(res){
+			var checkList = 
+				['empCode'
+				,'empNameKor'
+				,'empNameEng'
+				,'empNameChi'
+				,'deptCode'
+				,'deptName'
+				,'phoneNumber'
+				,'position'
+				,'positionName'
+				,'duty'
+				,'dutyName'
+				,'startDate'
+				,'email'
+				, 'empStatus'
+				, 'payGubun'
+				, 'empType'];
+			var d = document;
+			
+			for(chk in checkList){
+				d.querySelector('#'+checkList[chk]).value = res.empInfo[checkList[chk]];		
+			}
+			if(res.empInfo.changedFileName){
+				getProfile(res.empInfo.changedFileName);
+			}
+		}
+		
+		var getProfile = function(changedFileName){
+			var layout = document.querySelector('.pic-rayout');
+			var img = document.createElement("img");
+			var cutIdx = changedFileName.lastIndexOf("\\") + 1 ;
+			var fileName = changedFileName.substring(cutIdx, changedFileName.length);
+			var filePath = "\\resources\\img\\";
+			var file = filePath + fileName;
+			img.setAttribute("src", file);
+			layout.innerHTML = '';
+			layout.appendChild(img);
+		}
+		
+		var getFamInfo = function(res){
+			
+		}
+		
+		var suc = function(res){
+			getEmpInfo(res);
+		}
+		
+		var conf = new configuration("GET", null, "/emp/employee?empCode=ab123123", suc, null);
+		ajax(conf);
+	}
+	
+	
 	
 	/******************************* Modal 관련 functions****************************/
 	

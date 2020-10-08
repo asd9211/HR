@@ -42,7 +42,8 @@
 								<li class="navbar-item" href="#">사원등록</li>
 								<li class="navbar-item" href="javascript:void(0)"
 									onclick="goPage(this)" id="infood/foodInfo">사원수정</li> 
-								<li class="navbar-item" href="#">사원조회</li>
+								<li class="navbar-item" href="javascript:void(0)" 
+									onclick="goPage(this)" id="emp/employeeView">사원조회</li>
 								<li class="navbar-item" href="#">조직도</li>
 							</div>
 						</div>
@@ -97,7 +98,7 @@
 							<div class="field is-grouped">
 								<p class="control">
 									<a class="bd-tw-button button" href="javascript:void(0)"
-										onclick="goPage(this)" id="user/join"> <span> 로그인
+										onclick="goPage(this)" id="goLogin"> <span> 로그인
 									</span>
 									</a>
 								</p>
@@ -116,6 +117,7 @@
 	</div>
 </body> 
 <script>
+
 
 </script>
 </html>
