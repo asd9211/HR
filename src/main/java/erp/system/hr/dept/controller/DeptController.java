@@ -32,5 +32,10 @@ public class DeptController {
 	public @ResponseBody List<DeptVO> getDept(@RequestParam String deptName) {
 		return ds.getDept(deptName);		
 	}
+	
+	@GetMapping("/getDeptByLevel")
+	public @ResponseBody List<DeptVO> getDeptByLevel(){
+		return ds.getDeptListByLevel();
+	}
 }
  

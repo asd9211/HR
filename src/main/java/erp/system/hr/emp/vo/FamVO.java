@@ -2,7 +2,7 @@ package erp.system.hr.emp.vo;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("famVO")
+
 public class FamVO {
 	private String empCode;
 	private String no;

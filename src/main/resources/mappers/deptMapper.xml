@@ -3,10 +3,24 @@
 <mapper namespace="erp.system.hr.dept.mapper.DeptMapper">
 	<select id="getDept" resultType="deptVO">
 		SELECT * FROM
-		DEPTMASTER where DEPT_NAME LIKE '%'||#{deptCode}||'%'
+		DEPTMASTER where
+		DEPT_NAME LIKE '%'||#{deptCode}||'%'
 	</select>
 	<select id="getDeptList" resultType="deptVO">
 		SELECT * FROM
 		DEPTMASTER
+	</select>
+	<select id="getDeptListByLevel" resultType="deptVO">
+		SELECT
+		dept_code,
+		dept_name,
+		parent_dept,
+		level
+		FROM
+		DEPTMASTER
+		START WITH
+		dept_code = 'D01000'
+		CONNECT BY
+		PRIOR dept_code = parent_dept
 	</select>
 </mapper>

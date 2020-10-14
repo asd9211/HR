@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <div class="field empRgst" style="text-align: center;">
-	<label class="label">사원등록</label> <br>
+	<label class="label">사원수정</label> <br>
 </div>
 <div class="columns is-lefted">
 	<div class="column margn-l5">
@@ -154,7 +154,7 @@
 		</div>
 		<div class="field is-grouped mrgn-top5">
 			<div class="control">
-				<button class="button is-link" onclick="send()">등록</button>
+				<button class="button is-link" onclick="send()">수정</button>
 			</div>
 			<div class="control">
 				<button class="button is-link is-light">취소</button>
@@ -289,9 +289,6 @@
 
 <script>
 	
-	/*
-	나중에 init function 으로 공통으로 다 담을 것
-	*/
 	window.onload = init();
 	
 	var copyList = [] ;
@@ -301,6 +298,117 @@
 		$(".school").hide();
 		$(".license").hide();
 		$(".career").hide();
+		getAllInfo();
+	}
+	
+	
+	function getAllInfo(){
+		var getEmpInfo = function(empInfo){
+			var checkList = 
+				['empCode'
+				,'empNameKor'
+				,'empNameEng'
+				,'empNameChi'
+				,'deptCode'
+				,'deptName'
+				,'phoneNumber'
+				,'position'
+				,'positionName'
+				,'duty'
+				,'dutyName'
+				,'startDate'
+				,'email'
+				, 'empStatus'
+				, 'payGubun'
+				, 'empType'];
+			var d = document;
+			
+			for(chk in checkList){
+				d.querySelector('#'+checkList[chk]).value = empInfo[checkList[chk]];		
+			}
+			if(empInfo.changedFileName){
+				getProfile(empInfo.changedFileName);
+			}
+		}
+		
+		var getProfile = function(changedFileName){
+			var layout = document.querySelector('.pic-rayout');
+			var img = document.createElement("img");
+			var cutIdx = changedFileName.lastIndexOf("\\") + 1 ;
+			var fileName = changedFileName.substring(cutIdx, changedFileName.length);
+			var filePath = "\\resources\\img\\";
+			var file = filePath + fileName;
+			img.setAttribute("src", file);
+			layout.innerHTML = '';
+			layout.appendChild(img);
+		}
+		
+		var getFamInfo = function(famInfo){
+			var d = document;
+			var colName = new lowColumn("no", "name", "birth", "relation");
+			var targetTable = new lowColumn("f-idx", "f-name", "f-birth", "f-rel");
+			var len = famInfo.length;
+			for(var i = 1; i <= len; i++){
+				d.querySelector("#" + targetTable.clm2 + i).value = famInfo[i-1][colName.clm2];
+				d.querySelector("#" + targetTable.clm3 + i).value = famInfo[i-1][colName.clm3];
+				d.querySelector("#" + targetTable.clm4 + i).value = famInfo[i-1][colName.clm4];
+				if(i != len)
+				d.querySelector("#f-low-add").click();
+			}
+		}
+		
+		var getSchInfo = function(schInfo){
+			var d = document;
+			var colName = new lowColumn("no", "name", "major", "period");
+			var targetTable = new lowColumn("s-idx", "s-name", "s-major", "s-period");
+			var len = schInfo.length;
+			for(var i = 1; i <= len; i++){
+				d.querySelector("#" + targetTable.clm2 + i).value = schInfo[i-1][colName.clm2];
+				d.querySelector("#" + targetTable.clm3 + i).value = schInfo[i-1][colName.clm3];
+				d.querySelector("#" + targetTable.clm4 + i).value = schInfo[i-1][colName.clm4];
+				if(i != len)
+				d.querySelector("#s-low-add").click();
+			}
+		}
+		
+		var getLicInfo = function(licInfo){
+			var d = document;
+			var colName = new lowColumn("no", "name", "issueDate", "agency");
+			var targetTable = new lowColumn("l-idx", "l-name", "l-issueDate", "l-agency");
+			var len = licInfo.length;
+			for(var i = 1; i <= len; i++){
+				d.querySelector("#" + targetTable.clm2 + i).value = licInfo[i-1][colName.clm2];
+				d.querySelector("#" + targetTable.clm3 + i).value = licInfo[i-1][colName.clm3];
+				d.querySelector("#" + targetTable.clm4 + i).value = licInfo[i-1][colName.clm4];
+				if(i != len)
+				d.querySelector("#l-low-add").click();
+			}
+		}
+		
+		var getCarInfo = function(carInfo){
+			var d = document;
+			var colName = new lowColumn("no", "name", "work", "period");
+			var targetTable = new lowColumn("c-idx", "c-name", "c-work", "c-period");
+			var len = carInfo.length;
+			for(var i = 1; i <= len; i++){
+				d.querySelector("#" + targetTable.clm2 + i).value = carInfo[i-1][colName.clm2];
+				d.querySelector("#" + targetTable.clm3 + i).value = carInfo[i-1][colName.clm3];
+				d.querySelector("#" + targetTable.clm4 + i).value = carInfo[i-1][colName.clm4];
+				if(i != len)
+				d.querySelector("#c-low-add").click();
+			}
+		}
+		
+		var suc = function(res){
+			getEmpInfo(res.empInfo);
+			getFamInfo(res.famInfo);
+			getSchInfo(res.schInfo);
+			getLicInfo(res.licInfo);
+			getCarInfo(res.carInfo);
+		}
+		
+		var conf = new configuration("GET", null, "/emp/employee?empCode=ab123123", suc, null);
+		ajax(conf);
 	}
 	
 	/******************************* Modal 관련 functions****************************/
@@ -750,7 +858,7 @@
 		function err(res){
 			alert(res);
 		}
-		var conf = new configuration('POST', data, "/emp/empRegist", success);
+		var conf = new configuration('PUT', data, "/emp/employee", success, err);
 		ajax(conf); 
 			
 	}

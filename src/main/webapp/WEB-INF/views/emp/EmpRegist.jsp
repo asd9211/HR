@@ -537,7 +537,6 @@
 			if(!res){
 				alert('이미 존재하는 사번입니다.');
 				doubleCheck.classList.add("double-false");
-				console.log(doubleCheck.classList);
 			}else{
 				alert('사용 가능한 사번입니다.');
 				console.log(doubleCheck.classList);
@@ -682,7 +681,7 @@
 		for(var chk in checkList){
 				var target = d.querySelector("#"+checkList[chk]);
 				empInfo[checkList[chk]] = target.value.trim();
-			}
+		}
 		empInfo.startDate = empInfo.startDate.replaceAll('-','');
 		empList.push(empInfo);
 		formData.append("empInfo", JSON.stringify(empList));
@@ -750,7 +749,7 @@
 		function error(res){
 			alert(res);
 		}
-		var conf = new configuration('POST', data, "/emp/empRegist", success, error);
+		var conf = new configuration('POST', data, "/emp/employee", success, error);
 		ajax(conf); 
 			
 	}

@@ -1,6 +1,7 @@
 package erp.system.hr.emp.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jdt.internal.compiler.batch.ClasspathDirectory;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,6 +19,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import erp.system.hr.emp.service.EmpService;
+import erp.system.hr.emp.vo.EmployeeVO;
 
 @Controller
 @RequestMapping("emp")
@@ -39,24 +42,41 @@ public class EmpController {
 		return true;   
 	}
 	
+	@GetMapping("/employees")
+	public @ResponseBody List<EmployeeVO> getEmployees(){
+		return es.getEmployees();
+	}
 	
 	@GetMapping("/employeeView") 
 	public String empEmployeeView(){
 		return "/views/emp/EmpInfo"; 
 	}
+	
+	@GetMapping("/empModifyView") 
+	public String empModifyView() {
+		return"/views/emp/EmpModify";
+	}
 
 	@GetMapping("/empRegistView") 
 	public String empRegistView(){
 		return "/views/emp/EmpRegist"; 
+	} 
+	
+	@GetMapping("/empOrganView")
+	public String empOrganView() {
+		return "/views/emp/EmpOrganization";
 	}
 
-	@PostMapping("/empRegist") 
+	@PostMapping("/employee") 
 	public @ResponseBody Boolean empRegist(MultipartHttpServletRequest req) throws IOException {
-		Boolean result = false;
-		result = es.empRegist(req);
-		
-		return result;
+		return es.empRegist(req);
 	}
+	
+	@PutMapping("/employee")
+	public @ResponseBody Boolean empModfiy(MultipartHttpServletRequest req) throws IOException {
+		return es.empModify(req);
+	}
+	
 	
 	 
 }

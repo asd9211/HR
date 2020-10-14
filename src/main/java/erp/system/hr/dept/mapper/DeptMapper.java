@@ -11,4 +11,6 @@ public interface DeptMapper {
 
 	public List<DeptVO> getDept(String deptName);
 	public List<DeptVO> getDeptList();
+	public List<DeptVO> getDeptListByLevel();
+	
 }

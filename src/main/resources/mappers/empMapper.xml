@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="erp.system.hr.emp.mapper.EmpMapper">
+	<select id="getEmployees" resultType="employeeVO">
+		SELECT * FROM EMPMASTER
+	</select>
 	<select id="getEmployee" resultType="employeeVO">
 SELECT
     emp_code,
@@ -27,7 +30,7 @@ SELECT
             c.group_type = 'POSITION'
             AND c.code = e.position
     ) position_name,
-    (
+    ( 
         SELECT
             code_name
         FROM
@@ -50,8 +53,7 @@ FROM
 WHERE
 	emp_code = #{empCode}
 	</select>
-
-	<select id="getFamInfo" resultType="famVO">
+	<select id="getFamInfo" resultType="FamVO">
 		SELECT
 		emp_code,
 		no,
@@ -140,7 +142,7 @@ WHERE
 		)
 	</insert>
 
-	<insert id="insertFamInfo" parameterType="famVO">
+	<insert id="insertFamInfo" parameterType="FamVO">
 		INSERT
 		INTO fam_info (
 		emp_code,
@@ -195,7 +197,6 @@ WHERE
 		)
 	</insert>
 	<insert id="insertCareerInfo" parameterType="CareerVO">
-
 		INSERT
 		INTO
 		career_info (
@@ -213,5 +214,41 @@ WHERE
 		#{period}
 		)
 	</insert>
-
+	<update id="updateEmployee" parameterType="employeeVO">
+		UPDATE EMPMASTER SET
+		emp_name_kor = #{empNameKor},
+		emp_name_eng = #{empNameEng},
+		emp_name_chi = #{empNameChi},
+		dept_code = #{deptCode},
+		phone_number = #{phoneNumber},
+		position = #{position},
+		duty =#{duty},
+		emp_status = #{empStatus},
+		start_date = #{startDate},
+		pay_gubun = #{payGubun},
+		emp_type = #{empType},
+		email = #{email}
+		<if test = "realFileName != null">
+			, real_file_name = #{realFileName:VARCHAR}
+		</if>
+		<if test = "changedFileName != null">
+			, changed_file_name = #{changedFileName:VARCHAR}
+		</if>
+		<where>
+			emp_code = #{empCode}
+		</where>
+	</update>
+	<delete id="deleteFamInfo" parameterType="FamVO">
+		DELETE FAM_INFO WHERE emp_code = #{empcode}
+	</delete>
+	<delete id="deleteSchInfo" parameterType="SchoolVO">
+		DELETE SCHOOL_INFO WHERE emp_code = #{empcode}
+	</delete>
+		<delete id="deleteLicInfo" parameterType="LicenseVO">
+		DELETE LICENSE_INFO WHERE emp_code = #{empcode}
+	</delete>
+		<delete id="deleteCarInfo" parameterType="CareerVO">
+		DELETE CAREER_INFO WHERE emp_code = #{empcode}
+	</delete>
+	
 </mapper>

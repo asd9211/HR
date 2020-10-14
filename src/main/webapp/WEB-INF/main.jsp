@@ -8,14 +8,17 @@
 <link href="/resources/bulma/css/bulma.css" rel="stylesheet"></link>
 <link href="/resources/web.css" rel="stylesheet"></link>
 
-<!-- jquery  -->
-<script src="https://code.jquery.com/jquery-3.4.1.js"
-	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-	crossorigin="anonymous"></script>
 <!--  common -->
 <script src="/resources/js/common.js"></script>
 
-</head>
+<!-- jquery & dynatree -->
+    <script src='/resources/js/jquery/jquery.js' type='text/javascript'></script>
+    <script src='/resources/js/jquery/jquery-ui.custom.js' type='text/javascript'></script>
+    <script src='/resources/js/jquery/jquery.cookie.js' type='text/javascript'></script>
+    <link rel='stylesheet' type='text/css' href='/resources/dynatree/ui.dynatree.css'>
+    <script src='/resources/js/jquery/jquery.dynatree.js' type='text/javascript'></script>
+
+</head> 
 <body>
 	<div id="jb-container">
 		<div id="jb-header">
@@ -41,10 +44,11 @@
 							<div class="navbar-dropdown is-boxed">
 								<li class="navbar-item" href="#">사원등록</li>
 								<li class="navbar-item" href="javascript:void(0)"
-									onclick="goPage(this)" id="infood/foodInfo">사원수정</li> 
+									onclick="goPage(this)" id="emp/empModifyView">사원수정</li> 
 								<li class="navbar-item" href="javascript:void(0)" 
 									onclick="goPage(this)" id="emp/employeeView">사원조회</li>
-								<li class="navbar-item" href="#">조직도</li>
+								<li class="navbar-item" id = "emp/empOrganView" href="javascript:void(0)"
+									onclick="goPage(this)">조직도</li>
 							</div>
 						</div>
 

@@ -12,6 +12,15 @@ public class DeptVO {
 	private String appointDate;
 	private String endDate;
 	private String bigo;
+	private String level;
+	
+	
+	public String getLevel() {
+		return level;
+	}
+	public void setLevel(String level) {
+		this.level = level;
+	}
 	public String getDeptCode() {
 		return deptCode;
 	}
@@ -51,7 +60,7 @@ public class DeptVO {
 	@Override
 	public String toString() {
 		return "DeptVO [deptCode=" + deptCode + ", deptName=" + deptName + ", parentDept=" + parentDept
-				+ ", appointDate=" + appointDate + ", endDate=" + endDate + ", bigo=" + bigo + "]";
+				+ ", appointDate=" + appointDate + ", endDate=" + endDate + ", bigo=" + bigo + ", level=" + level + "]";
 	}
 	
 	

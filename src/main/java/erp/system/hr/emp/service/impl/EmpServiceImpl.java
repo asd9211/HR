@@ -50,10 +50,9 @@ public class EmpServiceImpl implements EmpService {
 
 	@Override
 	public Boolean empRegist(MultipartHttpServletRequest req) throws IOException {
-		Boolean result;
 		Map<String, List<Map<String, String>>> allInfo = Converter.convertJsonToListInMap(req);
 		Optional<FileVO> profileVO = FileUploader.setProfile(req);
-		result  =  empFamillyRegist(allInfo.get("famInfo"))
+		Boolean result  =  empFamillyRegist(allInfo.get("famInfo"))
 				&& empSchoolRegist(allInfo.get("schInfo")) 
 				&& empCareerRegist(allInfo.get("carInfo"))
 				&& empLicenseRegist(allInfo.get("licInfo"))
@@ -61,7 +60,7 @@ public class EmpServiceImpl implements EmpService {
 
 		return result;
 	}
-
+	@Override
 	public Boolean empBaseInfoRegist(List<Map<String, String>> param, Optional<FileVO> profileVO) {
 		for (Map<String, String> empInfo : param) {
 			EmployeeVO evo = new EmployeeVO();
@@ -74,7 +73,6 @@ public class EmpServiceImpl implements EmpService {
 			if (em.insertEmployee(evo) != 1)
 				return false;
 		}
-
  		return true;
 	}
 
@@ -140,6 +138,74 @@ public class EmpServiceImpl implements EmpService {
 	public List<CareerVO> getCarInfo(String empCode) {
 		// TODO Auto-generated method stub
 		return em.getCarInfo(empCode);
+	}
+
+	@Override
+	public Boolean empModify(MultipartHttpServletRequest req) throws IOException {
+		Map<String, List<Map<String, String>>> allInfo = Converter.convertJsonToListInMap(req);
+		Optional<FileVO> profileVO = FileUploader.setProfile(req);
+		String empCode = allInfo.get("empInfo").get(0).get("empCode");
+		
+				deleteFamInfo(empCode);
+				deleteSchInfo(empCode);
+				deleteLicInfo(empCode);
+				deleteCarInfo(empCode);
+		
+		Boolean result  =  
+				empBaseInfoModify(allInfo.get("empInfo"), profileVO) 
+				&& empFamillyRegist(allInfo.get("famInfo"))
+				&& empSchoolRegist(allInfo.get("schInfo")) 
+				&& empCareerRegist(allInfo.get("carInfo"))
+				&& empLicenseRegist(allInfo.get("licInfo"));
+		
+		return result;
+	}
+	
+	@Override
+	public Boolean empBaseInfoModify(List<Map<String, String>> param, Optional<FileVO> profileVO) {
+		for (Map<String, String> empInfo : param) {
+			EmployeeVO evo = new EmployeeVO();
+			Converter.convertMapToVO(empInfo, evo);
+			profileVO.ifPresent(pvo -> {
+				evo.setRealFileName(pvo.getRealFileName());
+				evo.setChangedFileName(pvo.getChangedFileName());
+			});
+			
+			if (em.updateEmployee(evo) != 1)
+				return false;
+		}
+
+ 		return true;
+	}
+
+	@Override
+	public Integer deleteFamInfo(String empCode) {
+		// TODO Auto-generated method stub
+		return em.deleteFamInfo(empCode);
+	}
+
+	@Override
+	public Integer deleteSchInfo(String empCode) {
+		// TODO Auto-generated method stub
+		return em.deleteSchInfo(empCode);
+	}
+
+	@Override
+	public Integer deleteLicInfo(String empCode) {
+		// TODO Auto-generated method stub
+		return em.deleteLicInfo(empCode);
+	}
+
+	@Override
+	public Integer deleteCarInfo(String empCode) {
+		// TODO Auto-generated method stub
+		return em.deleteCarInfo(empCode);
+	}
+
+	@Override
+	public List<EmployeeVO> getEmployees() {
+		// TODO Auto-generated method stub
+		return em.getEmployees();
 	}
 
 }

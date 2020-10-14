@@ -10,14 +10,9 @@
 			<label class="label">Profile</label>
 			<div class="control has-icons-left has-icons-right"></div>
 		</div>
-		<div class="pic-rayout" onclick="fileInput()">
+		<div class="pic-rayout">
 			<p>사진</p>
 		</div>
-		<form id="uploadForm" enctype="multipart/form-data">
-			<input type="file" id="real-input" class="image_inputType_file"
-				accept="img/*" required hidden
-				onchange="setThumbnail(event);" />
-		</form>
 	</div>
 	<div class="column">
 
@@ -180,9 +175,9 @@
 			<tr>
 				<td><button id="f-low-add" name="f-low-1" class="button" onclick = "addLow(this)">추가</button></td>
 				<td  id= "f-idx1">1</td>
-				<td><input type="text" class="input" id="f-name1"></td>
-				<td><input type="text" class="input" id="f-birth1"></td>
-				<td><input type="text" class="input" id="f-rel1"></td>
+				<td><input type="text" class="input" id="f-name1" disabled></td>
+				<td><input type="text" class="input" id="f-birth1" disabled></td>
+				<td><input type="text" class="input" id="f-rel1" disabled></td>
 			</tr>
 		</tbody>
 	</table>
@@ -279,26 +274,19 @@
 </div>
 
 <script>
-	
-	/*
-	나중에 init function 으로 공통으로 다 담을 것
-	*/
 	window.onload = init();
-	
-	var copyList = [] ;
 	
 	function init(){
 		$(".family").hide();
 		$(".school").hide();
 		$(".license").hide();
 		$(".career").hide();
-		
 		getAllInfo();
 	}
 	
 	function getAllInfo(){
 		
-		var getEmpInfo = function(res){
+		var getEmpInfo = function(empInfo){
 			var checkList = 
 				['empCode'
 				,'empNameKor'
@@ -319,10 +307,10 @@
 			var d = document;
 			
 			for(chk in checkList){
-				d.querySelector('#'+checkList[chk]).value = res.empInfo[checkList[chk]];		
+				d.querySelector('#'+checkList[chk]).value = empInfo[checkList[chk]];		
 			}
-			if(res.empInfo.changedFileName){
-				getProfile(res.empInfo.changedFileName);
+			if(empInfo.changedFileName){
+				getProfile(empInfo.changedFileName);
 			}
 		}
 		
@@ -338,12 +326,68 @@
 			layout.appendChild(img);
 		}
 		
-		var getFamInfo = function(res){
-			
+		var getFamInfo = function(famInfo){
+			var d = document;
+			var colName = new lowColumn("no", "name", "birth", "relation");
+			var targetTable = new lowColumn("f-idx", "f-name", "f-birth", "f-rel");
+			var len = famInfo.length;
+			for(var i = 1; i <= len; i++){
+				d.querySelector("#" + targetTable.clm2 + i).value = famInfo[i-1][colName.clm2];
+				d.querySelector("#" + targetTable.clm3 + i).value = famInfo[i-1][colName.clm3];
+				d.querySelector("#" + targetTable.clm4 + i).value = famInfo[i-1][colName.clm4];
+				if(i != len)
+				d.querySelector("#f-low-add").click();
+			}
+		}
+		
+		var getSchInfo = function(schInfo){
+			var d = document;
+			var colName = new lowColumn("no", "name", "major", "period");
+			var targetTable = new lowColumn("s-idx", "s-name", "s-major", "s-period");
+			var len = schInfo.length;
+			for(var i = 1; i <= len; i++){
+				d.querySelector("#" + targetTable.clm2 + i).value = schInfo[i-1][colName.clm2];
+				d.querySelector("#" + targetTable.clm3 + i).value = schInfo[i-1][colName.clm3];
+				d.querySelector("#" + targetTable.clm4 + i).value = schInfo[i-1][colName.clm4];
+				if(i != len)
+				d.querySelector("#s-low-add").click();
+			}
+		}
+		
+		var getLicInfo = function(licInfo){
+			var d = document;
+			var colName = new lowColumn("no", "name", "issueDate", "agency");
+			var targetTable = new lowColumn("l-idx", "l-name", "l-issueDate", "l-agency");
+			var len = licInfo.length;
+			for(var i = 1; i <= len; i++){
+				d.querySelector("#" + targetTable.clm2 + i).value = licInfo[i-1][colName.clm2];
+				d.querySelector("#" + targetTable.clm3 + i).value = licInfo[i-1][colName.clm3];
+				d.querySelector("#" + targetTable.clm4 + i).value = licInfo[i-1][colName.clm4];
+				if(i != len)
+				d.querySelector("#l-low-add").click();
+			}
+		}
+		
+		var getCarInfo = function(carInfo){
+			var d = document;
+			var colName = new lowColumn("no", "name", "work", "period");
+			var targetTable = new lowColumn("c-idx", "c-name", "c-work", "c-period");
+			var len = carInfo.length;
+			for(var i = 1; i <= len; i++){
+				d.querySelector("#" + targetTable.clm2 + i).value = carInfo[i-1][colName.clm2];
+				d.querySelector("#" + targetTable.clm3 + i).value = carInfo[i-1][colName.clm3];
+				d.querySelector("#" + targetTable.clm4 + i).value = carInfo[i-1][colName.clm4];
+				if(i != len)
+				d.querySelector("#c-low-add").click();
+			}
 		}
 		
 		var suc = function(res){
-			getEmpInfo(res);
+			getEmpInfo(res.empInfo);
+			getFamInfo(res.famInfo);
+			getSchInfo(res.schInfo);
+			getLicInfo(res.licInfo);
+			getCarInfo(res.carInfo);
 		}
 		
 		var conf = new configuration("GET", null, "/emp/employee?empCode=ab123123", suc, null);
@@ -351,252 +395,6 @@
 	}
 	
 	
-	
-	/******************************* Modal 관련 functions****************************/
-	
-	/*
-		Modal 공통 ajax방식 List조회 function 
-	*/
-	function modalSearch(ele) {
-		var title = ele.title;
-		var html = document.querySelector("html");
-		var modal = document.querySelector(".modal");
-		var titleTarget = document.querySelector(".modal-card-title");
-		
-		titleTarget.innerText = title;
-		
-		html.classList.add("is-clipped");
-		modal.classList.add("is-active");
-		
-		if(title == '부서검색'){
-			var suc = function(rs){
-				modal.setAttribute("target", "dept");
-				copyList = rs;
-				pagination();
-			};
-			var conf = new configuration("GET", null, "/dept/getDepts", suc, null);
-		
-		}else if(title == '직위검색'){
-			var suc = function(rs){
-				modal.setAttribute("target", "position");
-				copyList = rs;
-				pagination();
-			}
-			var conf = new configuration("GET", null, "/base/getCodeInfoList?groupType=POSITION", suc, null);
-		
-		}else if(title = '직책검색'){
-			var suc = function(rs){
-				modal.setAttribute("target", "duty");
-				copyList = rs;
-				pagination();
-			}
-			var conf = new configuration("GET", null, "/base/getCodeInfoList?groupType=DUTY", suc, null);
-		}
-		
-		ajax(conf);
-	}
-
-	function modalClose() {
-		$("html").removeClass("is-clipped");
-		$(".modal").removeClass("is-active");
-	}
-	
-	/*
-		Modal에서 코드 선택시 해당 코드 input box에 적용시키는 function
-	*/
-	
-	function apply(target, ele){ 
-		var d = document;
-		
-		if(target == 'dept'){
-			d.querySelector('#deptCode').value = ele.children[0].innerText;
-			d.querySelector("#deptName").value = ele.children[1].innerText;
-		}else if (target == 'duty'){
-			d.querySelector('#dutyName').value = ele.children[2].innerText;
-			d.querySelector('#duty').value = ele.children[1].innerText;
-		}else if (target == 'position'){
-			d.querySelector("#positionName").value = ele.children[2].innerText;
-			d.querySelector("#position").value = ele.children[1].innerText;
-		}
-		modalClose();
-	}
-	
-	function searchDept(){
-		var target = document.querySelector('#targetDept').value;
-		
-		var suc = function(rs){
-			copyList = rs;
-			pagination();
-		}
-		var conf = new configuration("GET", null, "/dept/getDept?deptName=" + target, suc, null);
-		ajax(conf);
-	}
-	
-	/*
-		Modal List pagination 공통 function
-	*/
-	function pagination(nowNum){
-		var nNum = !nowNum||nowNum<=1?1:nowNum;
-		var lNum = nNum*10; 
-		var sNum = lNum-9; 
-		var len = copyList.length;
-		var realEnd = len/10; 
-		if(lNum >= len) lNum = len;
-		var lbtn = len/10; 
-		var sbtn = Math.floor((nNum-1)/10) * 10 + 1;
-		drawList(sNum, lNum, nNum, sbtn, lbtn);
-	}
-		
-	/*
-		Modal List출력 공통 function
-	*/
-	function drawList(sNum, lNum, nNum, sbtn, lbtn){
-		var target = document.querySelector(".modal").getAttribute("target");
-		var d = document;
-		
-		if(target == 'dept'){
-		
-			var columns = new lowColumn("부서코드", "부서명", "상위부서", "부서생성일");
-			var colList = new lowColumn("deptCode", "deptName", "parentDept", "appointDate");
-		
-		}else if(target == 'position'){
-			
-			var columns = new lowColumn("그룹타입", "직위코드", "직위명");
-			var colList = new lowColumn("groupType", "code", "codeName");
-		
-		}else if(target == 'duty'){
-			
-			var columns = new lowColumn("그룹타입", "직책코드", "직책명");
-			var colList = new lowColumn("groupType", "code", "codeName");
-		}
-		
-		var pHTML = "";
-		var HTML = "<input type='text' class='input max15' id= 'targetDept'><button class='button' onclick = 'searchDept()'>검색</button>";
-		HTML = HTML + "<table class='table is-hoverable is-fullwidth' id= 'modalDataTable'>";
-		HTML = HTML + 	"<tr>";
-		HTML = HTML + 		"<th>"+columns.clm1+"</th>";
-		HTML = HTML + 		"<th>"+columns.clm2+"</th>";
-		HTML = HTML + 		"<th>"+columns.clm3+"</th>";
-		if(colList.clm4){
-			HTML = HTML + 	"<th>"+columns.clm4+"</th>";
-		}
-		HTML = HTML + 	"</tr>";
-		
-		for(var i = sNum-1; i < lNum ; i++){
-			
-			HTML = HTML + 	"<tr onclick = \"apply('"+target+"', this)\">";
-			HTML = HTML + 		"<td>"+copyList[i][colList.clm1]+"</td>";
-			HTML = HTML + 		"<td>"+copyList[i][colList.clm2]+"</td>";
-			HTML = HTML + 		"<td>"+copyList[i][colList.clm3]+"</td>";
-			if(colList.clm4){
-				HTML = HTML + 	"<td>"+copyList[i][colList.clm4]+"</td>";
-			}
-			HTML = HTML + 	"</tr>";
-		}
-		HTML = HTML + "</table>";
-		
-		if(sbtn >10){
-			pHTML += "<a onclick = 'pagination("+ (sbtn-1) +")' class='pagination-previous'>prev</a>";
-		}
-		
-		pHTML += "<ul class='pagination-list'>";
-		for(var i = sbtn; i <= lbtn; i++){
-			if(i%10==0) {
-				pHTML += "<li><a class= 'pagination-link' onclick = 'pagination("+i+")'>" + i + "</a></li>";	
-				pHTML += "<a onclick = 'pagination("+(i+1)+")' class='pagination-next'>next</a>";	
-				break;
-			}
-			pHTML += "<li><a class= 'pagination-link' onclick = 'pagination("+i+")'>" + i + "</a></li>";	
-		}
-
-		var pagin = document.querySelector("#pagin");
-		var body = document.querySelector(".modal-card-body");
-		
-		body.innerHTML = HTML;
-		pagin.innerHTML = pHTML;
-	}
-	
-	/******************************* Profile 사전 관련 functions****************************/
-	
-	
-	function fileInput() {
-		document.querySelector('#real-input').click();
-	}
-
-	function setThumbnail(event) {
-		var reader = new FileReader();
-		var file = event.target.files[0];
-		reader.onload = function(event) {
-			if (!event.target.result.startsWith("data:image")) {
-				alert('이미지파일이 아닙니다.');
-				return;
-			}
-			
-			var imgDate = event.target.result;
-			var layout = document.querySelector('.pic-rayout');
-			var img = document.createElement("img");
-			
-			img.setAttribute("src", event.target.result);
-			layout.innerHTML = '';
-			layout.appendChild(img);
-		};
-		reader.readAsDataURL(file);
-	}
-	
-	/******************************* validatin function****************************/
-	
-	
-		function validation(checkList, checkListName){
-		var doubleCheck = document.querySelector('#doubleCheck');
-		var doubleChkCls = doubleCheck.className.split(" ");
-		
-		for(var cls in doubleChkCls){
-			
-			if(doubleChkCls[cls] == 'double-false'){
-				alert('사번 중복확인을 먼저 해주세요.');
-				return false;
-			}
-		}
-		
-		
-		for(var chk in checkList){
-			var chkName = "#"+checkList[chk];
-			var target = document.querySelector(chkName); 
-			var value = target.value.trim();
-			var minlength = target.getAttribute("minlength");
-			
-			if(value == ''){
-				alert(checkListName[chk] + '의 값을 입력해주세요.');
-				return false;
-			}
-			
-			if(value.length < minlength){
-				alert(checkList[chk] + '의 최소 길이는 ' + minlength + '자리 입니다');
-				return false;
-			}
-		}
-		
-	}
-	
-	function doubleCheck(){
-		var empCode = document.querySelector('#empCode').value
-		var doubleCheck = document.querySelector('#doubleCheck');
-		
-		var success = function(res){
-			if(!res){
-				alert('이미 존재하는 사번입니다.');
-				doubleCheck.classList.add("double-false");
-				console.log(doubleCheck.classList);
-			}else{
-				alert('사용 가능한 사번입니다.');
-				console.log(doubleCheck.classList);
-				doubleCheck.classList.remove("double-false");
-			}
-		}
-		
-		var conf = new configuration('GET', null, "/emp/doubleCheck?empCode=" + empCode, success);
-		ajax(conf);
-	}
 	
 	
 	
@@ -684,124 +482,6 @@
 		
 		setName = target + "-low-" + nextIdx;
 		d.querySelector(targetId).setAttribute("name", setName);
-	}
-	
-	/*
-		empRegist 등록 function
-	*/
-	function send(){
-		var data = {};
-		var empList = [];
-		var empInfo = {};
-		var d = document;
-		var formData = new FormData();
-		
-		var checkList = 
-			['empCode'
-			,'empNameKor'
-			,'empNameEng'
-			,'empNameChi'
-			,'deptCode'
-			,'phoneNumber'
-			,'position'
-			,'duty'
-			,'startDate'
-			,'email'
-			, 'empStatus'
-			, 'payGubun'
-			, 'empType'];
-		
-		var checkListName = 
-			['사번'
-			,'이름(한글)'
-			,'이름(영어)'
-			,'이름(한자)'
-			,'부서'
-			,'휴대폰번호'
-			,'직위'
-			,'직책'
-			,'입사일'
-			,'이메일'
-			, '재직상태'
-			, '급여구분'
-			, '사원구분'];
-		
-		if(validation(checkList, checkListName)==false) return;
-		
-		for(var chk in checkList){
-				var target = d.querySelector("#"+checkList[chk]);
-				empInfo[checkList[chk]] = target.value.trim();
-			}
-		empInfo.startDate = empInfo.startDate.replaceAll('-','');
-		empList.push(empInfo);
-		formData.append("empInfo", JSON.stringify(empList));
-		
-		/*
-		add on info 담기
-		*/
-		
-		var targetList = ['familly', 'school', 'license', 'career'];
-			
-		for(var num in targetList){
-				var objList = [];
-				var target = targetList[num];
-				
-				if(target== 'familly'){
-					var colName = new lowColumn("no", "name", "birth", "relation");
-					var targetTable = new lowColumn("f-idx", "f-name", "f-birth", "f-rel");
-					var len = d.querySelector(".f-body").children.length;
-					var objName = 'famInfo';
-				}else if(target == 'school'){
-					var colName = new lowColumn("no", "name", "major", "period");
-					var targetTable = new lowColumn("s-idx", "s-name", "s-major", "s-period");
-					var len = d.querySelector(".s-body").children.length;
-					var objName = 'schInfo';
-				}else if(target == 'license'){
-					var colName = new lowColumn("no", "name", "issueDate", "agency");
-					var targetTable = new lowColumn("l-idx", "l-name", "l-issueDate", "l-agency");
-					var len = d.querySelector(".l-body").children.length;
-					var objName = 'licInfo';
-				}else if(target == 'career'){
-					var colName = new lowColumn("no", "name", "work", "period");
-					var targetTable = new lowColumn("c-idx", "c-name", "c-work", "c-period");
-					var len = d.querySelector(".c-body").children.length;
-					var objName = 'carInfo';
-				}
-				for(var i = 1 ; i <= len; i ++){
-					var objInfo = {};
-					objInfo["empCode"] = empInfo.empCode;
-					objInfo[colName.clm1] = d.querySelector("#"+targetTable.clm1+i).innerText;
-					objInfo[colName.clm2] = d.querySelector("#"+targetTable.clm2+i).value;
-					objInfo[colName.clm3] = d.querySelector("#"+targetTable.clm3+i).value;
-					objInfo[colName.clm4] = d.querySelector("#"+targetTable.clm4+i).value;
-					if(objInfo[colName.clm2] == '' && objInfo[colName.clm3] == '' && objInfo[colName.clm4] == ''){
-						continue;
-					}
-					objList[i-1] = objInfo; 
-				}
-				formData.append(objName, JSON.stringify(objList));
-		}
-
-		var file = document.querySelector("#uploadForm")[0].files[0];
-		if(file){
-			formData.append("file", file);
-		}
-		data = formData;
-		
-		function success(res){
-			if(res){
-				alert('사원등록에 성공하였습니다.');
-				//location.href = "/main";
-			}else{
-				alert('사원등록에 실패했습니다.');
-			}
-		}
-		function error(res){
-			alert(res);
-		}
-		var conf = new configuration('POST', data, "/emp/empRegist", success, error);
-		ajax(conf); 
-			
 	}
 	
 	
