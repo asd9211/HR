@@ -12,13 +12,17 @@
 <script src="/resources/js/common.js"></script>
 
 <!-- jquery & dynatree -->
-    <script src='/resources/js/jquery/jquery.js' type='text/javascript'></script>
-    <script src='/resources/js/jquery/jquery-ui.custom.js' type='text/javascript'></script>
-    <script src='/resources/js/jquery/jquery.cookie.js' type='text/javascript'></script>
-    <link rel='stylesheet' type='text/css' href='/resources/dynatree/ui.dynatree.css'>
-    <script src='/resources/js/jquery/jquery.dynatree.js' type='text/javascript'></script>
+<script src='/resources/js/jquery/jquery.js' type='text/javascript'></script>
+<script src='/resources/js/jquery/jquery-ui.custom.js'
+	type='text/javascript'></script>
+<script src='/resources/js/jquery/jquery.cookie.js'
+	type='text/javascript'></script>
+<link rel='stylesheet' type='text/css'
+	href='/resources/dynatree/ui.dynatree.css'>
+<script src='/resources/js/jquery/jquery.dynatree.js'
+	type='text/javascript'></script>
 
-</head> 
+</head>
 <body>
 	<div id="jb-container">
 		<div id="jb-header">
@@ -44,14 +48,23 @@
 							<div class="navbar-dropdown is-boxed">
 								<li class="navbar-item" href="#">사원등록</li>
 								<li class="navbar-item" href="javascript:void(0)"
-									onclick="goPage(this)" id="emp/empModifyView">사원수정</li> 
-								<li class="navbar-item" href="javascript:void(0)" 
+									onclick="goPage(this)" id="emp/empModifyView">사원수정</li>
+								<li class="navbar-item" href="javascript:void(0)"
 									onclick="goPage(this)" id="emp/employeeView">사원조회</li>
-								<li class="navbar-item" id = "emp/empOrganView" href="javascript:void(0)"
-									onclick="goPage(this)">조직도</li>
+								<li class="navbar-item" id="emp/empOrganView"
+									href="javascript:void(0)" onclick="goPage(this)">조직도</li>
 							</div>
 						</div>
-
+						<div class="navbar-item has-dropdown is-hoverable">
+							<a class="navbar-link" href="/documentation/overview/start/">부서관리
+							</a>
+							<div class="navbar-dropdown is-boxed">
+								<li class="navbar-item" href="#" id="dept/deptRegist"
+									onclick="goPage(this)">부서등록</li>
+								<li class="navbar-item" href="javascript:void(0)"
+									onclick="goPage(this)" id="infood/foodInfo">부서변경</li>
+							</div>
+						</div>
 						<div class="navbar-item has-dropdown is-hoverable">
 							<a class="navbar-link" href="/documentation/overview/start/">인사발령
 							</a>
@@ -65,17 +78,6 @@
 
 						<div class="navbar-item has-dropdown is-hoverable">
 							<a class="navbar-link" href="/documentation/overview/start/">근태관리
-							</a>
-							<div class="navbar-dropdown is-boxed">
-								<li class="navbar-item" href="#">In Body</li>
-								<li class="navbar-item" href="javascript:void(0)"
-									onclick="goPage(this)" id="infood/foodInfo">In Food</li> <a
-									class="navbar-item" href="#">In Day </a>
-							</div>
-						</div>
-
-						<div class="navbar-item has-dropdown is-hoverable">
-							<a class="navbar-link" href="/documentation/overview/start/">휴가관리
 							</a>
 							<div class="navbar-dropdown is-boxed">
 								<li class="navbar-item" href="#">In Body</li>
@@ -102,8 +104,7 @@
 							<div class="field is-grouped">
 								<p class="control">
 									<a class="bd-tw-button button" href="javascript:void(0)"
-										onclick="goPage(this)" id="goLogin"> <span> 로그인
-									</span>
+										onclick="goPage(this)" id="goLogin"> <span> 로그인 </span>
 									</a>
 								</p>
 							</div>
@@ -116,12 +117,11 @@
 			<jsp:include page="/WEB-INF/views/emp/EmpRegist.jsp"></jsp:include>
 		</div>
 		<div id="jb-footer">
-			<p>Copyright</p> 
+			<p>Copyright</p>
 		</div>
 	</div>
-</body> 
+</body>
 <script>
-
-
+	
 </script>
 </html>

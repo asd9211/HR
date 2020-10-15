@@ -37,6 +37,13 @@
 		xhr.send(conf.data);
 	}
 	
-	function goPage(ele){
+	function goPage(ele, param){
 		$("#jb-content").load(ele.id);
+		
+		if(param){
+			var key = param.key;
+			var value = param.value;
+			console.log(value);
+			document.querySelector("#" + key).value = value;
+		}
 	}

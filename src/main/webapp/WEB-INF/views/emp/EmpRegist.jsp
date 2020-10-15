@@ -501,28 +501,28 @@
 		var doubleCheck = document.querySelector('#doubleCheck');
 		var doubleChkCls = doubleCheck.className.split(" ");
 		
-		for(var cls in doubleChkCls){
+		for(var idx in doubleChkCls){
 			
-			if(doubleChkCls[cls] == 'double-false'){
+			if(doubleChkCls[idx] == 'double-false'){
 				alert('사번 중복확인을 먼저 해주세요.');
 				return false;
 			}
 		}
 		
 		
-		for(var chk in checkList){
-			var chkName = "#"+checkList[chk];
+		for(var idx in checkList){
+			var chkName = "#"+checkList[idx];
 			var target = document.querySelector(chkName); 
 			var value = target.value.trim();
 			var minlength = target.getAttribute("minlength");
 			
 			if(value == ''){
-				alert(checkListName[chk] + '의 값을 입력해주세요.');
+				alert(checkListName[idx] + '의 값을 입력해주세요.');
 				return false;
 			}
 			
 			if(value.length < minlength){
-				alert(checkList[chk] + '의 최소 길이는 ' + minlength + '자리 입니다');
+				alert(checkList[idx] + '의 최소 길이는 ' + minlength + '자리 입니다');
 				return false;
 			}
 		}
@@ -560,8 +560,8 @@
 		var chk;
 		var element = $("#"+ele.id);
 		
-		for(var cls in classList){
-			if(classList[cls] == "show"){
+		for(var idx in classList){
+			if(classList[idx] == "show"){
 				chk = true;
 			}
 		}
@@ -678,9 +678,9 @@
 		
 		if(validation(checkList, checkListName)==false) return;
 		
-		for(var chk in checkList){
-				var target = d.querySelector("#"+checkList[chk]);
-				empInfo[checkList[chk]] = target.value.trim();
+		for(var idx in checkList){
+				var target = d.querySelector("#"+checkList[idx]);
+				empInfo[checkList[idx]] = target.value.trim();
 		}
 		empInfo.startDate = empInfo.startDate.replaceAll('-','');
 		empList.push(empInfo);
@@ -692,9 +692,9 @@
 		
 		var targetList = ['familly', 'school', 'license', 'career'];
 			
-		for(var num in targetList){
+		for(var idx in targetList){
 				var objList = [];
-				var target = targetList[num];
+				var target = targetList[idx];
 				
 				if(target== 'familly'){
 					var colName = new lowColumn("no", "name", "birth", "relation");
@@ -733,9 +733,11 @@
 		}
 
 		var file = document.querySelector("#uploadForm")[0].files[0];
+		
 		if(file){
 			formData.append("file", file);
 		}
+		
 		data = formData;
 		
 		function success(res){
@@ -746,10 +748,8 @@
 				alert('사원등록에 실패했습니다.');
 			}
 		}
-		function error(res){
-			alert(res);
-		}
-		var conf = new configuration('POST', data, "/emp/employee", success, error);
+		
+		var conf = new configuration('POST', data, "/emp/employee", success);
 		ajax(conf); 
 			
 	}

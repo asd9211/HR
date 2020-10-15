@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 
 import erp.system.hr.emp.mapper.EmpMapper;
 import erp.system.hr.emp.service.EmpService;
@@ -29,7 +27,13 @@ import erp.system.hr.util.vo.FileVO;
 @Transactional
 public class EmpServiceImpl implements EmpService {
 	private final EmpMapper em;
-
+	private static final String EMP_INFO = "empInfo";
+	private static final String FAM_INFO = "famINfo";
+	private static final String SCH_INFO = "schINfo";
+	private static final String CAR_INFO = "carINfo";
+	private static final String LIC_INFO = "licINfo"; 
+	
+	
 	@Autowired
 	public EmpServiceImpl(EmpMapper em) {
 		this.em = em;
@@ -39,11 +43,11 @@ public class EmpServiceImpl implements EmpService {
 	public Map<String, Object> getEmployee(String empCode) {
 		Map<String, Object> allInfo = new HashMap();
 		
-		allInfo.put("empInfo", em.getEmployee(empCode));
-		allInfo.put("famInfo", em.getFamInfo(empCode));
-		allInfo.put("schInfo", em.getSchInfo(empCode));
-		allInfo.put("carInfo", em.getCarInfo(empCode));
-		allInfo.put("licInfo", em.getLicInfo(empCode));
+		allInfo.put(EMP_INFO, em.getEmployee(empCode));
+		getFamInfo(empCode).ifPresent(famInfo -> allInfo.put(FAM_INFO, famInfo));
+		getSchInfo(empCode).ifPresent(schInfo -> allInfo.put(SCH_INFO, schInfo));
+		getCarInfo(empCode).ifPresent(carInfo -> allInfo.put(CAR_INFO, carInfo));
+		getLicInfo(empCode).ifPresent(licInfo -> allInfo.put(LIC_INFO, licInfo));
 		
 		return allInfo;
 	}
@@ -52,14 +56,14 @@ public class EmpServiceImpl implements EmpService {
 	public Boolean empRegist(MultipartHttpServletRequest req) throws IOException {
 		Map<String, List<Map<String, String>>> allInfo = Converter.convertJsonToListInMap(req);
 		Optional<FileVO> profileVO = FileUploader.setProfile(req);
-		Boolean result  =  empFamillyRegist(allInfo.get("famInfo"))
-				&& empSchoolRegist(allInfo.get("schInfo")) 
-				&& empCareerRegist(allInfo.get("carInfo"))
-				&& empLicenseRegist(allInfo.get("licInfo"))
-				&& empBaseInfoRegist(allInfo.get("empInfo"), profileVO);
 
-		return result;
+		return empFamillyRegist(allInfo.get(FAM_INFO))
+				&& empSchoolRegist(allInfo.get(SCH_INFO)) 
+				&& empCareerRegist(allInfo.get(CAR_INFO))
+				&& empLicenseRegist(allInfo.get(LIC_INFO))
+				&& empBaseInfoRegist(allInfo.get(EMP_INFO), profileVO);
 	}
+	
 	@Override
 	public Boolean empBaseInfoRegist(List<Map<String, String>> param, Optional<FileVO> profileVO) {
 		for (Map<String, String> empInfo : param) {
@@ -117,27 +121,27 @@ public class EmpServiceImpl implements EmpService {
 	}
 
 	@Override
-	public List<FamVO> getFamInfo(String empCode) {
+	public Optional<List<FamVO>> getFamInfo(String empCode) {
 		// TODO Auto-generated method stub
-		return em.getFamInfo(empCode);
+		return Optional.of(em.getFamInfo(empCode));
 	}
 
 	@Override
-	public List<SchoolVO> getSchInfo(String empCode) {
+	public Optional<List<SchoolVO>> getSchInfo(String empCode) {
 		// TODO Auto-generated method stub
-		return em.getSchInfo(empCode);
+		return Optional.of(em.getSchInfo(empCode));
 	}
 
 	@Override
-	public List<LicenseVO> getLicInfo(String empCode) {
+	public Optional<List<LicenseVO>> getLicInfo(String empCode) {
 		// TODO Auto-generated method stub
-		return em.getLicInfo(empCode);
+		return Optional.of(em.getLicInfo(empCode));
 	}
 
 	@Override
-	public List<CareerVO> getCarInfo(String empCode) {
+	public Optional<List<CareerVO>> getCarInfo(String empCode) {
 		// TODO Auto-generated method stub
-		return em.getCarInfo(empCode);
+		return Optional.of(em.getCarInfo(empCode));
 	}
 
 	@Override
@@ -174,7 +178,6 @@ public class EmpServiceImpl implements EmpService {
 			if (em.updateEmployee(evo) != 1)
 				return false;
 		}
-
  		return true;
 	}
 

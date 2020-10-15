@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+	<%
+	HttpServletRequest req = request;
+	String empCode = req.getParameter("empCode");
+	%>
+	
 <div class="field empRgst" style="text-align: center;">
 	<label class="label">사원수정</label> <br>
 </div>
@@ -25,7 +30,7 @@
 			<label class="label">사번</label>
 			<div class="control has-icons-left has-icons-right">
 				<input id="empCode" class="input is-success max15 max15" type="text"
-					placeholder="사번" maxlength="8" minlength="8">
+					placeholder="사번" maxlength="8" minlength="8" disabled>
 				<button class="button"  class="dobule-false" id="doubleCheck"
 					onclick="doubleCheck()">중복확인</button>
 			</div>
@@ -286,7 +291,6 @@
 		</footer>
 	</div>
 </div>
-
 <script>
 	
 	window.onload = init();
@@ -323,8 +327,8 @@
 				, 'empType'];
 			var d = document;
 			
-			for(chk in checkList){
-				d.querySelector('#'+checkList[chk]).value = empInfo[checkList[chk]];		
+			for(idx in checkList){
+				d.querySelector('#'+checkList[idx]).value = empInfo[checkList[idx]];		
 			}
 			if(empInfo.changedFileName){
 				getProfile(empInfo.changedFileName);
@@ -399,15 +403,18 @@
 			}
 		}
 		
-		var suc = function(res){
+		var success = function(res){
 			getEmpInfo(res.empInfo);
 			getFamInfo(res.famInfo);
 			getSchInfo(res.schInfo);
 			getLicInfo(res.licInfo);
 			getCarInfo(res.carInfo);
 		}
-		
-		var conf = new configuration("GET", null, "/emp/employee?empCode=ab123123", suc, null);
+
+		var url = "emp/employee";
+		var param = "?empCode=" + <%=empCode%>;
+		var url = url + param;
+		var conf = new configuration("GET", null, url , success, null);
 		ajax(conf);
 	}
 	
@@ -433,7 +440,7 @@
 				copyList = rs;
 				pagination();
 			};
-			var conf = new configuration("GET", null, "/dept/getDepts", suc, null);
+			var conf = new configuration("GET", null, "/dept/getDepts", suc);
 		
 		}else if(title == '직위검색'){
 			var suc = function(rs){
@@ -441,7 +448,7 @@
 				copyList = rs;
 				pagination();
 			}
-			var conf = new configuration("GET", null, "/base/getCodeInfoList?groupType=POSITION", suc, null);
+			var conf = new configuration("GET", null, "/base/getCodeInfoList?groupType=POSITION", suc);
 		
 		}else if(title = '직책검색'){
 			var suc = function(rs){
@@ -449,7 +456,7 @@
 				copyList = rs;
 				pagination();
 			}
-			var conf = new configuration("GET", null, "/base/getCodeInfoList?groupType=DUTY", suc, null);
+			var conf = new configuration("GET", null, "/base/getCodeInfoList?groupType=DUTY", suc);
 		}
 		
 		ajax(conf);
@@ -785,7 +792,7 @@
 			, '급여구분'
 			, '사원구분'];
 		
-		if(validation(checkList, checkListName)==false) return;
+		//if(validation(checkList, checkListName)==false) return;
 		
 		for(var chk in checkList){
 				var target = d.querySelector("#"+checkList[chk]);
@@ -848,6 +855,7 @@
 		data = formData;
 		
 		function success(res){
+			console.log(res);
 			if(res){
 				alert('사원등록에 성공하였습니다.');
 				//location.href = "/main";

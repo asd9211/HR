@@ -37,5 +37,10 @@ public class DeptController {
 	public @ResponseBody List<DeptVO> getDeptByLevel(){
 		return ds.getDeptListByLevel();
 	}
+	
+	@GetMapping("/deptRegist")
+	public String deptRegistView(){ 
+		return "/views/dept/DeptRegist";
+	}
 }
  

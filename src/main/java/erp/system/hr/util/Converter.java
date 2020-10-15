@@ -10,10 +10,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Converter {
+	
+	private Converter() {
+		  throw new IllegalStateException("Utility class");
+	}
 	
 	public static Map<String,List<Map<String,String>>> convertJsonToListInMap(MultipartHttpServletRequest req){
 		Map<String, List<Map<String, String>>> objList = new HashMap<>();
@@ -26,11 +29,7 @@ public class Converter {
 				try {
 					parseValue = objectMapper.readValue(value[i], new TypeReference<List<Map<String, String>>>(){});
 					objList.put(key, parseValue);
-				} catch (JsonMappingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				} catch (JsonProcessingException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

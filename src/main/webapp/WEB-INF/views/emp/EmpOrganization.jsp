@@ -19,7 +19,7 @@
 			<label class="label">사번</label>
 			<div class="control has-icons-left has-icons-right">
 				<input id="empCode" class="input is-success max15 max15" type="text"
-					placeholder="사번" maxlength="8" minlength="8">
+					placeholder="사번" maxlength="8" minlength="8" disabled>
 			</div>
 		</div>
 
@@ -27,14 +27,14 @@
 			<label class="label">이름(한글)</label>
 			<div class="control has-icons-left has-icons-right">
 				<input id="empNameKor" class="input is-success max15 max15"
-					type="text" placeholder="이름">
+					type="text" placeholder="이름" disabled>
 			</div>
 		</div>
 		<div class="field">
 			<label class="label">이름(영어)</label>
 			<div class="control has-icons-left has-icons-right">
 				<input id="empNameEng" class="input is-success max15 " type="text"
-					placeholder="이름">
+					placeholder="이름" disabled>
 			</div>
 		</div>
 
@@ -42,7 +42,7 @@
 			<label class="label">이름(한자)</label>
 			<div class="control has-icons-left has-icons-right">
 				<input id="empNameChi" class="input is-success max15 max15"
-					type="text" placeholder="이름">
+					type="text" placeholder="이름" disabled>
 			</div>
 		</div>
 
@@ -50,7 +50,7 @@
 			<label class="label">휴대폰번호</label>
 			<div class="control has-icons-left has-icons-right">
 				<input id="phoneNumber" class="input is-success max15 max15"
-					type="text" placeholder="phone" maxlength="11">
+					type="text" placeholder="phone" maxlength="11" disabled>
 			</div>
 		</div>
 
@@ -68,7 +68,7 @@
 			<label class="label">이메일</label>
 			<div class="control has-icons-left has-icons-right">
 				<input id="email" class="input is-success max15" type="email"
-					placeholder="e-mail">
+					placeholder="e-mail" disabled>
 			</div>
 		</div>
 	</div>
@@ -96,7 +96,7 @@
 			<label class="label">재직상태</label>
 			<div class="control">
 				<div class="select is-primary">
-					<select class="min15" id="empStatus">
+					<select class="min15" id="empStatus" disabled>
 						<option value="NORM">재직</option>
 						<option value="REST">휴직</option>
 						<option value="RETR">퇴사</option>
@@ -139,7 +139,7 @@
 		</div>
 		<div class="field is-grouped mrgn-top5">
 			<div class="control">
-				<button class="button is-link" onclick="send()">수정</button>
+				<button class="button is-link searchModify" onclick="goModify()" id="emp/empModifyView">수정</button>
 			</div>
 			<div class="control">
 				<button class="button is-link is-light">뒤로</button>
@@ -295,13 +295,13 @@
 
 	function getEmployees(){
 		var success = function(res){
-			getOrganization(res);
+			getDeptAddEmployees(res);
 		}
 		var conf = new configuration("GET", null, "/emp/employees", success, null);
 		ajax(conf);
 	}
 	
-	function getOrganization(emps) {
+	function getDeptAddEmployees(emps) {
 		var success = function(res) {
 			var dept = [];
 			var emp = [];
@@ -314,12 +314,12 @@
 				
 			}
 			
-			for ( var d in res) {
-				dept[d] = {};
-				dept[d]['title'] = res[d].deptName;
-				dept[d]['deptCode'] = res[d].deptCode;
-				dept[d]['parentDept'] = res[d].parentDept;
-				dept[d]['level'] = res[d].level;
+			for ( var idx in res) {
+				dept[idx] = {};
+				dept[idx]['title'] = res[idx].deptName;
+				dept[idx]['deptCode'] = res[idx].deptCode;
+				dept[idx]['parentDept'] = res[idx].parentDept;
+				dept[idx]['level'] = res[idx].level;
 			};
 
 			dept.sort(function(a, b) {
@@ -359,7 +359,7 @@
 			
 			loadOrganization(dept);
 		}
-		var conf = new configuration("GET", null, "/dept/getDeptByLevel", success, null);
+		var conf = new configuration("GET", null, "/dept/getDeptByLevel", success);
 		ajax(conf);
 	}
 	
@@ -570,4 +570,11 @@
 		this.clm3 = clm3;
 		this.clm4 = clm4;
 	}
+	
+	function goModify(){
+		var ele = document.querySelector(".searchModify");
+		ele.id = ele.id + "?empCode='" + document.querySelector("#empCode").value + "'"; 
+		goPage(ele);
+	}
+	
 </script>
