@@ -1,6 +1,3 @@
-/*
-		ajax configuration function 나중에 common.js로 옮겨서 공통으로 사용할 것
-	*/
 	function configuration(method, data, path, suc, err, header){
 		this.method = method;
 		this.data = data;
@@ -10,9 +7,7 @@
 		this.header = header;
 	}
 	
-	/*
-		ajax function 마찬가지고 나중에 common.js로 옮겨야 함.
-	*/
+	
 	function ajax(conf){
 		var xhr = new XMLHttpRequest();
 		xhr.open(conf.method, conf.path);
@@ -28,7 +23,7 @@
 					if(conf.err){
 						conf.err(xhr.response);
 					}else{
-						alert('알 수 없는 에러가 발생했습니다.');
+						alert(xhr.response);
 					}
 				}
 				

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="erp.system.hr.work.mapper.WorkMapper">
+	<select id="getWorkByempCode" resultType="WorkVO">
+		SELECT
+		emp_code,
+		work_day,
+		to_char(start_time, 'HH24mi') as START_TIME,
+		to_char(end_time, 'HH24mi') as END_TIME,
+		bigo
+		FROM
+		workmaster
+		where
+		1=1
+		<if test="empCode!=null">
+			and emp_code = #{empCode}
+		</if>
+		<if test="workDay!=null">
+			and work_day = #{workDay}
+		</if>
+		order by empcode, work_day desc
+	</select>
+
+	<insert id="insertWorkStart" parameterType="WorkVO">
+		INSERT INTO
+		workmaster (
+		emp_code,
+		work_day,
+		start_time,
+		bigo
+		) VALUES (
+		#{empCode},
+		#{workDay},
+		sysdate,
+		#{bigo:VARCHAR}
+		)
+	</insert>
+
+	<update id="updateWorkEnd" parameterType="WorkVO">
+		UPDATE workmaster
+		SET
+		end_time = sysdate
+		WHERE
+		emp_code = #{empCode}
+		AND work_day = #{workDay}
+	</update>
+</mapper>

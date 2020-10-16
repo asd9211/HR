@@ -1,10 +1,9 @@
 package erp.system.hr.emp;
 
 import java.util.List;
-import java.util.Map;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +39,7 @@ public class EmpServiceTest {
 		
 		EmployeeVO evo = (EmployeeVO) es.getEmployee(empCode).get("empInfo");
 		
-		logger.info(evo+"");
+		logger.info(evo.toString());
 		
 		Assertions.assertThat(evo.getEmpCode()).isEqualTo(empCode);
 	}

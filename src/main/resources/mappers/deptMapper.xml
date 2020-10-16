@@ -19,7 +19,7 @@
 		FROM
 		DEPTMASTER
 		START WITH
-		dept_code = 'D01000'
+		dept_code = 'A100000'
 		CONNECT BY
 		PRIOR dept_code = parent_dept
 	</select>

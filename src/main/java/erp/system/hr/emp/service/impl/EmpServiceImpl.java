@@ -28,10 +28,10 @@ import erp.system.hr.util.vo.FileVO;
 public class EmpServiceImpl implements EmpService {
 	private final EmpMapper em;
 	private static final String EMP_INFO = "empInfo";
-	private static final String FAM_INFO = "famINfo";
-	private static final String SCH_INFO = "schINfo";
-	private static final String CAR_INFO = "carINfo";
-	private static final String LIC_INFO = "licINfo"; 
+	private static final String FAM_INFO = "famInfo";
+	private static final String SCH_INFO = "schInfo";
+	private static final String CAR_INFO = "carInfo";
+	private static final String LIC_INFO = "licInfo"; 
 	
 	
 	@Autowired
