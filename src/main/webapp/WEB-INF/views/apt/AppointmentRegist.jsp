@@ -285,7 +285,7 @@
 		}
 		HTML = HTML + "</tr>";
 
-		for (var i = sNum - 1; i < lNum; i++) {
+		for (var i = sNum - 1; i < lNum; i++) {  
 
 			HTML = HTML + "<tr onclick = \"apply('" + target + "', this)\">";
 			HTML = HTML + "<td>" + copyList[i][colList.clm1] + "</td>";
