@@ -156,11 +156,11 @@ public class EmpServiceImpl implements EmpService {
 				deleteCarInfo(empCode);
 		
 		Boolean result  =  
-				empBaseInfoModify(allInfo.get("empInfo"), profileVO) 
-				&& empFamillyRegist(allInfo.get("famInfo"))
-				&& empSchoolRegist(allInfo.get("schInfo")) 
-				&& empCareerRegist(allInfo.get("carInfo"))
-				&& empLicenseRegist(allInfo.get("licInfo"));
+				empBaseInfoModify(allInfo.get(EMP_INFO), profileVO) 
+				&& empFamillyRegist(allInfo.get(FAM_INFO))
+				&& empSchoolRegist(allInfo.get(SCH_INFO)) 
+				&& empCareerRegist(allInfo.get(CAR_INFO))
+				&& empLicenseRegist(allInfo.get(LIC_INFO));
 		
 		return result;
 	}
@@ -207,7 +207,6 @@ public class EmpServiceImpl implements EmpService {
 
 	@Override
 	public List<EmployeeVO> getEmployees() {
-		// TODO Auto-generated method stub
 		return em.getEmployees();
 	}
 

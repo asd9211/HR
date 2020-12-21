@@ -6,6 +6,6 @@ import erp.system.hr.base.vo.CodeInfo;
 
 public interface BaseService {
 
-	public List<CodeInfo> getCodeInfoList(String groupType);
+	public List<CodeInfo> getCodeInfoList(String groupType, String codeName);
 
 }

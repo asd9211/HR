@@ -4,7 +4,7 @@
 	<select id="getDept" resultType="deptVO">
 		SELECT * FROM
 		DEPTMASTER where
-		DEPT_NAME LIKE '%'||#{deptCode}||'%'
+		DEPT_NAME LIKE '%'||#{deptName}||'%'
 	</select>
 	<select id="getDeptList" resultType="deptVO">
 		SELECT * FROM
@@ -19,7 +19,7 @@
 		FROM
 		DEPTMASTER
 		START WITH
-		dept_code = 'A100000'
+		dept_code = 'D01000'
 		CONNECT BY
 		PRIOR dept_code = parent_dept
 	</select>

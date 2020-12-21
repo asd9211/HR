@@ -44,6 +44,8 @@ public class EmpController {
 
 	@GetMapping("/employees")
 	public @ResponseBody List<EmployeeVO> getEmployees() {
+		logger.info(es.getEmployees() + "");
+		
 		return es.getEmployees();
 	}
 
@@ -76,5 +78,5 @@ public class EmpController {
 	public @ResponseBody Boolean empModfiy(MultipartHttpServletRequest req) throws IOException {
 		return es.empModify(req);
 	}
-
+	
 }

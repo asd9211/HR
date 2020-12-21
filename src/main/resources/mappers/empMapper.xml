@@ -2,7 +2,46 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="erp.system.hr.emp.mapper.EmpMapper">
 	<select id="getEmployees" resultType="employeeVO">
-		SELECT * FROM EMPMASTER
+SELECT
+    emp_code,
+    emp_name_kor,
+    emp_name_eng,
+    emp_name_chi,
+    dept_code,
+    (
+        SELECT
+            dept_name
+        FROM
+            deptmaster d
+        WHERE
+            e.dept_code = d.dept_code
+    ) AS dept_name,
+    position,
+    (
+        SELECT
+            code_name
+        FROM
+            codemaster c
+        WHERE
+            c.group_type = 'position'
+            AND c.code = e.position
+    ) position_name,
+    (
+        SELECT
+            code_name
+        FROM
+            codemaster c
+        WHERE
+            c.group_type = 'duty'
+            AND c.code = e.duty
+    ) duty_name,
+    duty,
+    emp_status,
+    to_char(to_date(start_date), 'YYYY-MM-DD') start_date,
+    to_char(to_date(retire_date), 'YYYY-MM-DD') retire_date,
+    pay_gubun
+FROM
+    empmaster e
 	</select>
 	<select id="getEmployee" resultType="employeeVO">
 SELECT
@@ -27,7 +66,7 @@ SELECT
         FROM
             codemaster c
         WHERE
-            c.group_type = 'POSITION'
+            c.group_type = 'position'
             AND c.code = e.position
     ) position_name,
     ( 
@@ -36,7 +75,7 @@ SELECT
         FROM
             codemaster c
         WHERE
-            c.group_type = 'DUTY'
+            c.group_type = 'duty'
             AND c.code = e.duty
     ) duty_name,
     duty,

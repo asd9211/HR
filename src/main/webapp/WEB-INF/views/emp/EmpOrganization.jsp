@@ -359,7 +359,7 @@
 			
 			loadOrganization(dept);
 		}
-		var conf = new configuration("GET", null, "/dept/getDeptByLevel", success);
+		var conf = new configuration("GET", null, "/dept/dept-by-level", success);
 		ajax(conf);
 	}
 	

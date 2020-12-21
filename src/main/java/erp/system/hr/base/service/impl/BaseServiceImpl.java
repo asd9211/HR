@@ -20,9 +20,9 @@ public class BaseServiceImpl implements BaseService {
 	}
 	
 	@Override
-	public List<CodeInfo> getCodeInfoList(String groupType) {
+	public List<CodeInfo> getCodeInfoList(String groupType, String codeName) {
 		// TODO Auto-generated method stub
-		return bm.getCodeInfoList(groupType);
+		return bm.getCodeInfoList(groupType, codeName);
 	}
 
 }
