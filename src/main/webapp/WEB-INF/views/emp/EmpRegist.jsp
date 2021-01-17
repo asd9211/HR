@@ -682,7 +682,7 @@
 			, '사원구분'];
 		
 		//if(validation(checkList, checkListName)==false) return;
-		
+		 
 		for(var idx in checkList){
 				var target = d.querySelector("#"+checkList[idx]);
 				empInfo[checkList[idx]] = target.value.trim();
