@@ -16,21 +16,21 @@ public class ExceptionController {
 	@ExceptionHandler(MaxUploadSizeExceededException.class)
 	public ResponseEntity uploadedFileTooLarge(MaxUploadSizeExceededException e) {
 		final String msg = "최대 사이즈인 20MB를 초과하였습니다";
-		ResponseEntity resObj = new ResponseEntity<>(msg, HttpStatus.INTERNAL_SERVER_ERROR);
-		return resObj;
+		ResponseEntity res = new ResponseEntity<>(msg, HttpStatus.INTERNAL_SERVER_ERROR);
+		return res;
 	}
 	
 	@ExceptionHandler(FileNotFoundException.class)
 	public ResponseEntity IOExceptionCatch(FileNotFoundException e) {
 		final String msg = "파일 첨부에 실패했습니다.";
-		ResponseEntity resObj = new ResponseEntity<>(msg, HttpStatus.INTERNAL_SERVER_ERROR);
-		return resObj;
+		ResponseEntity res = new ResponseEntity<>(msg, HttpStatus.INTERNAL_SERVER_ERROR);
+		return res;
 	}
 	
 	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
 	public ResponseEntity IOExceptionCatch(SQLIntegrityConstraintViolationException e) {
 		final String msg = "이미 존재하는 코드내역입니다.";
-		ResponseEntity resObj = new ResponseEntity<>(msg, HttpStatus.INTERNAL_SERVER_ERROR);
-		return resObj;
+		ResponseEntity res = new ResponseEntity<>(msg, HttpStatus.INTERNAL_SERVER_ERROR);
+		return res;
 	}
 }
