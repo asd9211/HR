@@ -1,5 +1,6 @@
 package erp.system.hr.dept.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,30 +18,30 @@ import erp.system.hr.dept.vo.DeptVO;
 public class DeptController {
 
 	private final DeptService ds;
-	
+
 	@Autowired
 	public DeptController(DeptService ds) {
 		this.ds = ds;
 	}
-	
-	@GetMapping("/getDepts")
+
+	@GetMapping("/departments")
 	public @ResponseBody List<DeptVO> getDeptlist() {
 		return ds.getDeptList();
 	}
-	
-	@GetMapping("/getDept")
-	public @ResponseBody List<DeptVO> getDept(@RequestParam String deptName) {
-		return ds.getDept(deptName);		
+
+	@GetMapping("/department")
+	public @ResponseBody List<DeptVO> getDept(@RequestParam("dept-name") String deptName) {
+		return ds.getDept(deptName);
 	}
-	
-	@GetMapping("/getDeptByLevel")
-	public @ResponseBody List<DeptVO> getDeptByLevel(){
+
+	@GetMapping("/dept-by-level")
+	public @ResponseBody List<DeptVO> getDeptByLevel() {
 		return ds.getDeptListByLevel();
 	}
-	
+
 	@GetMapping("/deptRegist")
-	public String deptRegistView(){ 
+	public String deptRegistView() {
 		return "/views/dept/DeptRegist";
 	}
+
 }
- 

@@ -298,13 +298,16 @@
 	var copyList = [] ;
 	
 	function init(){
+		addonInfoHide();
+		getAllInfo();
+	}
+	
+	function addonInfoHide(){
 		$(".family").hide();
 		$(".school").hide();
 		$(".license").hide();
 		$(".career").hide();
-		getAllInfo();
 	}
-	
 	
 	function getAllInfo(){
 		var getEmpInfo = function(empInfo){
@@ -428,6 +431,9 @@
 		var html = document.querySelector("html");
 		var modal = document.querySelector(".modal");
 		var titleTarget = document.querySelector(".modal-card-title");
+		var searchDeptUrl = "/dept/getDepts";
+		var searchDutyUrl = "/base/getCodeInfoList?groupType=POSITION";
+		var searchPositiontUrl = "/base/getCodeInfoList?groupType=DUTY";
 		
 		titleTarget.innerText = title;
 		
@@ -440,7 +446,7 @@
 				copyList = rs;
 				pagination();
 			};
-			var conf = new configuration("GET", null, "/dept/getDepts", suc);
+			var conf = new configuration("GET", null, searchDeptUrl, suc);
 		
 		}else if(title == '직위검색'){
 			var suc = function(rs){
@@ -448,7 +454,7 @@
 				copyList = rs;
 				pagination();
 			}
-			var conf = new configuration("GET", null, "/base/getCodeInfoList?groupType=POSITION", suc);
+			var conf = new configuration("GET", null, searchDutyUrl, suc);
 		
 		}else if(title = '직책검색'){
 			var suc = function(rs){
@@ -456,7 +462,7 @@
 				copyList = rs;
 				pagination();
 			}
-			var conf = new configuration("GET", null, "/base/getCodeInfoList?groupType=DUTY", suc);
+			var conf = new configuration("GET", null, searchPositiontUrl, suc);
 		}
 		
 		ajax(conf);

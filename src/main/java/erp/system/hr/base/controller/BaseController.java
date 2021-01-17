@@ -18,15 +18,17 @@ import erp.system.hr.base.vo.CodeInfo;
 public class BaseController {
 
 	BaseService bs;
-	
+
 	@Autowired
 	public BaseController(BaseService bs) {
 		this.bs = bs;
 	}
-	@GetMapping("/getCodeInfoList")
-	public @ResponseBody List<CodeInfo> getCodeInfoList(@RequestParam String groupType){
-		
-		return bs.getCodeInfoList(groupType);
+
+	@GetMapping("/code-info")
+	public @ResponseBody List<CodeInfo> getCodeInfoList(@RequestParam("group-type") String groupType,
+			@RequestParam("name") String codeName) {
+
+		return bs.getCodeInfoList(groupType, codeName);
 	}
-	
+
 }

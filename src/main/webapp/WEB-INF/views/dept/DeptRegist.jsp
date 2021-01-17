@@ -9,8 +9,8 @@
 		<div class="field">
 			<label class="label">부서번호</label>
 			<div class="control has-icons-left has-icons-right">
-				<input id="empCode" class="input is-success max15 max15" type="text"
-					placeholder="사번" maxlength="8" minlength="8">
+				<input id="deptCode" class="input is-success max15 max15" type="text"
+					placeholder="부서코드" maxlength="8" minlength="8">
 				<button class="button" class="dobule-false" id="doubleCheck"
 					onclick="doubleCheck()">중복확인</button>
 			</div>
@@ -61,3 +61,25 @@
 		</div>
 	</div>
 </div>
+
+<script>
+function doubleCheck(){
+	var empCode = document.querySelector('#deptCode').value
+	var doubleCheck = document.querySelector('#doubleCheck');
+	
+	var success = function(res){
+		if(!res){
+			alert('이미 존재하는 부서코드입니다.');
+			doubleCheck.classList.add("double-false");
+		}else{
+			alert('사용 가능한 부서코드입니다.');
+			console.log(doubleCheck.classList);
+			doubleCheck.classList.remove("double-false");
+		}
+	}
+	
+	var conf = new configuration('GET', null, "/emp/doubleCheck?empCode=" + empCode, success);
+	ajax(conf);
+}
+
+</script>

@@ -18,7 +18,7 @@ import erp.system.hr.emp.vo.SchoolVO;
 import erp.system.hr.util.vo.FileVO;
 
 public interface EmpService {
-	public @ResponseBody List<EmployeeVO> getEmployees();
+	public List<EmployeeVO> getEmployees();
 	public Map<String, Object> getEmployee(String empCode);
 	public Optional<List<FamVO>> getFamInfo(String empCode);
 	public Optional<List<SchoolVO>> getSchInfo(String empCode);

@@ -46,9 +46,8 @@
 							<a class="navbar-link" href="/documentation/overview/start/">사원관리
 							</a>
 							<div class="navbar-dropdown is-boxed">
-								<li class="navbar-item" href="#">사원등록</li>
 								<li class="navbar-item" href="javascript:void(0)"
-									onclick="goPage(this)" id="emp/empModifyView">사원수정</li>
+									id="emp/empRegistView" onclick="goPage(this)">사원등록</li>
 								<li class="navbar-item" href="javascript:void(0)"
 									onclick="goPage(this)" id="emp/employeeView">사원조회</li>
 								<li class="navbar-item" id="emp/empOrganView"
@@ -69,10 +68,11 @@
 							<a class="navbar-link" href="/documentation/overview/start/">인사발령
 							</a>
 							<div class="navbar-dropdown is-boxed">
-								<li class="navbar-item" href="#">In Body</li>
+								<li class="navbar-item" href="#" onclick="goPage(this)"
+									id="apt/aptRegist">인사발령등록</li>
 								<li class="navbar-item" href="javascript:void(0)"
-									onclick="goPage(this)" id="infood/foodInfo">In Food</li> <a
-									class="navbar-item" href="#">In Day </a>
+									onclick="goPage(this)" id="infood/foodInfo">인사발령수정</li> <a
+									class="navbar-item" href="#">발령이력조회</a>
 							</div>
 						</div>
 

@@ -314,6 +314,10 @@
 		var modal = document.querySelector(".modal");
 		var titleTarget = document.querySelector(".modal-card-title");
 		
+		var deptSearchUrl = "/dept/departments";
+		var positionSearchUrl = "/base/code-info?group-type=position";
+		var dutySearchUrl = "/base/code-info?group-type=duty";
+		
 		titleTarget.innerText = title;
 		
 		html.classList.add("is-clipped");
@@ -325,7 +329,7 @@
 				copyList = rs;
 				pagination();
 			};
-			var conf = new configuration("GET", null, "/dept/getDepts", suc, null);
+			var conf = new configuration("GET", null, deptSearchUrl, suc, null);
 		
 		}else if(title == '직위검색'){
 			var suc = function(rs){
@@ -333,7 +337,7 @@
 				copyList = rs;
 				pagination();
 			}
-			var conf = new configuration("GET", null, "/base/getCodeInfoList?groupType=POSITION", suc, null);
+			var conf = new configuration("GET", null, positionSearchUrl, suc, null);
 		
 		}else if(title = '직책검색'){
 			var suc = function(rs){
@@ -341,7 +345,7 @@
 				copyList = rs;
 				pagination();
 			}
-			var conf = new configuration("GET", null, "/base/getCodeInfoList?groupType=DUTY", suc, null);
+			var conf = new configuration("GET", null, dutySearchUrl, suc, null);
 		}
 		
 		ajax(conf);
@@ -379,7 +383,7 @@
 			copyList = rs;
 			pagination();
 		}
-		var conf = new configuration("GET", null, "/dept/getDept?deptName=" + target, suc, null);
+		var conf = new configuration("GET", null, "/dept/department?deptName=" + target, suc, null);
 		ajax(conf);
 	}
 	
@@ -497,7 +501,7 @@
 	/******************************* validatin function****************************/
 	
 	
-		function validation(checkList, checkListName){
+	function validation(checkList, checkListName){
 		var doubleCheck = document.querySelector('#doubleCheck');
 		var doubleChkCls = doubleCheck.className.split(" ");
 		
@@ -639,6 +643,7 @@
 	/*
 		empRegist 등록 function
 	*/
+	
 	function send(){
 		var data = {};
 		var empList = [];
@@ -754,14 +759,5 @@
 			
 	}
 	
-	
-	
-	function lowColumn(clm1, clm2, clm3, clm4){
-		this.clm1 = clm1;
-		this.clm2 = clm2;
-		this.clm3 = clm3;
-		this.clm4 = clm4;
-	}
-	
-	
+
 </script>
