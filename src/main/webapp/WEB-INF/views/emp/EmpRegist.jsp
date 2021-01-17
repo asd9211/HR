@@ -676,7 +676,7 @@
 			, '급여구분'
 			, '사원구분'];
 		
-		if(validation(checkList, checkListName)==false) return;
+		//if(validation(checkList, checkListName)==false) return;
 		
 		for(var idx in checkList){
 				var target = d.querySelector("#"+checkList[idx]);
