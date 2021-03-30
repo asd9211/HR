@@ -50,7 +50,7 @@
 		#{deptCode}
 		, #{deptName}
 		, #{parentDept}
-		, #{appointDate}
+		, #{appointDate} 
 		<if test="bigo!=null">
 		, #{bigo}
 		</if>
