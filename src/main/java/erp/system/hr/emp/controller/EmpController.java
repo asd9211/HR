@@ -33,19 +33,16 @@ public class EmpController {
 
 	@GetMapping("/employee")
 	public @ResponseBody Map<String, Object> getEmployee(@RequestParam String empCode) {
-		return es.getEmployee(empCode);
+		return es.getEmployee(empCode); 
 	}
 
 	@GetMapping("/doubleCheck")
 	public @ResponseBody boolean doubleCheck(@RequestParam String empCode) {
-		logger.info(es.getEmployee(empCode) + ""); // 객체안에 빈값이 toString으로 다 들어가니 Mapper에 따로 추가해줘야함
-		return true;
+		return (es.getEmployee(empCode)!=null);
 	}
 
 	@GetMapping("/employees")
 	public @ResponseBody List<EmployeeVO> getEmployees() {
-		logger.info(es.getEmployees() + "");
-		
 		return es.getEmployees();
 	}
 

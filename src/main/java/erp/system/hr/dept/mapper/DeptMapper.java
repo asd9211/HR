@@ -10,7 +10,10 @@ import erp.system.hr.dept.vo.DeptVO;
 public interface DeptMapper {
 
 	public List<DeptVO> getDept(String deptName);
+	public DeptVO getDeptBydeptCode(String deptCode);
 	public List<DeptVO> getDeptList();
 	public List<DeptVO> getDeptListByLevel();
+	
+	public Integer insertDept(DeptVO dvo);
 	
 }

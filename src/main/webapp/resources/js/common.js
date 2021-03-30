@@ -50,3 +50,183 @@
 			document.querySelector("#" + key).value = value;
 		}
 	}
+
+/******************************* Modal 관련 functions****************************/
+	
+	/*
+		Modal 공통 ajax방식 List조회 function 
+	*/
+	function modalSearch(ele) {
+		var title = ele.title;
+		var html = document.querySelector("html");
+		var modal = document.querySelector(".modal");
+		var titleTarget = document.querySelector(".modal-card-title");
+		
+		var deptSearchUrl = "/dept/departments";
+		var positionSearchUrl = "/base/code-info?group-type=position";
+		var dutySearchUrl = "/base/code-info?group-type=duty";
+		
+		titleTarget.innerText = title;
+		
+		html.classList.add("is-clipped");
+		modal.classList.add("is-active");
+		
+		if(title == '부서검색'){
+			var suc = function(rs){
+				modal.setAttribute("target", "dept");
+				copyList = rs;
+				pagination();
+			};
+			var conf = new configuration("GET", null, deptSearchUrl, suc, null);
+		}else if (title == '상위부서검색'){
+			var suc = function(rs){
+				modal.setAttribute("target", "parentDept");
+				copyList = rs;
+				pagination();
+			};
+			var conf = new configuration("GET", null, deptSearchUrl, suc, null);
+		}else if(title == '직위검색'){
+			var suc = function(rs){
+				modal.setAttribute("target", "position");
+				copyList = rs;
+				pagination();
+			}
+			var conf = new configuration("GET", null, positionSearchUrl, suc, null);
+		
+		}else if(title = '직책검색'){
+			var suc = function(rs){
+				modal.setAttribute("target", "duty");
+				copyList = rs;
+				pagination();
+			}
+			var conf = new configuration("GET", null, dutySearchUrl, suc, null);
+		}
+		
+		ajax(conf);
+	}
+
+	function modalClose() {
+		$("html").removeClass("is-clipped");
+		$(".modal").removeClass("is-active");
+	}
+	
+	/*
+		Modal에서 코드 선택시 해당 코드 input box에 적용시키는 function
+	*/
+	
+	function apply(target, ele){ 
+		var d = document;
+		
+		if(target == 'dept'){
+			d.querySelector('#deptCode').value = ele.children[0].innerText;
+			d.querySelector("#deptName").value = ele.children[1].innerText;
+		}else if (target == 'parentDept'){
+			d.querySelector('#parentDept').value = ele.children[0].innerText;
+			d.querySelector("#parentDeptName").value = ele.children[1].innerText;
+		}else if (target == 'duty'){
+			d.querySelector('#dutyName').value = ele.children[2].innerText;
+			d.querySelector('#duty').value = ele.children[1].innerText;
+		}else if (target == 'position'){
+			d.querySelector("#positionName").value = ele.children[2].innerText;
+			d.querySelector("#position").value = ele.children[1].innerText;
+		}
+		modalClose();
+	}
+	
+	function searchDept(){
+		var target = document.querySelector('#targetDept').value;
+		
+		var suc = function(rs){
+			copyList = rs;
+			pagination();
+		}
+		var conf = new configuration("GET", null, "/dept/department?deptName=" + target, suc, null);
+		ajax(conf);
+	}
+	
+	/*
+		Modal List pagination 공통 function
+	*/
+	function pagination(nowNum){
+		var nNum = !nowNum||nowNum<=1?1:nowNum;
+		var lNum = nNum*10; 
+		var sNum = lNum-9; 
+		var len = copyList.length;
+		var realEnd = len/10; 
+		if(lNum >= len) lNum = len;
+		var lbtn = len/10; 
+		var sbtn = Math.floor((nNum-1)/10) * 10 + 1;
+		drawList(sNum, lNum, nNum, sbtn, lbtn);
+	}
+		
+	/*
+		Modal List출력 공통 function
+	*/
+	function drawList(sNum, lNum, nNum, sbtn, lbtn){
+		var target = document.querySelector(".modal").getAttribute("target");
+		var d = document;
+		
+		if(target == 'dept'){
+		
+			var columns = new lowColumn("부서코드", "부서명", "상위부서", "부서생성일");
+			var colList = new lowColumn("deptCode", "deptName", "parentDept", "appointDate");
+		}else if (target == 'parentDept'){
+			
+			var columns = new lowColumn("부서코드", "부서명", "상위부서", "부서생성일");
+			var colList = new lowColumn("deptCode", "deptName", "parentDept", "appointDate");
+		}else if(target == 'position'){
+			
+			var columns = new lowColumn("그룹타입", "직위코드", "직위명");
+			var colList = new lowColumn("groupType", "code", "codeName");
+		
+		}else if(target == 'duty'){
+			
+			var columns = new lowColumn("그룹타입", "직책코드", "직책명");
+			var colList = new lowColumn("groupType", "code", "codeName");
+		}
+		
+		var pHTML = "";
+		var HTML = "<input type='text' class='input max15' id= 'targetDept'><button class='button' onclick = 'searchDept()'>검색</button>";
+		HTML = HTML + "<table class='table is-hoverable is-fullwidth' id= 'modalDataTable'>";
+		HTML = HTML + 	"<tr>";
+		HTML = HTML + 		"<th>"+columns.clm1+"</th>";
+		HTML = HTML + 		"<th>"+columns.clm2+"</th>";
+		HTML = HTML + 		"<th>"+columns.clm3+"</th>";
+		if(colList.clm4){
+			HTML = HTML + 	"<th>"+columns.clm4+"</th>";
+		}
+		HTML = HTML + 	"</tr>";
+		
+		for(var i = sNum-1; i < lNum ; i++){
+			
+			HTML = HTML + 	"<tr onclick = \"apply('"+target+"', this)\">";
+			HTML = HTML + 		"<td>"+copyList[i][colList.clm1]+"</td>";
+			HTML = HTML + 		"<td>"+copyList[i][colList.clm2]+"</td>";
+			HTML = HTML + 		"<td>"+copyList[i][colList.clm3]+"</td>";
+			if(colList.clm4){
+				HTML = HTML + 	"<td>"+copyList[i][colList.clm4]+"</td>";
+			}
+			HTML = HTML + 	"</tr>";
+		}
+		HTML = HTML + "</table>";
+		
+		if(sbtn >10){
+			pHTML += "<a onclick = 'pagination("+ (sbtn-1) +")' class='pagination-previous'>prev</a>";
+		}
+		
+		pHTML += "<ul class='pagination-list'>";
+		for(var i = sbtn; i <= lbtn; i++){
+			if(i%10==0) {
+				pHTML += "<li><a class= 'pagination-link' onclick = 'pagination("+i+")'>" + i + "</a></li>";	
+				pHTML += "<a onclick = 'pagination("+(i+1)+")' class='pagination-next'>next</a>";	
+				break;
+			}
+			pHTML += "<li><a class= 'pagination-link' onclick = 'pagination("+i+")'>" + i + "</a></li>";	
+		}
+
+		var pagin = document.querySelector("#pagin");
+		var body = document.querySelector(".modal-card-body");
+		
+		body.innerHTML = HTML;
+		pagin.innerHTML = pHTML;
+	}

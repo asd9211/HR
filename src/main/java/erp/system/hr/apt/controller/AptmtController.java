@@ -24,9 +24,11 @@ public class AptmtController {
 	AptmtController(@Autowired AptServiceImpl asi){
 		this.asi  = asi;
 	}
-	
-	
-	@GetMapping("/aptRegist") // 나중에 aptRegistView 로 변경
+	@GetMapping("aptListView")
+	public String aptListView() {
+		return "/views/apt/AppointmentList";
+	}
+	@GetMapping("/aptRegistView") // 나중에 aptRegistView 로 변경
 	public String aptRegistView() {
 		return "/views/apt/AppointmentRegist";
 	}

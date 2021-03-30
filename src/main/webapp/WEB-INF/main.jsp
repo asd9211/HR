@@ -69,10 +69,10 @@
 							</a>
 							<div class="navbar-dropdown is-boxed">
 								<li class="navbar-item" href="#" onclick="goPage(this)"
-									id="apt/aptRegist">인사발령등록</li>
+									id="apt/aptRegistView">인사발령등록</li>
 								<li class="navbar-item" href="javascript:void(0)"
-									onclick="goPage(this)" id="infood/foodInfo">인사발령수정</li> <a
-									class="navbar-item" href="#">발령이력조회</a>
+									onclick="goPage(this)" id="infood/foodInfo">인사발령수정</li> 
+									<a class="navbar-item" id = "apt/aptListView" href="#" onclick="goPage(this)">발령이력조회</a>
 							</div>
 						</div>
 
