@@ -60,8 +60,8 @@
 							<div class="navbar-dropdown is-boxed">
 								<li class="navbar-item" href="#" id="dept/deptRegist"
 									onclick="goPage(this)">부서등록</li>
-								<li class="navbar-item" href="javascript:void(0)"
-									onclick="goPage(this)" id="infood/foodInfo">부서변경</li>
+								<li class="navbar-item" href="#" 
+									onclick="goPage(this)" id="dept/deptModify">부서변경</li>
 							</div>
 						</div>
 						<div class="navbar-item has-dropdown is-hoverable">

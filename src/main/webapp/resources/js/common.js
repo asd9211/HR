@@ -120,6 +120,9 @@
 		if(target == 'dept'){
 			d.querySelector('#deptCode').value = ele.children[0].innerText;
 			d.querySelector("#deptName").value = ele.children[1].innerText;
+			if(d.querySelector("#parentDept")) d.querySelector("#parentDept").value = ele.children[2].innerText
+			if(d.querySelector("#parentDeptName")) d.querySelector("#parentDeptName").value = ele.children[3].innerText
+			if(d.querySelector("#appointDate")) d.querySelector("#appointDate").value = ele.children[4].innerText
 		}else if (target == 'parentDept'){
 			d.querySelector('#parentDept').value = ele.children[0].innerText;
 			d.querySelector("#parentDeptName").value = ele.children[1].innerText;
@@ -168,8 +171,8 @@
 		
 		if(target == 'dept'){
 		
-			var columns = new lowColumn("부서코드", "부서명", "상위부서", "부서생성일");
-			var colList = new lowColumn("deptCode", "deptName", "parentDept", "appointDate");
+			var columns = new lowColumn("부서코드", "부서명", "상위부서코드", "상위부서명", "부서생성일");
+			var colList = new lowColumn("deptCode", "deptName", "parentDept", "parentDeptName", "appointDate");
 		}else if (target == 'parentDept'){
 			
 			var columns = new lowColumn("부서코드", "부서명", "상위부서", "부서생성일");
@@ -185,7 +188,7 @@
 			var colList = new lowColumn("groupType", "code", "codeName");
 		}
 		
-		var pHTML = "";
+		var pHTML = ""; // 검색버튼 공통으로 바꿔야됨.
 		var HTML = "<input type='text' class='input max15' id= 'targetDept'><button class='button' onclick = 'searchDept()'>검색</button>";
 		HTML = HTML + "<table class='table is-hoverable is-fullwidth' id= 'modalDataTable'>";
 		HTML = HTML + 	"<tr>";
@@ -194,6 +197,9 @@
 		HTML = HTML + 		"<th>"+columns.clm3+"</th>";
 		if(colList.clm4){
 			HTML = HTML + 	"<th>"+columns.clm4+"</th>";
+		}
+		if(colList.clm5){
+			HTML = HTML + 	"<th>"+columns.clm5+"</th>";
 		}
 		HTML = HTML + 	"</tr>";
 		
@@ -205,6 +211,9 @@
 			HTML = HTML + 		"<td>"+copyList[i][colList.clm3]+"</td>";
 			if(colList.clm4){
 				HTML = HTML + 	"<td>"+copyList[i][colList.clm4]+"</td>";
+			}
+			if(colList.clm5){
+				HTML = HTML + 	"<td>"+copyList[i][colList.clm5]+"</td>";
 			}
 			HTML = HTML + 	"</tr>";
 		}

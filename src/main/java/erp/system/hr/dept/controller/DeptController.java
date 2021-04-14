@@ -30,12 +30,16 @@ public class DeptController {
 
 	@GetMapping("/departments")
 	public @ResponseBody List<DeptVO> getDeptlist() { 
-		return ds.getDeptList();
+		List<DeptVO> result = ds.getDeptList();
+		logger.info("getDeptlist => {} ", result);
+		return result;
 	}
 
 	@GetMapping("/department")
-	public @ResponseBody List<DeptVO> getDept(@RequestParam("dept-name") String deptName) {
-		return ds.getDept(deptName);
+	public @ResponseBody List<DeptVO> getDept(@RequestParam("deptName") String deptName) {
+		List<DeptVO> result = ds.getDept(deptName);
+		logger.info("getDpet => {} ", result);
+		return result;
 	}
 
 	@GetMapping("/dept-by-level") 
@@ -47,6 +51,15 @@ public class DeptController {
 	public String deptRegistView() {
 		return "/views/dept/DeptRegist";
 	}
+	@GetMapping("/deptList")
+	public String deptListView() {
+		return "/views/dept/DeptList";
+	}
+	@GetMapping("/deptModify")
+	public String deptModifyView() {
+		return "/views/dept/DeptModify";
+	}
+	
 	@GetMapping("/doubleCheck")
 	public @ResponseBody boolean doubleCheck(@RequestParam("deptCode") String deptCode) {
 		boolean result = (ds.getDeptBydeptCode(deptCode)==null);
