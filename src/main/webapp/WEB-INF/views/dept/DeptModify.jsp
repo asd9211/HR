@@ -60,7 +60,7 @@
 		</div>
 		<div class="field is-grouped mrgn-top5">
 			<div class="control">
-				<button class="button is-link" onclick="send()">등록</button>
+				<button class="button is-link" onclick="send()">수정</button>
 			</div>
 			<div class="control">
 				<button class="button is-link is-light">취소</button>
@@ -119,9 +119,9 @@
 		var data = {};
 		var d = document;
 		
-		var checkList = [ 'deptCode', 'deptName', 'parentDept', 'appointDate' ];
+		var checkList = [ 'deptCode', 'deptName', 'parentDept', 'appointDate', 'endDate' ];
 
-		var checkListName = [ '부서코드', '부서명', '상위부서', '생성일',];
+		var checkListName = [ '부서코드', '부서명', '상위부서', '생성일', '종료일' ];
 
 		//if(validation(checkList, checkListName)==false) return;
 
@@ -134,16 +134,17 @@
 			data[checkList[idx]] = target.value.trim(); 
 		}
 		data.appointDate = data.appointDate.replaceAll('-', '');
+		data.endDate = data.endDate.replaceAll('-', '');
 		function success(res) { 
 			if (res) {
-				alert('부서등록에 성공하였습니다.');
+				alert('부서변경에 성공하였습니다.');
 				//location.href = "/main";
 			} else {
-				alert('부서등록에 실패했습니다.');
+				alert('부서변경에 실패했습니다.');
 			}
 		}
 
-		var conf = new configuration('POST', JSON.stringify(data), "/dept/deptRegist", success, null, 'json');
+		var conf = new configuration('PUT', JSON.stringify(data), "/dept/department", success, null, 'json');
 		ajax(conf);
 
 	}

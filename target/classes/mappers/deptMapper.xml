@@ -2,21 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="erp.system.hr.dept.mapper.DeptMapper">
 	<select id="getDept" resultType="deptVO">
-		SELECT  d1.DEPT_CODE, d1.DEPT_NAME,
+		SELECT d1.DEPT_CODE,
+		d1.DEPT_NAME,
 		d1.PARENT_DEPT, d2.dept_name as parent_dept_name,
-        d1.APPOINT_DATE, d1.END_DATE, d1.BIGO FROM
+		d1.APPOINT_DATE, d1.END_DATE, d1.BIGO FROM
 		DEPTMASTER d1, DEPTMASTER d2
 		where
 		d1.DEPT_NAME LIKE '%'||#{deptName}||'%'
-        and d1.parent_dept = d2.dept_code(+)
+		and d1.parent_dept = d2.dept_code(+)
 	</select>
 	<select id="getDeptList" resultType="deptVO">
-		SELECT  d1.DEPT_CODE, d1.DEPT_NAME,
-		d1.PARENT_DEPT, 
+		SELECT d1.DEPT_CODE,
+		d1.DEPT_NAME,
+		d1.PARENT_DEPT,
 		d2.dept_name as parent_dept_name,
-        to_char(to_date(d1.APPOINT_DATE),'YYYY-MM-DD') as APPOINT_DATE, 
-        to_char(to_date(d1.END_DATE),'YYYY-MM-DD') as END_DATE, 
-        d1.BIGO FROM
+		to_char(to_date(d1.APPOINT_DATE),'YYYY-MM-DD') as APPOINT_DATE,
+		to_char(to_date(d1.END_DATE),'YYYY-MM-DD') as END_DATE,
+		d1.BIGO FROM
 		DEPTMASTER d1, DEPTMASTER d2
 		where
 		d1.parent_dept = d2.dept_code(+)
@@ -51,17 +53,39 @@
 		, PARENT_DEPT
 		, APPOINT_DATE
 		<if test="bigo!=null">
-		, BIGO
+			, BIGO
 		</if>
-		 )
+		)
 		VALUES(
 		#{deptCode}
 		, #{deptName}
 		, #{parentDept}
-		, #{appointDate} 
+		, #{appointDate}
 		<if test="bigo!=null">
-		, #{bigo}
+			, #{bigo}
 		</if>
 		)
 	</insert>
+
+	<update id="updateDept" parameterType="deptVO">
+		UPDATE DEPTMASTER
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="deptName != null">
+				DEPT_NAME = #{deptName},
+			</if>
+			<if test="parentDept != null">
+				PARENT_DEPT = #{parentDept},
+			</if>
+			<if test="appointDate != null">
+				APPOINT_DATE = #{appointDate},
+			</if>
+			<if test="endDate != null">
+				END_DATE = #{endDate},
+			</if>
+			<if test="bigo != null">
+				BIGO = #{bigo}
+			</if>
+		</trim>
+		WHERE DEPT_CODE = #{deptCode}
+	</update>
 </mapper>

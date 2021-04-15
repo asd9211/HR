@@ -11,4 +11,5 @@ public interface DeptService {
 	public List<DeptVO> getDeptListByLevel();
 	
 	public Integer insertDept(DeptVO dvo);
+	public Integer updateDept(DeptVO dvo);
 }

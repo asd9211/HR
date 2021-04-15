@@ -137,7 +137,7 @@
 			}
 		}
 
-		var conf = new configuration('POST', JSON.stringify(data), "/dept/deptRegist", success, null, 'json');
+		var conf = new configuration('POST', JSON.stringify(data), "/dept/department", success, null, 'json');
 		ajax(conf);
 
 	}

@@ -45,5 +45,10 @@ public class DeptServiceImpl implements DeptService {
 		// TODO Auto-generated method stub
 		return dm.getDeptBydeptCode(deptCode);
 	}
+	@Override
+	public Integer updateDept(DeptVO dvo) {
+		// TODO Auto-generated method stub
+		return dm.updateDept(dvo);
+	}
 
 }

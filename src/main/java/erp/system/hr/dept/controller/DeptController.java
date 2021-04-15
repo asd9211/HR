@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -65,10 +66,15 @@ public class DeptController {
 		boolean result = (ds.getDeptBydeptCode(deptCode)==null);
 		return result;
 	}
-	@PostMapping("/deptRegist")
+	@PostMapping("/department")
 	public @ResponseBody boolean deptRegist(@RequestBody DeptVO dvo) {
 		logger.info("DeptVO ==> {}", dvo);
 		return ds.insertDept(dvo)==1; 
+	}
+	@PutMapping("/department")
+	public @ResponseBody boolean deptModify(@RequestBody DeptVO dvo) {
+		logger.info("DeptVO ==> {}", dvo);
+		return ds.updateDept(dvo)==1; 
 	}
 
 }
