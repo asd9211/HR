@@ -13,7 +13,7 @@ public interface DeptMapper {
 	public DeptVO getDeptBydeptCode(String deptCode);
 	public List<DeptVO> getDeptList();
 	public List<DeptVO> getDeptListByLevel();
-	
+	public List<DeptVO> getDeptListByPage(int page);
 	public Integer insertDept(DeptVO dvo);
 	public Integer updateDept(DeptVO dvo);
 	

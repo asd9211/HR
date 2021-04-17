@@ -9,6 +9,7 @@ public interface DeptService {
 	public DeptVO getDeptBydeptCode(String deptCode);
 	public List<DeptVO> getDept(String deptName);
 	public List<DeptVO> getDeptListByLevel();
+	public List<DeptVO> getDeptListByPage(int page);
 	
 	public Integer insertDept(DeptVO dvo);
 	public Integer updateDept(DeptVO dvo);

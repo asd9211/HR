@@ -35,7 +35,15 @@ public class DeptController {
 		logger.info("getDeptlist => {} ", result);
 		return result;
 	}
-
+	
+	@GetMapping("departmentsByPage")
+	public @ResponseBody List<DeptVO> getDeltlistByPage(@RequestParam("page") int page){
+		logger.info("page => {} " + page);
+		List<DeptVO> result = ds.getDeptListByPage(page);
+		logger.info("getDeptlist => {} " + result);
+		return result;
+	}
+	
 	@GetMapping("/department")
 	public @ResponseBody List<DeptVO> getDept(@RequestParam("deptName") String deptName) {
 		List<DeptVO> result = ds.getDept(deptName);

@@ -50,5 +50,10 @@ public class DeptServiceImpl implements DeptService {
 		// TODO Auto-generated method stub
 		return dm.updateDept(dvo);
 	}
+	@Override
+	public List<DeptVO> getDeptListByPage(int page) {
+		// TODO Auto-generated method stub
+		return dm.getDeptListByPage(page);
+	}
 
 }

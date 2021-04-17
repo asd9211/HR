@@ -60,8 +60,10 @@
 							<div class="navbar-dropdown is-boxed">
 								<li class="navbar-item" href="#" id="dept/deptRegist"
 									onclick="goPage(this)">부서등록</li>
-								<li class="navbar-item" href="#" 
-									onclick="goPage(this)" id="dept/deptModify">부서변경</li>
+								<li class="navbar-item" href="#" onclick="goPage(this)"
+									id="dept/deptModify">부서변경</li>
+								<li class="navbar-item" href="#" onclick="goPage(this)"
+									id="dept/deptList">부서조회</li>
 							</div>
 						</div>
 						<div class="navbar-item has-dropdown is-hoverable">
@@ -71,8 +73,9 @@
 								<li class="navbar-item" href="#" onclick="goPage(this)"
 									id="apt/aptRegistView">인사발령등록</li>
 								<li class="navbar-item" href="javascript:void(0)"
-									onclick="goPage(this)" id="infood/foodInfo">인사발령수정</li> 
-									<a class="navbar-item" id = "apt/aptListView" href="#" onclick="goPage(this)">발령이력조회</a>
+									onclick="goPage(this)" id="infood/foodInfo">인사발령수정</li> <a
+									class="navbar-item" id="apt/aptListView" href="#"
+									onclick="goPage(this)">발령이력조회</a>
 							</div>
 						</div>
 

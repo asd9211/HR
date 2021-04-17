@@ -5,7 +5,7 @@ import org.apache.ibatis.type.Alias;
 @Alias("deptVO")
 public class DeptVO {
 
-	
+	private String rowNum;
 	private String deptCode;
 	private String deptName;
 	private String parentDept;
@@ -17,6 +17,12 @@ public class DeptVO {
 	
 	
 	
+	public String getRowNum() {
+		return rowNum;
+	}
+	public void setRowNum(String rowNum) {
+		this.rowNum = rowNum;
+	}
 	public String getParentDeptName() {
 		return parentDeptName;
 	}
@@ -67,10 +73,11 @@ public class DeptVO {
 	}
 	@Override
 	public String toString() {
-		return "DeptVO [deptCode=" + deptCode + ", deptName=" + deptName + ", parentDept=" + parentDept
-				+ ", parentDeptName=" + parentDeptName + ", appointDate=" + appointDate + ", endDate=" + endDate
-				+ ", bigo=" + bigo + ", level=" + level + "]";
+		return "DeptVO [rowNum=" + rowNum + ", deptCode=" + deptCode + ", deptName=" + deptName + ", parentDept="
+				+ parentDept + ", parentDeptName=" + parentDeptName + ", appointDate=" + appointDate + ", endDate="
+				+ endDate + ", bigo=" + bigo + ", level=" + level + "]";
 	}
+	
 	
 	
 }

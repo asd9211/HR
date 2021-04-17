@@ -105,7 +105,15 @@ div li {
 	background-color: white;
 }
 
+table{border-collapse:collapse;width:1080px; margin:0 auto;overflow:hidden;border:1px solid #ccc;}
+table thead{float:left;width:1080px;border-bottom:1px solid #ccc;}
+table thead tr{display:table;width:1080px;}
 
+table tbody{float:left;width:1080px;height:700px;overflow-y:auto;overflow-x:hidden;}
+table tbody tr{display:table;width:1080px;border-bottom:1px solid #ccc;}
+table tbody tr:last-child{border-bottom:none;}
+
+table tbody td{text-align:center;}
 
 
 

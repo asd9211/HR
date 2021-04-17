@@ -14,14 +14,37 @@
 	<select id="getDeptList" resultType="deptVO">
 		SELECT d1.DEPT_CODE,
 		d1.DEPT_NAME,
-		d1.PARENT_DEPT,
-		d2.dept_name as parent_dept_name,
-		to_char(to_date(d1.APPOINT_DATE),'YYYY-MM-DD') as APPOINT_DATE,
-		to_char(to_date(d1.END_DATE),'YYYY-MM-DD') as END_DATE,
-		d1.BIGO FROM
+		d1.PARENT_DEPT, d2.dept_name as parent_dept_name,
+		d1.APPOINT_DATE, d1.END_DATE, d1.BIGO FROM
 		DEPTMASTER d1, DEPTMASTER d2
 		where
 		d1.parent_dept = d2.dept_code(+)
+	</select>
+	<select id="getDeptListByPage" resultType="deptVO">
+		SELECT
+		    a.*
+		FROM
+		    (
+		        SELECT
+		            ROW_NUMBER() OVER(
+		                ORDER BY
+		                    d1.dept_code
+		            ) row_num,
+		            d1.dept_code,
+		            d1.dept_name,
+		            d1.parent_dept,
+		            d2.dept_name AS parent_dept_name,
+		            to_char(to_date(d1.appoint_date), 'YYYY-MM-DD') AS appoint_date,
+		            to_char(to_date(d1.end_date), 'YYYY-MM-DD') AS end_date,
+		            d1.bigo
+		        FROM
+		            deptmaster   d1,
+		            deptmaster   d2
+		        WHERE
+		            d1.parent_dept = d2.dept_code (+)
+		    ) a
+		WHERE
+		    a.row_num BETWEEN ((#{page} - 1) * 50) + 1 and (#{page} * 50)
 	</select>
 	<select id="getDeptListByLevel" resultType="deptVO">
 		SELECT
