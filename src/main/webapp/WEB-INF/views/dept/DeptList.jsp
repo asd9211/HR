@@ -41,7 +41,7 @@
 	}*/
 	function getDepts() {
 		var success = function(res) {
-			var d = document;
+			var d = document; 
 			var HTML = "";
 			var header = ["No", "부서코드", "부서명", "생성일", "종료일", "상위부서명"] 
 			var body = [];			
