@@ -47,7 +47,7 @@
 			var body = [];			
 			for ( var idx in res) {
 				body[idx] = [res[idx].rowNum, res[idx].deptCode, res[idx].deptName, res[idx].appointDate, res[idx].endDate, res[idx].parentDeptName];
-			}
+			} 
 			new gridjs.Grid({
 				  columns: header,
 				  pagination: true,
