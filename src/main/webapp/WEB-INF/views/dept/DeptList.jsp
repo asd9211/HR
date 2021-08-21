@@ -36,7 +36,7 @@
         console.log("documentHeight:" + documentHeight + " | scrollTop:" + scrollTop );
 		if(scrollTop%(1199 * page) == 0){
 			page ++;
-			getDepts();			
+			getDepts();		
 		}
 	}*/
 	function getDepts() {
@@ -52,7 +52,7 @@
 				  columns: header,
 				  pagination: true,
 				  data: body 
-				  
+				   
 				}).render(document.getElementById("deptList")); 
 		}
 		var conf = new configuration("GET", null, "/dept/departments", success,
