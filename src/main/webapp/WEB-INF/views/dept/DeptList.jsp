@@ -50,7 +50,7 @@
 			}  
 			new gridjs.Grid({
 				  columns: header,
-				  pagination: true,
+				  pagination: true, 
 				  data: body 
 				   
 				}).render(document.getElementById("deptList")); 
