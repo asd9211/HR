@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<div class="field empRgst" style="text-align: center;">
-	<label class="label">사원등록</label> <br>
+<div class="field empRgst" ">
+	<label class="label has-text-grey-dark"">사원등록</label> <br>
 </div>
 <div class="columns is-lefted">
 	<div class="column margn-l5">
 		<div class="field">
-			<label class="label">Profile</label>
+			<label class="label has-text-grey-dark" has-text-grey-dark">Profile</label>
 			<div class="control has-icons-left has-icons-right"></div>
 		</div>
 		<div class="pic-rayout" onclick="fileInput()">
@@ -22,7 +22,7 @@
 	<div class="column">
 
 		<div class="field">
-			<label class="label">사번</label>
+			<label class="label has-text-grey-dark"">사번</label>
 			<div class="control has-icons-left has-icons-right">
 				<input id="empCode" class="input is-success max15 max15" type="text"
 					placeholder="사번" maxlength="8" minlength="8">
@@ -32,14 +32,14 @@
 		</div>
 
 		<div class="field">
-			<label class="label">이름(한글)</label>
+			<label class="label has-text-grey-dark"">이름(한글)</label>
 			<div class="control has-icons-left has-icons-right">
 				<input id="empNameKor" class="input is-success max15 max15" type="text"
 					placeholder="이름" >
 			</div>
 		</div>
 		<div class="field">
-			<label class="label">이름(영어)</label>
+			<label class="label has-text-grey-dark"">이름(영어)</label>
 			<div class="control has-icons-left has-icons-right">
 				<input id="empNameEng" class="input is-success max15 " type="text"
 					placeholder="이름">
@@ -47,7 +47,7 @@
 		</div>
 
 		<div class="field">
-			<label class="label">이름(한자)</label>
+			<label class="label has-text-grey-dark"">이름(한자)</label>
 			<div class="control has-icons-left has-icons-right">
 				<input id="empNameChi" class="input is-success max15 max15" type="text"
 					placeholder="이름">
@@ -55,7 +55,7 @@
 		</div>
 
 		<div class="field">
-			<label class="label">휴대폰번호</label>
+			<label class="label has-text-grey-dark"">휴대폰번호</label>
 			<div class="control has-icons-left has-icons-right">
 				<input id="phoneNumber" class="input is-success max15 max15" type="text"
 					placeholder="phone" maxlength="11">
@@ -63,7 +63,7 @@
 		</div>
 
 		<div class="field">
-			<label class="label">부서</label>
+			<label class="label has-text-grey-dark"">부서</label>
 			<div class="control has-icons-left has-icons-right">
 				<input id="deptName" class="input is-success max15 max15"
 					type="text" placeholder="부서" disabled>
@@ -75,7 +75,7 @@
 		</div>
 
 		<div class="field">
-			<label class="label">이메일</label>
+			<label class="label has-text-grey-dark"">이메일</label>
 			<div class="control has-icons-left has-icons-right">
 				<input id="email" class="input is-success max15" type="email"
 					placeholder="e-mail">
@@ -84,7 +84,7 @@
 	</div>
 	<div class="column">
 		<div class="field">
-			<label class="label">직위</label>
+			<label class="label has-text-grey-dark"">직위</label>
 			<div class="control has-icons-left has-icons-right">
 				<input id="position" class="input is-success max15" type="hidden"
 					placeholder="직위" disabled>
@@ -97,7 +97,7 @@
 		</div>
 
 		<div class="field">
-			<label class="label">직책</label>
+			<label class="label has-text-grey-dark"">직책</label>
 			<div class="control has-icons-left has-icons-right">
 				<input id="duty" class="input is-success max15" type="hidden"
 					placeholder="직책" disabled>
@@ -108,7 +108,7 @@
 			</div>
 		</div>
 		<div class="field">
-			<label class="label">재직상태</label>
+			<label class="label has-text-grey-dark"">재직상태</label>
 			<div class="control">
 				<div class="select is-primary">
 					<select class="min15" id= "empStatus">
@@ -121,7 +121,7 @@
 		</div>
 
 		<div class="field">
-			<label class="label">입사일</label>
+			<label class="label has-text-grey-dark"">입사일</label>
 			<div class="control has-icons-left has-icons-right">
 				<input id="startDate" class="input is-success max15" type="date"
 					placeholder="입사일">
@@ -129,7 +129,7 @@
 		</div>
 
 		<div class="field">
-			<label class="label">급여구분</label>
+			<label class="label has-text-grey-dark"">급여구분</label>
 			<div class="control">
 				<div class="select is-primary min15">
 					<select class="min15" id="payGubun">
@@ -142,7 +142,7 @@
 		</div>
 
 		<div class="field">
-			<label class="label">사원구분</label>
+			<label class="label has-text-grey-dark"">사원구분</label>
 			<div class="control">
 				<div class="select is-primary min15">
 					<select class="min15" id = "empType">

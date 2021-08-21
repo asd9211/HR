@@ -4,24 +4,9 @@
 <div class="field empRgst" style="text-align: center;">
 	<label class="label">부서리스트</label> <br>
 </div>
-<div class="columns is-lefted">
-	<table class="table">
-		<thead>
-			<tr>
-				<th>No</th>
-				<th>부서코드</th>
-				<th>부서명</th>
-				<th>부서생성일</th>
-				<th>부서만료일</th>
-				<th>상위부서</th>
-			</tr>
-		</thead>
+<div class="table" id="deptList"></div>
 
-		<tbody id="deptListBody" class="deptList">
 
-		</tbody>
-	</table>
-</div>
 <!-- modal -->
 <div class="modal">
 	<div class="modal-background"></div>
@@ -42,6 +27,7 @@
 <script>
 	var page = 1 ;
 	window.onload = getDepts();
+	/*
 	document.querySelector("#deptListBody").onscroll = function() {
         var $window = $(this);
         var scrollTop = $("#deptListBody").scrollTop();
@@ -52,26 +38,26 @@
 			page ++;
 			getDepts();			
 		}
-	}
+	}*/
 	function getDepts() {
 		var success = function(res) {
-			console.log(res);
 			var d = document;
 			var HTML = "";
+			var header = ["No", "부서코드", "부서명", "생성일", "종료일", "상위부서명"] 
+			var body = [];			
 			for ( var idx in res) {
-				HTML = HTML + "<tr>";
-				HTML = HTML + "<td>" + res[idx].rowNum+ "</td>";
-				HTML = HTML + "<td>" + res[idx].deptCode + "</td>";
-				HTML = HTML + "<td>" + res[idx].deptName + "</td>";
-				HTML = HTML + "<td>" + res[idx].appointDate + "</td>";
-				HTML = HTML + "<td>" + res[idx].endDate + "</td>";
-				HTML = HTML + "<td>" + res[idx].parentDeptName + "</td>";
-				HTML = HTML + "</tr>";
+				body[idx] = [res[idx].rowNum, res[idx].deptCode, res[idx].deptName, res[idx].appointDate, res[idx].endDate, res[idx].parentDeptName];
 			}
-			d.querySelector("#deptListBody").innerHTML += HTML;
+			new gridjs.Grid({
+				  columns: header,
+				  pagination: true,
+				  data: body
+				  
+				}).render(document.getElementById("deptList")); 
 		}
-		var conf = new configuration("GET", null, "/dept/departmentsByPage?page="+page, success,
+		var conf = new configuration("GET", null, "/dept/departments", success,
 				null);
 		ajax(conf);
 	}
+	
 </script>

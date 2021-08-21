@@ -7,7 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="/resources/bulma/css/bulma.css" rel="stylesheet"></link>
 <link href="/resources/web.css" rel="stylesheet"></link>
-
+<link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css"
+	rel="stylesheet" />
 <!--  common -->
 <script src="/resources/js/common.js"></script>
 
@@ -21,6 +22,8 @@
 	href='/resources/dynatree/ui.dynatree.css'>
 <script src='/resources/js/jquery/jquery.dynatree.js'
 	type='text/javascript'></script>
+<!-- grid js -->
+<script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
 
 </head>
 <body>
@@ -116,7 +119,7 @@
 				</div>
 			</nav>
 		</div>
-		<div id="jb-content">
+		<div id="jb-content" class="bck-white">
 			<jsp:include page="/WEB-INF/views/emp/EmpRegist.jsp"></jsp:include>
 		</div>
 		<div id="jb-footer">

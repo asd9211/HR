@@ -2,21 +2,20 @@
 	width: 90%;
 	margin: 10px auto;
 	padding: 20px;
-	border: 1px solid #bcbcbc;
+	background-color: #f5f5f5;
 }
 
 #jb-header {
 	padding: 20px;
 	margin-bottom: 20px;
-	border: 1px solid #bcbcbc;
+	background-color: white;
+	border: 1px solid #d2d2d2
 }
 
 #jb-content {
 	width: 90%;
 	padding: 20px;
 	margin-bottom: 20px;
-	border-top : 1px solid gray;
-	border-bottom: 1px solid gray;
 	margin: 0 auto;
 }
 
@@ -53,6 +52,8 @@ div li {
 	cursor: pointer;
 }
 
+
+
 .max15 {
 	max-width: 250px;
 }
@@ -69,6 +70,8 @@ div li {
 .margn-l5 {
 	margin-left: 5%;
 }
+
+
 
 .pic-rayout {
 	width: 210px;
@@ -104,21 +107,23 @@ div li {
 #pagin{
 	background-color: white;
 }
-
+/*
 table{border-collapse:collapse;width:1080px; margin:0 auto;overflow:hidden;border:1px solid #ccc;}
 table thead{float:left;width:1080px;border-bottom:1px solid #ccc;}
 table thead tr{display:table;width:1080px;}
 
-table tbody{float:left;width:1080px;height:700px;overflow-y:auto;overflow-x:hidden;}
+table tbody{ float:left;width:1080px;height:700px;overflow-y:auto;overflow-x:hidden;}
 table tbody tr{display:table;width:1080px;border-bottom:1px solid #ccc;}
 table tbody tr:last-child{border-bottom:none;}
 
 table tbody td{text-align:center;}
+*/
 
 
 
-
-
+.bck-white{
+	background-color: white;
+}
 
 
 .max30{

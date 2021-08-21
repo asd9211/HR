@@ -21,6 +21,8 @@
 			<div class="control has-icons-left has-icons-right">
 				<input id="empCode" class="input is-success max15 max15" type="text"
 					placeholder="사번" maxlength="8" minlength="8">
+				<button class="button"  
+				onclick="getAllInfo()">조회</button>
 			</div>
 		</div>
 
@@ -281,12 +283,12 @@
 		$(".school").hide();
 		$(".license").hide();
 		$(".career").hide();
-		getAllInfo();
 	}
 	
 	function getAllInfo(){
+		var empCode = document.querySelector('#empCode').value;
 		
-		var getEmpInfo = function(empInfo){
+		function getEmpInfo(empInfo){
 			var checkList = 
 				['empCode'
 				,'empNameKor'
@@ -314,7 +316,7 @@
 			}
 		}
 		
-		var getProfile = function(changedFileName){
+		function getProfile(changedFileName){
 			var layout = document.querySelector('.pic-rayout');
 			var img = document.createElement("img");
 			var cutIdx = changedFileName.lastIndexOf("\\") + 1 ;
@@ -326,7 +328,7 @@
 			layout.appendChild(img);
 		}
 		
-		var getFamInfo = function(famInfo){
+		function getFamInfo(famInfo){
 			var d = document;
 			var colName = new lowColumn("no", "name", "birth", "relation");
 			var targetTable = new lowColumn("f-idx", "f-name", "f-birth", "f-rel");
@@ -340,7 +342,7 @@
 			}
 		}
 		
-		var getSchInfo = function(schInfo){
+		function getSchInfo(schInfo){
 			var d = document;
 			var colName = new lowColumn("no", "name", "major", "period");
 			var targetTable = new lowColumn("s-idx", "s-name", "s-major", "s-period");
@@ -354,7 +356,7 @@
 			}
 		}
 		
-		var getLicInfo = function(licInfo){
+		function getLicInfo(licInfo){
 			var d = document;
 			var colName = new lowColumn("no", "name", "issueDate", "agency");
 			var targetTable = new lowColumn("l-idx", "l-name", "l-issueDate", "l-agency");
@@ -368,7 +370,7 @@
 			}
 		}
 		
-		var getCarInfo = function(carInfo){
+		function getCarInfo(carInfo){
 			var d = document;
 			var colName = new lowColumn("no", "name", "work", "period");
 			var targetTable = new lowColumn("c-idx", "c-name", "c-work", "c-period");
@@ -382,7 +384,7 @@
 			}
 		}
 		
-		var suc = function(res){
+		function suc(res){
 			getEmpInfo(res.empInfo);
 			getFamInfo(res.famInfo);
 			getSchInfo(res.schInfo);
@@ -390,7 +392,7 @@
 			getCarInfo(res.carInfo);
 		}
 		
-		var conf = new configuration("GET", null, "/emp/employee?empCode=ab123123", suc, null);
+		var conf = new configuration("GET", null, "/emp/employee?empCode=" + empCode, suc, null);
 		ajax(conf);
 	}
 	
