@@ -1,10 +1,13 @@
 package erp.system.hr.apt.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import erp.system.hr.apt.mapper.AptMapper;
 import erp.system.hr.apt.service.AptService;
+import erp.system.hr.apt.vo.AptmntVO;
 
 @Service
 public class AptServiceImpl implements AptService {
@@ -16,8 +19,14 @@ public class AptServiceImpl implements AptService {
 	}
 	
 	@Override
-	public Integer aptRegist() {
-		return am.insertAppointment();
+	public Integer aptRegist(AptmntVO aptVo) {
+		return am.insertAppointment(aptVo);
+	}
+
+	@Override
+	public List<AptmntVO> getAppointments() {
+		// TODO Auto-generated method stub
+		return am.getAppointments();
 	}
 
 }

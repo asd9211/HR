@@ -1,5 +1,7 @@
 package erp.system.hr.apt.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +38,14 @@ public class AptmtController {
 	@PostMapping("/appointment")
 	public @ResponseBody boolean aptRegist(@RequestBody AptmntVO aptVo) {
 		logger.info("aptVo => " + aptVo);
-		logger.info("aptVo => " + asi.aptRegist());
+		logger.info("aptVo => " + asi.aptRegist(aptVo));
 		
 		return true;
+	}
+	
+	@GetMapping("/appointment")
+	public @ResponseBody List<AptmntVO> getApts(){
+		
+		return asi.getAppointments();
 	}
 } 

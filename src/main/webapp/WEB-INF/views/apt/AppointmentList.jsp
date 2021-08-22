@@ -4,21 +4,7 @@
 <div class="field empRgst" style="text-align: center;">
 	<label class="label">인사발령등록</label> <br>
 </div>
-<article class="message is-info">
-	<div class="message-header" style="margin-bottom: 3%;">발령이력조회</div>
-	<table class="table">
-		<thead>
-			<tr>
-				<th>No</th>
-				<th>사번</th>
-				<th>발령구분</th>
-				<th>발령일자</th>
-				<th>변경내역</th>
-			</tr>
-		</thead>
-
-	</table>
-</article>
+<div class="table" id="aptList"></div>
 <div class="modal">
 	<div class="modal-background"></div>
 	<div class="modal-card">
@@ -35,3 +21,28 @@
 		</footer>
 	</div>
 </div>
+<script>
+	window.onload = getApts();
+	
+	function getApts() {
+		var success = function(res) {
+			var d = document; 
+			var HTML = "";
+			var header = ["No", "사번", "이름", "발령구분", "발령일자", "변경내역"] 
+			var body = [];			
+			for ( var idx in res) {
+				body[idx] = [idx, res[idx].empCode, res[idx].empName, res[idx].appointType, res[idx].appointDate, res[idx].history];
+			}  
+			new gridjs.Grid({
+				  columns: header,
+				  pagination: true, 
+				  data: body 
+				   
+				}).render(document.getElementById("aptList")); 
+		}
+		var conf = new configuration("GET", null, "/apt/appointment", success,
+				null);
+		ajax(conf);
+	}
+	
+</script>

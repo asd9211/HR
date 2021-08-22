@@ -380,7 +380,11 @@
 		
 		}
 		var success = function(res){
-			console.log(res);
+			if(res){
+				alert("발령등록에 성공하였습니다.");
+			}else{
+				alert("발령등록에 실패하였습니다.");
+			}
 		}
 		 
 		var conf = new configuration('POST', JSON.stringify(data), "/apt/appointment", success, null,'json');

@@ -9,14 +9,53 @@
 		#{empCode},
 		sysdate,
 		#{appointType},
-		#{beforeDept},
+		(select dept_code from empmaster where emp_code = #{empCode}),
 		#{afterDept},
 		#{afterPosition},
 		#{afterDuty},
-		''
+		'',
+		(select DUTY from empmaster where emp_code = #{empCode}),
+		(select POSITION from empmaster where emp_code = #{empCode})
 		)
 	</insert>
-
+	<select id="getAppointments" resultType="AptmntVO">
+		SELECT
+		    a.emp_code,
+		    e.emp_name_kor emp_name,
+		    c.code_name appoint,
+		    a.appoint_date,
+		    a.before_dept,
+		    a.after_dept,
+		    a.after_duty,
+		    a.after_position,
+		    a.bigo,
+		    DECODE(a.after_dept, '','', d.dept_name||'에서 '||f.dept_name ||'로 부서변경')
+		    || DECODE(a.after_duty, '','', ',   '||g.code_name||'에서 '||i.code_name ||'로 직급변경')
+		    || DECODE(a.after_position, '','', ',   '||h.code_name||'에서 '||j.code_name ||'로 직위변경  ') history
+		FROM
+		    appointment a,
+		    codemaster c,
+		    empmaster e,
+		    deptmaster d,
+		    deptmaster f,
+		    codemaster g,
+		    codemaster h,
+		    codemaster i,
+		    codemaster j
+		where a.emp_code = e.emp_code(+)
+		and a.before_dept = d.dept_code(+)
+		and a.after_dept = f.dept_code(+)
+		and a.appoint_type = c.code(+)
+		and a.before_duty = g.code(+)
+		and a.before_position = h.code(+)
+		and a.after_duty = i.code(+)
+		and a.after_position = j.code(+)
+		and c.group_type = 'appoint'
+		and g.group_type = 'duty'
+		and h.group_type = 'position'
+		and i.group_type = 'duty'
+		and j.group_type = 'position'
+	</select>
 
 </mapper>
  

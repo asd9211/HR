@@ -3,6 +3,7 @@ package erp.system.hr.apt.vo;
 public class AptmntVO {
 
 	private String empCode;
+	private String empName;
 	private String appointDate;
 	private String appointType;
 	
@@ -14,6 +15,7 @@ public class AptmntVO {
 	private String afterPosition;
 	private String afterDuty;
 	private String bigo;
+	private String history;
 	
 	public String getEmpCode() {
 		return empCode;
@@ -75,13 +77,24 @@ public class AptmntVO {
 	public void setBigo(String bigo) {
 		this.bigo = bigo;
 	}
-	@Override
-	public String toString() {
-		return "AptmntVO [empCode=" + empCode + ", appointDate=" + appointDate + ", appointType=" + appointType
-				+ ", beforeDept=" + beforeDept + ", beforePosition=" + beforePosition + ", beforeDuty=" + beforeDuty
-				+ ", afterDept=" + afterDept + ", afterPosition=" + afterPosition + ", afterDuty=" + afterDuty
-				+ ", bigo=" + bigo + "]";
+	public String getEmpName() {
+		return empName;
+	}
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+	public String getHistory() {
+		return history;
+	}
+	public void setHistory(String history) {
+		this.history = history;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "AptmntVO [empCode=" + empCode + ", empName=" + empName + ", appointDate=" + appointDate
+				+ ", appointType=" + appointType + ", beforeDept=" + beforeDept + ", beforePosition=" + beforePosition
+				+ ", beforeDuty=" + beforeDuty + ", afterDept=" + afterDept + ", afterPosition=" + afterPosition
+				+ ", afterDuty=" + afterDuty + ", bigo=" + bigo + ", history=" + history + "]";
+	}
 }
