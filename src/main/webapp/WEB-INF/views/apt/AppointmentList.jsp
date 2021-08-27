@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <div class="field empRgst" style="text-align: center;">
-	<label class="label">인사발령등록</label> <br>
+	<label class="label">발령이력조회</label> <br>
 </div>
 <div class="table" id="aptList"></div>
 <div class="modal">
@@ -35,6 +35,7 @@
 			}  
 			new gridjs.Grid({
 				  columns: header,
+				  search : true,
 				  pagination: true, 
 				  data: body 
 				   
@@ -44,5 +45,7 @@
 				null);
 		ajax(conf);
 	}
+	
+
 	
 </script>

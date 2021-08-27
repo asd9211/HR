@@ -34,14 +34,14 @@
 		    || DECODE(a.after_position, '','', ',   '||h.code_name||'에서 '||j.code_name ||'로 직위변경  ') history
 		FROM
 		    appointment a,
-		    codemaster c,
+		    (select * from codemaster where group_type= 'appoint') c,
 		    empmaster e,
 		    deptmaster d,
 		    deptmaster f,
-		    codemaster g,
-		    codemaster h,
-		    codemaster i,
-		    codemaster j
+		   	(select * from codemaster where group_type= 'duty') g,
+		    (select * from codemaster where group_type= 'position') h,
+		    (select * from codemaster where group_type= 'duty') i,
+		    (select * from codemaster where group_type= 'position') j
 		where a.emp_code = e.emp_code(+)
 		and a.before_dept = d.dept_code(+)
 		and a.after_dept = f.dept_code(+)
@@ -50,12 +50,40 @@
 		and a.before_position = h.code(+)
 		and a.after_duty = i.code(+)
 		and a.after_position = j.code(+)
-		and c.group_type = 'appoint'
-		and g.group_type = 'duty'
-		and h.group_type = 'position'
-		and i.group_type = 'duty'
-		and j.group_type = 'position'
 	</select>
-
+	<select id="getAppointmentByName" resultType="AptmntVO">
+		SELECT
+		    a.emp_code,
+		    e.emp_name_kor emp_name,
+		    c.code_name appoint,
+		    a.appoint_date,
+		    a.before_dept,
+		    a.after_dept,
+		    a.after_duty,
+		    a.after_position,
+		    a.bigo,
+		    DECODE(a.after_dept, '','', d.dept_name||'에서 '||f.dept_name ||'로 부서변경')
+		    || DECODE(a.after_duty, '','', ',   '||g.code_name||'에서 '||i.code_name ||'로 직급변경')
+		    || DECODE(a.after_position, '','', ',   '||h.code_name||'에서 '||j.code_name ||'로 직위변경  ') history
+		FROM
+		    appointment a,
+		    (select * from codemaster where group_type= 'appoint') c,
+		    empmaster e,
+		    deptmaster d,
+		    deptmaster f,
+		   	(select * from codemaster where group_type= 'duty') g,
+		    (select * from codemaster where group_type= 'position') h,
+		    (select * from codemaster where group_type= 'duty') i,
+		    (select * from codemaster where group_type= 'position') j
+		where a.emp_code = e.emp_code(+)
+		and a.before_dept = d.dept_code(+)
+		and a.after_dept = f.dept_code(+)
+		and a.appoint_type = c.code(+)
+		and a.before_duty = g.code(+)
+		and a.before_position = h.code(+)
+		and a.after_duty = i.code(+)
+		and a.after_position = j.code(+)
+		and e.emp_name_kor like '%'||#{empName}||'%'
+	</select>
 </mapper>
  

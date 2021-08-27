@@ -8,4 +8,5 @@ public interface AptService {
 
 	public Integer aptRegist(AptmntVO aptVo);
 	public List<AptmntVO> getAppointments();
+	public List<AptmntVO> getAppointmentByName(String empName);
 }

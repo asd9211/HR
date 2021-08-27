@@ -25,8 +25,12 @@ public class AptServiceImpl implements AptService {
 
 	@Override
 	public List<AptmntVO> getAppointments() {
-		// TODO Auto-generated method stub
 		return am.getAppointments();
+	}
+
+	@Override
+	public List<AptmntVO> getAppointmentByName(String empName) {
+		return am.getAppointmentByName(empName);
 	}
 
 }
