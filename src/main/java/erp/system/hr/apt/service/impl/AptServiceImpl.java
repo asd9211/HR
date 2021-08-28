@@ -19,18 +19,18 @@ public class AptServiceImpl implements AptService {
 	}
 	
 	@Override
-	public Integer aptRegist(AptmntVO aptVo) {
-		return am.insertAppointment(aptVo);
+	public Integer addAppointment(AptmntVO aptVo) {
+		return am.insert(aptVo);
 	}
 
 	@Override
 	public List<AptmntVO> getAppointments() {
-		return am.getAppointments();
+		return am.list();
 	}
 
 	@Override
 	public List<AptmntVO> getAppointmentByName(String empName) {
-		return am.getAppointmentByName(empName);
+		return am.listByName(empName);
 	}
 
 }

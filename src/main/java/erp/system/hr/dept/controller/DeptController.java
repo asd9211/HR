@@ -77,12 +77,12 @@ public class DeptController {
 	@PostMapping("/department")
 	public @ResponseBody boolean deptRegist(@RequestBody DeptVO dvo) {
 		logger.info("DeptVO ==> {}", dvo);
-		return ds.insertDept(dvo)==1; 
+		return ds.addDept(dvo)==1; 
 	}
 	@PutMapping("/department")
 	public @ResponseBody boolean deptModify(@RequestBody DeptVO dvo) {
 		logger.info("DeptVO ==> {}", dvo);
-		return ds.updateDept(dvo)==1; 
+		return ds.modifyDept(dvo)==1; 
 	}
 
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="erp.system.hr.base.mapper.BaseMapper">
-	<select id="getCodeInfoList" resultType="codeInfo" >
+	<select id="list" resultType="codeInfo" >
 		SELECT GROUP_TYPE, CODE, CODE_NAME FROM CODEMASTER
 		WHERE GROUP_TYPE = #{groupType} and CODE_NAME LIKE '%'||#{codeName}||'%'
 	</select>

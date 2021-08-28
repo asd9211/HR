@@ -22,38 +22,38 @@ public class DeptServiceImpl implements DeptService {
 	@Override
 	public List<DeptVO> getDept(String deptName) {
 		// TODO Auto-generated method stub
-		return dm.getDept(deptName);
+		return dm.listByName(deptName);
 	}
 
 	@Override
 	public List<DeptVO> getDeptList() {
 		// TODO Auto-generated method stub
-		return dm.getDeptList();
+		return dm.list();
 	}
 	@Override
 	public List<DeptVO> getDeptListByLevel() {
 		// TODO Auto-generated method stub
-		return dm.getDeptListByLevel();
+		return dm.listByLevel();
 	}
 	@Override
-	public Integer insertDept(DeptVO dvo) {
+	public Integer addDept(DeptVO dvo) {
 		// TODO Auto-generated method stub
-		return dm.insertDept(dvo);
+		return dm.insert(dvo);
 	}
 	@Override
 	public DeptVO getDeptBydeptCode(String deptCode) {
 		// TODO Auto-generated method stub
-		return dm.getDeptBydeptCode(deptCode);
+		return dm.listBydeptCode(deptCode);
 	}
 	@Override
-	public Integer updateDept(DeptVO dvo) {
+	public Integer modifyDept(DeptVO dvo) {
 		// TODO Auto-generated method stub
-		return dm.updateDept(dvo);
+		return dm.update(dvo);
 	}
 	@Override
 	public List<DeptVO> getDeptListByPage(int page) {
 		// TODO Auto-generated method stub
-		return dm.getDeptListByPage(page);
+		return dm.listByPage(page);
 	}
 
 }

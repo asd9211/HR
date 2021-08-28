@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="erp.system.hr.dept.mapper.DeptMapper">
-	<select id="getDept" resultType="deptVO">
+	<select id="listByName" resultType="deptVO">
 		SELECT d1.DEPT_CODE,
 		d1.DEPT_NAME,
 		d1.PARENT_DEPT, d2.dept_name as parent_dept_name,
@@ -11,7 +11,7 @@
 		d1.DEPT_NAME LIKE '%'||#{deptName}||'%'
 		and d1.parent_dept = d2.dept_code(+)
 	</select>
-	<select id="getDeptList" resultType="deptVO">
+	<select id="list" resultType="deptVO">
 		SELECT d1.DEPT_CODE,
 		d1.DEPT_NAME,
 		d1.PARENT_DEPT, d2.dept_name as parent_dept_name,
@@ -20,7 +20,7 @@
 		where
 		d1.parent_dept = d2.dept_code(+)
 	</select>
-	<select id="getDeptListByPage" resultType="deptVO">
+	<select id="listByPage" resultType="deptVO">
 		SELECT
 		    a.*
 		FROM
@@ -46,7 +46,7 @@
 		WHERE
 		    a.row_num BETWEEN ((#{page} - 1) * 50) + 1 and (#{page} * 50)
 	</select>
-	<select id="getDeptListByLevel" resultType="deptVO">
+	<select id="listByLevel" resultType="deptVO">
 		SELECT
 		dept_code,
 		dept_name,
@@ -60,7 +60,7 @@
 		CONNECT BY
 		PRIOR dept_code = parent_dept
 	</select>
-	<select id="getDeptBydeptCode" resultType="deptVO">
+	<select id="listBydeptCode" resultType="deptVO">
 		SELECT DEPT_CODE,
 		DEPT_NAME, PARENT_DEPT, APPOINT_DATE, END_DATE, BIGO FROM
 		DEPTMASTER
@@ -69,7 +69,7 @@
 	</select>
 
 
-	<insert id="insertDept" parameterType="deptVO">
+	<insert id="insert" parameterType="deptVO">
 		INSERT INTO DEPTMASTER
 		(DEPT_CODE
 		, DEPT_NAME
@@ -90,7 +90,7 @@
 		)
 	</insert>
 
-	<update id="updateDept" parameterType="deptVO">
+	<update id="update" parameterType="deptVO">
 		UPDATE DEPTMASTER
 		<trim prefix="SET" suffixOverrides=",">
 			<if test="deptName != null">

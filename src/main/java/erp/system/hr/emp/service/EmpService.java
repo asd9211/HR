@@ -25,16 +25,16 @@ public interface EmpService {
 	public Optional<List<LicenseVO>> getLicInfo(String empCode);
 	public Optional<List<CareerVO>> getCarInfo(String empCode);
 	
-	public Boolean empRegist(MultipartHttpServletRequest req)  throws IOException ;
-	public Boolean empBaseInfoRegist(List<Map<String, String>> param, Optional<FileVO> profileVO);
+	public Boolean addEmp(MultipartHttpServletRequest req)  throws IOException ;
+	public Boolean addEmpBaseInfo(List<Map<String, String>> param, Optional<FileVO> profileVO);
 	
-	public Boolean empModify(MultipartHttpServletRequest req)  throws IOException ;
-	public Boolean empBaseInfoModify(List<Map<String, String>> param, Optional<FileVO> profileVO);
+	public Boolean modifyEmp(MultipartHttpServletRequest req)  throws IOException ;
+	public Boolean modifyEmpBaseInfo(List<Map<String, String>> param, Optional<FileVO> profileVO);
 	
-	public Integer deleteFamInfo(String empCode);
-	public Integer deleteSchInfo(String empCode);
-	public Integer deleteLicInfo(String empCode);
-	public Integer deleteCarInfo(String empCode);
+	public Integer removeFamInfo(String empCode);
+	public Integer removeSchInfo(String empCode);
+	public Integer removeLicInfo(String empCode);
+	public Integer removeCarInfo(String empCode);
 	
 }
  

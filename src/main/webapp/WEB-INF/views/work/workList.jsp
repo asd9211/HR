@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <div class="field empRgst" style="text-align: center;">
-	<label class="label">발령이력조회</label> <br>
+	<label class="label">근태조회</label> <br>
 </div>
 <div class="table" id="aptList"></div>
 <div class="modal">

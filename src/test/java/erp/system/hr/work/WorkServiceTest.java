@@ -1,6 +1,8 @@
 package erp.system.hr.work;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -11,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import erp.system.hr.emp.vo.EmployeeVO;
 import erp.system.hr.work.mapper.WorkMapper;
 import erp.system.hr.work.service.impl.WorkServiceImpl;
 import erp.system.hr.work.vo.WorkVO;
@@ -61,12 +62,21 @@ public class WorkServiceTest {
 		Assertions.assertThat(ws.insertWorkStart(wvo)).isEqualTo(1);
 	}
 	
-	@Test
+	//@Test
 	public void 근무종료입력() {
 		WorkVO wvo = new WorkVO();
 		wvo.setEmpCode("PB001001");
 		wvo.setWorkDay("20200104");
 		
 		Assertions.assertThat(ws.updateWorkEnd(wvo)).isEqualTo(1);
+	}
+	
+	@Test
+	public void 일자기준_조회() {
+		Map<String, String> searchDate = new HashMap<>();
+		searchDate.put("sDate", "20200101");
+		searchDate.put("eDate", "20210201");
+		List<WorkVO> workList = wm.listByDate(searchDate);
+		workList.forEach(wvo -> logger.info(wvo.toString()));
 	}
 }

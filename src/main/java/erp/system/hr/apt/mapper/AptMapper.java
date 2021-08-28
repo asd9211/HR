@@ -9,8 +9,8 @@ import erp.system.hr.apt.vo.AptmntVO;
 @Mapper
 public interface AptMapper {
 	
-	public int insertAppointment(AptmntVO aptVo);
-	public List<AptmntVO> getAppointments();
-	public List<AptmntVO> getAppointmentByName(String empName);
+	public int insert(AptmntVO aptVo);
+	public List<AptmntVO> list();
+	public List<AptmntVO> listByName(String empName);
 
 }

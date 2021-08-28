@@ -9,6 +9,6 @@ import erp.system.hr.base.vo.CodeInfo;
 
 @Mapper
 public interface BaseMapper {
-	public List<CodeInfo> getCodeInfoList(String groupType, String codeName);
+	public List<CodeInfo> list(String groupType, String codeName);
 
 }

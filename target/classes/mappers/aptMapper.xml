@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="erp.system.hr.apt.mapper.AptMapper">
 
-	<insert id="insertAppointment" parameterType="AptmntVO">
+	<insert id="insert" parameterType="AptmntVO">
 		INSERT
 		INTO appointment
 		VALUES (
@@ -18,7 +18,7 @@
 		(select POSITION from empmaster where emp_code = #{empCode})
 		)
 	</insert>
-	<select id="getAppointments" resultType="AptmntVO">
+	<select id="list" resultType="AptmntVO">
 		SELECT
 		    a.emp_code,
 		    e.emp_name_kor emp_name,
@@ -51,7 +51,7 @@
 		and a.after_duty = i.code(+)
 		and a.after_position = j.code(+)
 	</select>
-	<select id="getAppointmentByName" resultType="AptmntVO">
+	<select id="listByName" resultType="AptmntVO">
 		SELECT
 		    a.emp_code,
 		    e.emp_name_kor emp_name,

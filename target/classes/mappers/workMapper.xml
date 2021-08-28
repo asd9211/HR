@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="erp.system.hr.work.mapper.WorkMapper">
-	<select id="getWorkByempCode" resultType="WorkVO">
+	<select id="listByempCode" resultType="WorkVO">
 		SELECT
 		emp_code,
 		work_day,
@@ -20,23 +20,50 @@
 		</if>
 		order by empcode, work_day desc
 	</select>
+	<select id="listByDate" resultType="WorkVO" parameterType="Map">
+		SELECT
+		    z.*
+		FROM
+		    (
+		        SELECT
+		            a.emp_code,
+		            e.code_name pay_type,
+		            b.work_day,
+		            b.start_time,
+		            b.end_time,
+		            b.bigo,
+		            c.code_name   position,
+		            d.code_name   duty
+		        FROM
+		            empmaster    a
+		            LEFT JOIN workmaster   b ON ( a.emp_code = b.emp_code )
+		            LEFT JOIN codemaster   c ON ( a.position = c.code
+		                                        AND c.group_type = 'position' )
+		            LEFT JOIN codemaster   d ON ( a.duty = d.code
+		                                        AND d.group_type = 'duty' )
+		            LEFT JOIN codemaster   e ON ( a.pay_gubun = e.code
+		                                        AND e.group_type = 'payType' )                                        
+		    ) z
+		WHERE
+		    z.work_day BETWEEN #{sDate} AND #{eDate}
+	</select>
 
-	<insert id="insertWorkStart" parameterType="WorkVO">
+	<insert id="insert" parameterType="WorkVO">
 		INSERT INTO
 		workmaster (
-		emp_code,
-		work_day,
-		start_time,
-		bigo
-		) VALUES (
-		#{empCode},
-		#{workDay},
-		sysdate,
-		#{bigo:VARCHAR}
+			emp_code,
+			work_day,
+			start_time,
+			bigo
+			) VALUES (
+			#{empCode},
+			#{workDay},
+			sysdate,
+			#{bigo:VARCHAR}
 		)
 	</insert>
 
-	<update id="updateWorkEnd" parameterType="WorkVO">
+	<update id="update" parameterType="WorkVO">
 		UPDATE workmaster
 		SET
 		end_time = sysdate

@@ -41,7 +41,7 @@ public class AptmtController {
 	@PostMapping("/appointment")
 	public @ResponseBody boolean aptRegist(@RequestBody AptmntVO aptVo) {
 		logger.info("aptVo => " + aptVo);
-		logger.info("aptVo => " + asi.aptRegist(aptVo));
+		logger.info("aptVo => " + asi.addAppointment(aptVo));
 		
 		return true;
 	}

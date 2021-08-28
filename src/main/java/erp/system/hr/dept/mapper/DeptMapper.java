@@ -9,12 +9,12 @@ import erp.system.hr.dept.vo.DeptVO;
 @Mapper
 public interface DeptMapper {
 
-	public List<DeptVO> getDept(String deptName);
-	public DeptVO getDeptBydeptCode(String deptCode);
-	public List<DeptVO> getDeptList();
-	public List<DeptVO> getDeptListByLevel();
-	public List<DeptVO> getDeptListByPage(int page);
-	public Integer insertDept(DeptVO dvo);
-	public Integer updateDept(DeptVO dvo);
+	public List<DeptVO> listByName(String deptName);
+	public DeptVO listBydeptCode(String deptCode);
+	public List<DeptVO> list();
+	public List<DeptVO> listByLevel();
+	public List<DeptVO> listByPage(int page);
+	public Integer insert(DeptVO dvo);
+	public Integer update(DeptVO dvo);
 	
 }

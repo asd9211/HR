@@ -6,6 +6,28 @@ public class WorkVO {
     private String startTime;
     private String endTime;
     private String bigo;
+    private String duty;
+    private String position;
+    private String payType;
+    
+	public String getDuty() {
+		return duty;
+	}
+	public void setDuty(String duty) {
+		this.duty = duty;
+	}
+	public String getPosition() {
+		return position;
+	}
+	public void setPosition(String position) {
+		this.position = position;
+	}
+	public String getPayType() {
+		return payType;
+	}
+	public void setPayType(String payType) {
+		this.payType = payType;
+	}
 	public String getEmpCode() {
 		return empCode;
 	}
@@ -39,7 +61,8 @@ public class WorkVO {
 	@Override
 	public String toString() {
 		return "WorkVO [empCode=" + empCode + ", workDay=" + workDay + ", startTime=" + startTime + ", endTime="
-				+ endTime + ", bigo=" + bigo + "]";
+				+ endTime + ", bigo=" + bigo + ", duty=" + duty + ", position=" + position + ", payType=" + payType
+				+ "]";
 	}
 
     

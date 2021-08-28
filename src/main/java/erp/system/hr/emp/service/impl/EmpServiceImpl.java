@@ -53,7 +53,7 @@ public class EmpServiceImpl implements EmpService {
 	}
 
 	@Override
-	public Boolean empRegist(MultipartHttpServletRequest req) throws IOException {
+	public Boolean addEmp(MultipartHttpServletRequest req) throws IOException {
 		Map<String, List<Map<String, String>>> allInfo = Converter.convertJsonToListInMap(req);
 		Optional<FileVO> profileVO = FileUploader.setProfile(req);
 
@@ -61,11 +61,11 @@ public class EmpServiceImpl implements EmpService {
 				&& empSchoolRegist(allInfo.get(SCH_INFO)) 
 				&& empCareerRegist(allInfo.get(CAR_INFO))
 				&& empLicenseRegist(allInfo.get(LIC_INFO))
-				&& empBaseInfoRegist(allInfo.get(EMP_INFO), profileVO);
+				&& addEmpBaseInfo(allInfo.get(EMP_INFO), profileVO);
 	}
 	
 	@Override
-	public Boolean empBaseInfoRegist(List<Map<String, String>> param, Optional<FileVO> profileVO) {
+	public Boolean addEmpBaseInfo(List<Map<String, String>> param, Optional<FileVO> profileVO) {
 		for (Map<String, String> empInfo : param) {
 			EmployeeVO evo = new EmployeeVO();
 			Converter.convertMapToVO(empInfo, evo);
@@ -145,18 +145,18 @@ public class EmpServiceImpl implements EmpService {
 	}
 
 	@Override
-	public Boolean empModify(MultipartHttpServletRequest req) throws IOException {
+	public Boolean modifyEmp(MultipartHttpServletRequest req) throws IOException {
 		Map<String, List<Map<String, String>>> allInfo = Converter.convertJsonToListInMap(req);
 		Optional<FileVO> profileVO = FileUploader.setProfile(req);
 		String empCode = allInfo.get("empInfo").get(0).get("empCode");
 		
-				deleteFamInfo(empCode);
-				deleteSchInfo(empCode);
-				deleteLicInfo(empCode);
-				deleteCarInfo(empCode);
+				removeFamInfo(empCode);
+				removeSchInfo(empCode);
+				removeLicInfo(empCode);
+				removeCarInfo(empCode);
 		
 		Boolean result  =  
-				empBaseInfoModify(allInfo.get(EMP_INFO), profileVO) 
+				modifyEmpBaseInfo(allInfo.get(EMP_INFO), profileVO) 
 				&& empFamillyRegist(allInfo.get(FAM_INFO))
 				&& empSchoolRegist(allInfo.get(SCH_INFO)) 
 				&& empCareerRegist(allInfo.get(CAR_INFO))
@@ -166,7 +166,7 @@ public class EmpServiceImpl implements EmpService {
 	}
 	
 	@Override
-	public Boolean empBaseInfoModify(List<Map<String, String>> param, Optional<FileVO> profileVO) {
+	public Boolean modifyEmpBaseInfo(List<Map<String, String>> param, Optional<FileVO> profileVO) {
 		for (Map<String, String> empInfo : param) {
 			EmployeeVO evo = new EmployeeVO();
 			Converter.convertMapToVO(empInfo, evo);
@@ -182,25 +182,25 @@ public class EmpServiceImpl implements EmpService {
 	}
 
 	@Override
-	public Integer deleteFamInfo(String empCode) {
+	public Integer removeFamInfo(String empCode) {
 		// TODO Auto-generated method stub
 		return em.deleteFamInfo(empCode);
 	}
 
 	@Override
-	public Integer deleteSchInfo(String empCode) {
+	public Integer removeSchInfo(String empCode) {
 		// TODO Auto-generated method stub
 		return em.deleteSchInfo(empCode);
 	}
 
 	@Override
-	public Integer deleteLicInfo(String empCode) {
+	public Integer removeLicInfo(String empCode) {
 		// TODO Auto-generated method stub
 		return em.deleteLicInfo(empCode);
 	}
 
 	@Override
-	public Integer deleteCarInfo(String empCode) {
+	public Integer removeCarInfo(String empCode) {
 		// TODO Auto-generated method stub
 		return em.deleteCarInfo(empCode);
 	}

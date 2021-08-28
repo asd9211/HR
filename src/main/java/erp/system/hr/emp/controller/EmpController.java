@@ -68,12 +68,12 @@ public class EmpController {
 
 	@PostMapping("/employee")
 	public @ResponseBody Boolean empRegist(MultipartHttpServletRequest req) throws IOException {
-		return es.empRegist(req);
+		return es.addEmp(req);
 	}
 
 	@PutMapping("/employee")
 	public @ResponseBody Boolean empModfiy(MultipartHttpServletRequest req) throws IOException {
-		return es.empModify(req);
+		return es.modifyEmp(req);
 	}
 	
 }
