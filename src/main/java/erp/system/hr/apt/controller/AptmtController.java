@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import erp.system.hr.apt.service.AptService;
-import erp.system.hr.apt.service.impl.AptServiceImpl;
 import erp.system.hr.apt.vo.AptmntVO;
 import erp.system.hr.util.StringUtil;
 
@@ -26,7 +25,7 @@ public class AptmtController {
 	
 	private final AptService asi;
 	
-	AptmtController(@Autowired AptServiceImpl asi){
+	AptmtController(@Autowired AptService asi){
 		this.asi  = asi;
 	}
 	@GetMapping("aptListView")
@@ -40,8 +39,8 @@ public class AptmtController {
 	
 	@PostMapping("/appointment")
 	public @ResponseBody boolean aptRegist(@RequestBody AptmntVO aptVo) {
-		logger.info("aptVo => " + aptVo);
-		logger.info("aptVo => " + asi.addAppointment(aptVo));
+		logger.info("aptVo => {} ", aptVo);
+		logger.info("aptVo => {}", asi.addAppointment(aptVo));
 		
 		return true;
 	}

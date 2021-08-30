@@ -7,7 +7,7 @@ import erp.system.hr.work.vo.WorkVO;
 
 public interface WorkService {
 	public List<WorkVO> getWorkByempCode(String empCode, String workDay);	
-	public Integer insertWorkStart(WorkVO wvo);
-	public Integer updateWorkEnd(WorkVO wvo);
+	public Integer setWorkStart(WorkVO wvo);
+	public Integer setWorkEnd(WorkVO wvo);
 	public List<WorkVO> getWorkByDate(Map<String,String> searchDate);
 }

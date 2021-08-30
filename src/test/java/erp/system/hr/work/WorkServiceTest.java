@@ -59,7 +59,7 @@ public class WorkServiceTest {
 		wvo.setEmpCode("PB001001");
 		wvo.setWorkDay("20200104");
 		
-		Assertions.assertThat(ws.insertWorkStart(wvo)).isEqualTo(1);
+		Assertions.assertThat(ws.setWorkStart(wvo)).isEqualTo(1);
 	}
 	
 	//@Test
@@ -68,7 +68,7 @@ public class WorkServiceTest {
 		wvo.setEmpCode("PB001001");
 		wvo.setWorkDay("20200104");
 		
-		Assertions.assertThat(ws.updateWorkEnd(wvo)).isEqualTo(1);
+		Assertions.assertThat(ws.setWorkEnd(wvo)).isEqualTo(1);
 	}
 	
 	@Test

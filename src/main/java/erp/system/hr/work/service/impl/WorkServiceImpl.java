@@ -23,17 +23,17 @@ public class WorkServiceImpl implements WorkService {
 	
 	@Override
 	public List<WorkVO> getWorkByempCode(String empCode, String workDay) {
-		return wm.listByempCode(empCode, workDay);
+		return wm.listByEmpcode(empCode, workDay);
 	}
 
 	@Override
-	public Integer insertWorkStart(WorkVO wvo) {
+	public Integer setWorkStart(WorkVO wvo) {
 		return wm.insert(wvo);
 	}
 
 
 	@Override
-	public Integer updateWorkEnd(WorkVO wvo) {
+	public Integer setWorkEnd(WorkVO wvo) {
 		return wm.update(wvo);
 	}
 

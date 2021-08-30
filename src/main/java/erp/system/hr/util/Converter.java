@@ -42,7 +42,7 @@ public class Converter {
 	    String setMethodString = "set";
 	    String methodString = "";
 	    StringBuffer sb = new StringBuffer();
-	    Iterator itr = map.keySet().iterator();
+	    Iterator<String> itr = map.keySet().iterator();
 
 	    while(itr.hasNext()){
 	       keyAttribute = (String) itr.next();

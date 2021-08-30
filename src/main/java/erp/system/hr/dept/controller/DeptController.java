@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import erp.system.hr.dept.service.DeptService;
 import erp.system.hr.dept.vo.DeptVO;
-import erp.system.hr.emp.controller.EmpController;
 
 @Controller
 @RequestMapping("dept")
@@ -38,9 +37,9 @@ public class DeptController {
 	
 	@GetMapping("departmentsByPage")
 	public @ResponseBody List<DeptVO> getDeltlistByPage(@RequestParam("page") int page){
-		logger.info("page => {} " + page);
+		logger.info("page => {} ", page);
 		List<DeptVO> result = ds.getDeptListByPage(page);
-		logger.info("getDeptlist => {} " + result);
+		logger.info("getDeptlist => {} ", result);
 		return result;
 	}
 	
@@ -71,8 +70,7 @@ public class DeptController {
 	
 	@GetMapping("/doubleCheck")
 	public @ResponseBody boolean doubleCheck(@RequestParam("deptCode") String deptCode) {
-		boolean result = (ds.getDeptBydeptCode(deptCode)==null);
-		return result;
+		return ds.getDeptBydeptCode(deptCode)==null;
 	}
 	@PostMapping("/department")
 	public @ResponseBody boolean deptRegist(@RequestBody DeptVO dvo) {
