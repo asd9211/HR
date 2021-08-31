@@ -24,7 +24,7 @@ public class WorkController {
 	private final WorkService ws;
 
 	WorkController(@Autowired WorkService ws) {
-		this.ws = ws;
+		this.ws = ws; 
 	}
 
 	@GetMapping("/work")
