@@ -35,7 +35,7 @@ public class WorkController {
 		return ws.getWorkByDate(searchDate);
 	} 
 	 
-	@PostMapping("/work")
+	@PostMapping("/work") 
 	public @ResponseBody boolean addWork(@RequestBody WorkVO wvo) {
 		return ws.setWorkStart(wvo)==1; 
 	}
